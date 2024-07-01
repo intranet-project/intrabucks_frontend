@@ -16,49 +16,41 @@ const App = () => {
 export default App; */
 
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Sidebar from './components/Sidebar';
-import Employee from './components/Employee';
-import EmployeeList from './components/EmployeeList';
-import EmployeeUpdate from './components/EmployeeUpdate';
-import Quitter from './components/Quitter';
-import QuitterList from './components/QuitterList';
-import QuitterUpdate from './components/QuitterUpdate';
+
+import EmployeeList from './components/Employee/EmployeeList';
+import Employee from './components/Employee/Employee';
+import Department from './components/Department/Department';
+import QuitterList from './components/Quitter/QuitterList';
+import Quitter from './components/Quitter/Quitter';
+import SideBar from './components/Layout/SideBar';
+import DepartmentUpdate from './components/Department/DepartmentUpdate';
+import EmployeeUpdate from './components/Employee/EmployeeUpdate';
+import QuitterUpdate from './components/Quitter/QuitterUpdate';
+
+
 
 function App() {
   return (
-    <div className="container">
-      <Sidebar />
-      <main className="main-content">
-        <header>
-          <input type="text" placeholder="통합검색" />
-          <button>🔍</button>
-          <button>❔</button>
-          <button>🔍</button>
-        </header>
-        <section className="form-section">
-          {/* <h2>직원등록</h2>
-          <Employee/> */}
-         
-          {/* <h2>신규목록</h2>
-          <EmployeeList/> */}
 
-          {/* <h2>신규수정</h2>  
-          <EmployeeUpdate/> */}
+      <div className="container">
+        <SideBar />
+        <main className="main-content">
+          <Routes>
+            <Route path="/employee-list" element={<EmployeeList />} />
+            <Route path="/employee-update" element={<EmployeeUpdate />} />
+            <Route path="/employee" element={<Employee />} /> {/* Employee.jsx의 라우트 */}
+            <Route path="/department" element={<Department />} />
+            <Route path="/department-update" element={<DepartmentUpdate />} />
+            <Route path="/quitterList" element={<QuitterList />} />
+            <Route path="/quitter-update" element={<QuitterUpdate />} /> 
+            <Route path="/quitter" element={<Quitter />} />
+            {/* 다른 Route들 추가 */}
+          </Routes>
+        </main>
+      </div>
 
-          {/* <h2>퇴사자등록</h2>
-          <Quitter/> */}
-
-          {/* <h2>퇴사자목록</h2>
-          <QuitterList/> */}
-
-          <h2>퇴사자수정</h2>
-          <QuitterUpdate/>
-
-
-        </section>
-      </main>
-    </div>
   );
 }
 

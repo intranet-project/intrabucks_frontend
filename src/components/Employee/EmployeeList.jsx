@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeList = () => {
+  const navigate = useNavigate();
+
   const employees = [
     {
       직원ID: '001',
@@ -29,9 +32,15 @@ const EmployeeList = () => {
     // 필요한 다른 직원 정보 추가 가능
   ];
 
-  const handleNameClick = (name) => {
-    console.log('선택한 직원 이름:', name);
+  const handleNameClick = (employee) => {
+    console.log('선택한 직원 이름:', employee);
     // 이벤트 핸들러에서 원하는 동작을 수행할 수 있습니다. 여기서는 콘솔에 직원 이름를 출력합니다.
+    navigate('/employee', { state: { employee } });
+  };
+
+  const handleNewEmployeeClick = () => {
+    // 신규등록 버튼 클릭 시 Employee.jsx로 이동
+    navigate('/employee');
   };
 
   return (
@@ -71,6 +80,7 @@ const EmployeeList = () => {
           </tbody>
         </table>
       </div>
+      <button onClick={handleNewEmployeeClick}>신규등록</button>
     </div>
   );
 };

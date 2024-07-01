@@ -1,6 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const QuitterList = () => {
+  const navigate = useNavigate();
+  
   const quitters = [
     {
       퇴사자ID: '001',
@@ -27,9 +30,10 @@ const QuitterList = () => {
     // 필요한 다른 퇴사자 정보 추가 가능
   ];
 
-  const handleNameClick = (name) => {
-    console.log('선택한 퇴사자 이름:', name);
-    // 이벤트 핸들러에서 원하는 동작을 수행할 수 있습니다. 여기서는 콘솔에 퇴사자 이름을 출력합니다.
+  const handleNameClick = (quitter) => {
+    console.log('선택한 퇴사자 정보:', quitter);
+    // 선택한 퇴사자 정보를 QuitterUpdate 페이지로 전달하고 이동
+    navigate('/quitter-update', { state: { quitter } });
   };
 
   return (
