@@ -1,45 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const EmployeeList = () => {
+  const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
 
-  const employees = [
-    {
-      직원ID: '001',
-      이름: '홍길동',
-      비밀ID: 'password123',
-      부서코드: 'A001',
-      직책: '사원',
-      이메일: 'hong@example.com',
-      핸드폰: '010-1234-5678',
-      주소: '서울시 강남구',
-      입사일: '2023-01-15',
-      재직상태: '재직중'
-    },
-    {
-      직원ID: '002',
-      이름: '김철수',
-      비밀ID: 'password456',
-      부서코드: 'B002',
-      직책: '대리',
-      이메일: 'kim@example.com',
-      핸드폰: '010-9876-5432',
-      주소: '경기도 고양시',
-      입사일: '2022-06-01',
-      재직상태: '재직중'
-    }
-    // 필요한 다른 직원 정보 추가 가능
-  ];
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
-  const handleNameClick = (employee) => {
-    console.log('선택한 직원 이름:', employee);
-    // 이벤트 핸들러에서 원하는 동작을 수행할 수 있습니다. 여기서는 콘솔에 직원 이름를 출력합니다.
-    navigate('/employee', { state: { employee } });
+  const fetchEmployees = async () => {
+    try {
+      const response = await axios.get('http://localhost:9000/api/employee/select');
+      setEmployees(response.data.content);
+    } catch (error) {
+      console.error('Error fetching employees:', error);
+    }
+  };
+
+  const handleNameClick = (empId) => {
+    navigate(`/employee-update/${empId}`);
   };
 
   const handleNewEmployeeClick = () => {
-    // 신규등록 버튼 클릭 시 Employee.jsx로 이동
     navigate('/employee');
   };
 
@@ -64,17 +48,17 @@ const EmployeeList = () => {
           </thead>
           <tbody>
             {employees.map(employee => (
-              <tr key={employee.직원ID}>
-                <td>{employee.직원ID}</td>
-                <td style={{ cursor: 'pointer' }} onClick={() => handleNameClick(employee)}>{employee.이름}</td>
-                <td>{employee.비밀ID}</td>
-                <td>{employee.부서코드}</td>
-                <td>{employee.직책}</td>
-                <td>{employee.입사일}</td>
-                <td>{employee.이메일}</td>
-                <td>{employee.핸드폰}</td>
-                <td>{employee.주소}</td>
-                <td>{employee.재직상태}</td>
+              <tr key={employee.empId}>
+                <td>{employee.empId}</td>
+                <td style={{ cursor: 'pointer' }} onClick={() => handleNameClick(employee.empId)}>{employee.empName}</td>
+                <td>{employee.empPassword}</td>
+                <td>{employee.deptCode}</td>
+                <td>{employee.empPosition}</td>
+                <td>{employee.empJoinDate}</td>
+                <td>{employee.empEmail}</td>
+                <td>{employee.empPhone}</td>
+                <td>{employee.empAddress}</td>
+                <td>{employee.workState}</td>
               </tr>
             ))}
           </tbody>

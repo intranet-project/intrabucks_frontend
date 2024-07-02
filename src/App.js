@@ -35,15 +35,16 @@ function App() {
   return (
 
       <div className="container">
-        <SideBar />
+        <SideBar
+         />
         <main className="main-content">
           <Routes>
             <Route path="/employee-list" element={<EmployeeList />} />
-            <Route path="/employee-update" element={<EmployeeUpdate />} />
+            <Route path="/employee-update/:empId" element={<EmployeeUpdate />} />
             <Route path="/employee" element={<Employee />} /> {/* Employee.jsx의 라우트 */}
             <Route path="/department" element={<Department />} />
             <Route path="/department-update" element={<DepartmentUpdate />} />
-            <Route path="/quitterList" element={<QuitterList />} />
+            <Route path="/quitter-list" element={<QuitterList />} />
             <Route path="/quitter-update" element={<QuitterUpdate />} /> 
             <Route path="/quitter" element={<Quitter />} />
             {/* 다른 Route들 추가 */}

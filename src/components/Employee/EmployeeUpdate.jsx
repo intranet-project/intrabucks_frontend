@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../styles/Employee.css';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const EmployeeUpdate = () => {
   const initialFormData = {
@@ -18,62 +18,77 @@ const EmployeeUpdate = () => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate(); // useNavigate 훅을 사용하여 navigate 함수를 가져옵니다.
+  const navigate = useNavigate();
+  const { empId } = useParams(); // URL 파라미터에서 직원 ID 가져오기
+
+  useEffect(() => {
+    fetchEmployeeData(empId);
+  }, [empId]);
+
+  const fetchEmployeeData = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:9000/api/employee/${empId}`);
+      if (response.data) {
+        setFormData(response.data);
+      } else {
+        console.error('직원 정보를 가져오지 못했습니다.');
+      }
+    } catch (error) {
+      console.error('직원 정보를 가져오는 중 오류 발생:', error);
+    }
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const updateEmployee = () => {
-    const requestOptions = {
-      method: 'PUT', // 수정 요청이므로 PUT 메서드를 사용
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    };
-  
-    fetch(`http://your-server-api-url/update/${formData.직원ID}`, requestOptions)
-      .then(response => {
-        if (response.ok) {
-          alert('직원 정보가 수정되었습니다.');
-          navigate('/employee-list'); // 수정 성공 후 페이지 이동
-        } else {
-          alert('직원 정보 수정에 실패하였습니다.');
-        }
-      })
-      .catch(error => {
-        console.error('Error updating employee:', error);
-        alert('직원 정보 수정 중 오류가 발생하였습니다.');
-      });
+  const updateEmployee = async () => {
+    try {
+      const response = await axios.put(`http://localhost:9000/api/employee/update/${empId}`, formData);
+      if (response.data) {
+        alert('직원 정보가 수정되었습니다.');
+        navigate('/employee-list');
+      } else {
+        alert('직원 정보 수정에 실패하였습니다.');
+      }
+    } catch (error) {
+      console.error('직원 정보 수정 중 오류 발생:', error);
+      alert('직원 정보 수정 중 오류가 발생하였습니다.');
+    }
   };
 
   const cancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
-      setFormData(initialFormData); // 폼 데이터 초기화
+      navigate('/employee-list');
     }
   };
 
-  const deleteEmployee = () => {
+  const deleteEmployee = async () => {
     if (window.confirm("정말로 이 직원을 퇴사등록하시겠습니까? 직원정보가 삭제됩니다.")) {
-      // 삭제 로직을 여기에 구현하세요
-      alert("직원이 삭제되었습니다.");
-      // 예를 들어, 서버에서 해당 직원 데이터를 삭제하고, 리스트에서 제거하는 등의 작업을 수행할 수 있습니다.
-      navigate('/quitterList');
+      try {
+        await axios.delete(`http://localhost:9000/api/employee/delete/${empId}`);
+        alert('직원이 퇴사 등록되었습니다.');
+        navigate('/employee-list');
+      } catch (error) {
+        console.error('직원 퇴사 등록 중 오류 발생:', error);
+        alert('직원 퇴사 등록 중 오류가 발생하였습니다.');
+      }
     }
   };
 
   return (
-    <form id="employeeform">
+    <form id="employee-form">
       {Object.keys(formData).map((key) => (
-        <React.Fragment key={key}>
+        <div key={key}>
           <label htmlFor={key}>{key}</label>
           <input
-            type={key === '비밀ID' ? 'password' : 'text'}  // '비밀ID' 키일 경우 비밀번호 입력으로 처리
+            type={key === '비밀ID' ? 'password' : 'text'}
             id={key}
             name={key}
             value={formData[key]}
             onChange={handleChange}
           />
-        </React.Fragment>
+        </div>
       ))}
       <div className="buttons">
         <button type="button" onClick={updateEmployee}>수정</button>
@@ -82,6 +97,6 @@ const EmployeeUpdate = () => {
       </div>
     </form>
   );
-}
+};
 
 export default EmployeeUpdate;

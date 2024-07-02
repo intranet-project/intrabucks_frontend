@@ -26,7 +26,7 @@ const SideBar = () => {
 
   const handleQuitterListClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate('/quitterList');
+    navigate('/quitter-list');
   };
 
   const handleSalesManagementClick = (e) => {

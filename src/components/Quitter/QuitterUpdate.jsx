@@ -15,9 +15,11 @@ const QuitterUpdate = () => {
     퇴사일: ''
   };
 
-  const location = useLocation();
-  const navigate = useNavigate();
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
+  const location = useLocation();
+ 
+  
 
   useEffect(() => {
     if (location.state && location.state.quitter) {
@@ -36,11 +38,11 @@ const QuitterUpdate = () => {
       body: JSON.stringify(formData)
     };
   
-    fetch(`http://your-server-api-url/update/${formData.직원ID}`, requestOptions)
+    fetch(`http://localhost:9000/api/quitter/update/${formData.empId}`, requestOptions)
       .then(response => {
         if (response.ok) {
           alert('직원 정보가 수정되었습니다.');
-          navigate('/employee-list'); // 수정 성공 후 페이지 이동
+          navigate('/quitter-list'); // 수정 성공 후 페이지 이동
         } else {
           alert('직원 정보 수정에 실패하였습니다.');
         }
@@ -60,9 +62,24 @@ const QuitterUpdate = () => {
 
   const deleteEmployee = () => {
     if (window.confirm("정말로 이 직원을 삭제하시겠습니까?")) {
-      alert("직원이 삭제되었습니다.");
-      // 삭제 로직을 여기에 구현하세요
-      navigate('/quitter-list'); // 삭제 후 리스트 페이지로 이동
+      fetch(`http://localhost:9000/api/quitter/delete/${formData.quitId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.ok) {
+            alert('직원이 삭제되었습니다.');
+            navigate('/quitter-list');
+          } else {
+            alert('직원 삭제에 실패하였습니다.');
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting employee:', error);
+          alert('직원 삭제 중 오류가 발생하였습니다.');
+        });
     }
   };
 

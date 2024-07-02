@@ -27,12 +27,12 @@ const Quitter = () => {
     // 등록 로직을 여기에 구현하세요
 
     // 등록 후 페이지 이동
-    navigate('/quitterlist'); // 예시로 '/employee-list' 페이지로 이동하도록 설정
+    navigate('/quitter-list'); // 예시로 '/employee-list' 페이지로 이동하도록 설정
   };
 
   const confirmCancel = () => {
     if (window.confirm("취소하시겠습니까?")) {
-      navigate('/quitterlist'); // 확인을 누르면 '/quitterlist' 페이지로 이동
+      navigate('/quitter-list'); // 확인을 누르면 '/quitterlist' 페이지로 이동
     } else {
       // 취소를 누르면 아무 동작 없음
     }
