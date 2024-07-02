@@ -1,0 +1,35 @@
+.sideBar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+  }
+  
+  .sideBar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sideBar-item {
+    cursor: pointer;
+    padding: 0px;
+    font-size: 70px; /* 버튼 텍스트 크기 조정 */
+  }
+  
+  .sideBar-item:hover {
+    background-color: #555;
+  }
+  
+  .sideBar-item:active {
+    background-color: #777;
+  }
+
+  .sideBar-subitem {
+    cursor: pointer;
+    padding: 8px 20px; /* 하위 메뉴 버튼의 간격 조정 */
+    font-size: 16px; /* 하위 메뉴 버튼 텍스트 크기 조정 */
+  }
+  
+  .menu-text {
+    font-size: 18px; /* 상위 메뉴 버튼 텍스트 크기 조정 */
+  }
