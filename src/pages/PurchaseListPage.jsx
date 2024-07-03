@@ -1,7 +1,7 @@
 import React from 'react';
-import StockList from '../components/Stock/StockList';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import PurchaseList from '../components/Purchase/PurchaseList';
 
 /**
  * @author 김아현
@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
  * 재고 List 관련 폼 연결 및 API 통신 구현
  */
 
-const StockListPage = () => {
+const PurchaseListPage = () => {
 
     //API 통신(List)
     const [data, setData] = useState(null);
@@ -17,8 +17,7 @@ const StockListPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/stock/selectStockList');
-                console.log('================response.data-===================', response.data);
+                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList');
                 setData(response.data);
             } catch (error) {
                 console.error('에러 발생', error);
@@ -31,10 +30,10 @@ const StockListPage = () => {
 
     return (
         <div>
-            {/**재고 List 관련 폼 */}
-            <StockList data={data} />
+            {/**발주 List 관련 폼 */}
+            <PurchaseList data={data} />
         </div>
     );
 };
 
-export default StockListPage;
+export default PurchaseListPage;
