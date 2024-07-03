@@ -13,6 +13,7 @@ const QuitterList = () => {
   const fetchQuittersFromApi = async () => {
     try {
       const response = await axios.get('http://localhost:9000/api/quitter/select');
+      console.log(response.data); // 데이터 확인용
       setQuitters(response.data.content);
     } catch (error) {
       console.error('Error fetching quitters:', error);
