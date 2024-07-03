@@ -14,15 +14,6 @@ const Department = () => {
     }
   };
 
-  const updateDepartment = async (deptId) => {
-    try {
-      await axios.put(`/api/department/update/${deptId}`, department);
-      alert('Department updated');
-    } catch (error) {
-      console.error('Error updating department:', error);
-    }
-  };
-
   return (
     <div>
       <h1>Department Management</h1>
@@ -44,7 +35,6 @@ const Department = () => {
           value={department.deptName}
           onChange={(e) => setDepartment({ ...department, deptName: e.target.value })}
         />
-        <button onClick={() => updateDepartment(department.deptId)}>Update</button>
       </div>
     </div>
   );
