@@ -66,9 +66,11 @@ const EmployeeUpdate = () => {
   const deleteEmployee = async () => {
     if (window.confirm("정말로 이 직원을 퇴사등록하시겠습니까? 직원정보가 삭제됩니다.")) {
       try {
+        // 직원 삭제 API 요청
         await axios.delete(`http://localhost:9000/api/employee/delete/${empId}`);
         alert('직원이 퇴사 등록되었습니다.');
-        navigate('/employee-list');
+        // 삭제 후 퇴사자 목록 페이지로 이동
+        navigate('/quitter-list');
       } catch (error) {
         console.error('직원 퇴사 등록 중 오류 발생:', error);
         alert('직원 퇴사 등록 중 오류가 발생하였습니다.');
@@ -77,25 +79,119 @@ const EmployeeUpdate = () => {
   };
 
   return (
-    <form id="employee-form">
-      {Object.keys(formData).map((key) => (
-        <div key={key}>
-          <label htmlFor={key}>{key}</label>
+    <div className="employee-form-container">
+      <h2>직원 등록</h2>
+      <form id="employee-form">
+        <div className="form-group">
+          <label htmlFor="empId">직원ID</label>
           <input
-            type={key === '비밀ID' ? 'password' : 'text'}
-            id={key}
-            name={key}
-            value={formData[key]}
+            type="text"
+            id="empId"
+            name="empId"
+            readOnly
+            value={formData['empId']}
             onChange={handleChange}
           />
         </div>
-      ))}
+        <div className="form-group">
+          <label htmlFor="empName">이름</label>
+          <input
+            type="text"
+            id="empName"
+            name="empName"
+            value={formData['empName']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empPassword">비밀ID</label>
+          <input
+            type="text"
+            id="empPassword"
+            name="empPassword"
+            value={formData['empPassword']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="deptCode">부서코드</label>
+          <input
+            type="text"
+            id="deptCode"  
+            name="deptCode"
+            value={formData['deptCode']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empPosition">직책</label>
+          <input
+            type="text"
+            id="empPosition"
+            name="empPosition"
+            value={formData['empPosition']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empEmail">이메일</label>
+          <input
+            type="email"
+            id="empEmail"
+            name="empEmail"
+            value={formData['empEmail']}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empPhone">핸드폰</label>
+          <input
+            type="text"
+            id="empPhone"
+            name="empPhone"
+            value={formData['empPhone']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empAddress">주소</label>
+          <input
+            type="text"
+            id="empAddress"
+            name="empAddress"
+            value={formData['empAddress']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="empJoinDate">입사일</label>
+          <input
+            type="date"
+            id="empJoinDate"
+            name="empJoinDate"
+            value={formData['empJoinDate']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="workState">재직상태</label>
+          <input
+            type="text"
+            id="workState"
+            name="workState"
+            value={formData['workState']}
+            onChange={handleChange}
+          />
+        </div>
+      
       <div className="buttons">
         <button type="button" onClick={updateEmployee}>수정</button>
         <button type="button" onClick={cancel}>취소</button>
         <button type="button" onClick={deleteEmployee}>퇴사등록</button>
       </div>
     </form>
+    </div>
   );
 };
 
