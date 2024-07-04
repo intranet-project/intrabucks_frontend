@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import '../../styles/Sidebar.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../../styles/Sidebar.css";
 
 const SideBar = () => {
   const [activeMenu, setActiveMenu] = useState(null); // 현재 활성화된 상위 메뉴 상태 관리
@@ -16,45 +16,55 @@ const SideBar = () => {
 
   const handleEmployeeListClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate('/employee-list');
+    navigate("/employee-list");
   };
 
   const handleDepartmentClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate('/department');
+    navigate("/department");
   };
 
   const handleQuitterListClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate('/quitter-list');
+    navigate("/quitter-list");
   };
 
   const handleSalesManagementClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate('/sales-management');
+    navigate("/sales-management");
+  };
+  const handleVoiceListClick = (e) => {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    navigate("/voiceList");
   };
 
+  const handleAnswerClick = (e) => {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    navigate("/voiceAnswer");
+  };
   return (
     <nav className="sideBar">
       <ul>
-      <li
-          className={`sideBar-item ${activeMenu === '홈' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('홈')}
+        <li
+          className={`sideBar-item ${activeMenu === "홈" ? "active" : ""}`}
+          onClick={() => handleSubMenuToggle("홈")}
         >
           <span className="menu-text">홈</span>
         </li>
-      <li
-          className={`sideBar-item ${activeMenu === '로그인' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('로그인')}
+        <li
+          className={`sideBar-item ${activeMenu === "로그인" ? "active" : ""}`}
+          onClick={() => handleSubMenuToggle("로그인")}
         >
           <span className="menu-text">로그인</span>
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '인사관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('인사관리')}
+          className={`sideBar-item ${
+            activeMenu === "인사관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("인사관리")}
         >
           <span className="menu-text">인사관리</span>
-          {activeMenu === '인사관리' && (
+          {activeMenu === "인사관리" && (
             <ul className="submenu">
               <li className="sideBar-subitem" onClick={handleEmployeeListClick}>
                 직원관리
@@ -69,105 +79,143 @@ const SideBar = () => {
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '매출관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('매출관리')}
+          className={`sideBar-item ${
+            activeMenu === "매출관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("매출관리")}
         >
           <span className="menu-text">매출관리</span>
-          {activeMenu === '매출관리' && (
+          {activeMenu === "매출관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
                 매출 관리
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '재고관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('재고관리')}
+          className={`sideBar-item ${
+            activeMenu === "재고관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("재고관리")}
         >
           <span className="menu-text">재고관리</span>
-          {activeMenu === '재고관리' && (
+          {activeMenu === "재고관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
                 재고 관리
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '매장관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('매장관리')}
+          className={`sideBar-item ${
+            activeMenu === "매장관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("매장관리")}
         >
           <span className="menu-text">매장관리</span>
-          {activeMenu === '매장관리' && (
+          {activeMenu === "매장관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
-               매장 관리
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
+                매장 관리
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '발주관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('발주관리')}
+          className={`sideBar-item ${
+            activeMenu === "발주관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("발주관리")}
         >
           <span className="menu-text">발주관리</span>
-          {activeMenu === '발주관리' && (
+          {activeMenu === "발주관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
                 발주 관리
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '메뉴관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('메뉴관리')}
+          className={`sideBar-item ${
+            activeMenu === "메뉴관리" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("메뉴관리")}
         >
           <span className="menu-text">메뉴관리</span>
-          {activeMenu === '메뉴관리' && (
+          {activeMenu === "메뉴관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
                 발주 관리
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === 'CRM관리' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('CRM관리')}
+          className={`sideBar-item ${activeMenu === "CRM관리" ? "active" : ""}`}
+          onClick={() => handleSubMenuToggle("CRM관리")}
         >
           <span className="menu-text">CRM관리</span>
-          {activeMenu === 'CRM관리' && (
+          {activeMenu === "CRM관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
-                CRM 관리
+              <li className="sideBar-subitem" onClick={handleVoiceListClick}>
+                고객의소리 조회
+              </li>
+              <li className="sideBar-subitem" onClick={handleAnswerClick}>
+                고객의소리 답변 등록
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '협업게시판' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('협업게시판')}
+          className={`sideBar-item ${
+            activeMenu === "협업게시판" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("협업게시판")}
         >
           <span className="menu-text">협업게시판</span>
-          {activeMenu === '협업게시판' && (
+          {activeMenu === "협업게시판" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
                 협업게시판
               </li>
             </ul>
           )}
         </li>
         <li
-          className={`sideBar-item ${activeMenu === '전자결재' ? 'active' : ''}`}
-          onClick={() => handleSubMenuToggle('전자결재')}
+          className={`sideBar-item ${
+            activeMenu === "전자결재" ? "active" : ""
+          }`}
+          onClick={() => handleSubMenuToggle("전자결재")}
         >
           <span className="menu-text">전자결재</span>
-          {activeMenu === '전자결재' && (
+          {activeMenu === "전자결재" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
-              전자결재
+              <li
+                className="sideBar-subitem"
+                onClick={handleSalesManagementClick}
+              >
+                전자결재
               </li>
             </ul>
           )}
@@ -175,6 +223,6 @@ const SideBar = () => {
       </ul>
     </nav>
   );
-}
+};
 
 export default SideBar;
