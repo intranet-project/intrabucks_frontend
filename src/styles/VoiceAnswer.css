@@ -1,0 +1,60 @@
+.sideBar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  position: fixed; /* 사이드바를 고정 */
+  height: 100%; /* 사이드바 높이를 화면 높이와 동일하게 설정 */
+  top: 0; /* 위쪽에 고정 */
+  left: 0; /* 왼쪽에 고정 */
+  overflow-y: auto; /* 내용이 넘치면 스크롤바 표시 */
+  transition: width 0.3s ease; /* 너비 전환 애니메이션 */
+}
+
+@media (max-width: 768px) {
+  .sideBar {
+    width: 60px; /* 작은 화면에서 사이드바 너비를 줄임 */
+  }
+}
+
+.sideBar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sideBar-item {
+  cursor: pointer;
+  padding: 10px 0; /* 각 사이드바 항목의 상하 여백 */
+  font-size: 18px; /* 버튼 텍스트 크기 조정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+  transition: background-color 0.3s ease; /* 배경색 전환 애니메이션 */
+}
+
+.sideBar-item:hover {
+  background-color: #555; /* 호버 시 배경색 변경 */
+}
+
+.sideBar-item:active {
+  background-color: #777; /* 클릭 시 배경색 변경 */
+}
+
+.submenu {
+  display: none; /* 기본적으로 하위 메뉴는 숨김 */
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.sideBar-item.active .submenu {
+  display: block; /* 활성화된 메뉴의 하위 메뉴만 표시 */
+}
+
+.sideBar-subitem {
+  cursor: pointer;
+  padding: 8px 0; /* 하위 메뉴 버튼의 상하 여백 */
+  font-size: 14px; /* 하위 메뉴 버튼 텍스트 크기 조정 */
+  text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.menu-text {
+  font-size: 16px; /* 상위 메뉴 버튼 텍스트 크기 조정 */
+}
