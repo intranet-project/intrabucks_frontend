@@ -12,6 +12,9 @@ import PurchaseListPage from '../pages/PurchaseListPage';
 import StockListPage from '../pages/StockListPage';
 import AddStock from "./Stock/AddStockModal";
 import ApprovalPage from "../pages/ApprovalPage";
+import VoiceList from "../components/CRM/VoiceList";
+import VoiceAnswer from "../components/CRM/VoiceAnswer";
+
 
 
 const Routers = () => {
@@ -31,6 +34,9 @@ const Routers = () => {
 
             <Route path="/AddStock" element={<AddStock />} />
             <Route path="/DetailStock" element={<AddStock />} />
+
+            <Route path="/voiceList" element={<VoiceList />} />
+            <Route path="/voiceAnswer" element={<VoiceAnswer />} />
         </Routes>
     );
 
