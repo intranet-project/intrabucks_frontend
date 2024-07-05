@@ -22,7 +22,7 @@ const EditPurchaseModal = ({ data, isOpen, onClose }) => {
                     managerId: editData.manager.managerId,
                 },
                 material: {
-                    materialId: editData.material,
+                    materialId: editData.material, // materialId를 단순히 editData.material로 설정
                 },
                 purchaseCount: editData.purchaseCount,
                 purchaseRequireDate: editData.purchaseRequireDate,
@@ -143,7 +143,7 @@ const EditPurchaseModal = ({ data, isOpen, onClose }) => {
                             <input
                                 type="number"
                                 name="material"
-                                value={editData.material.materialId}
+                                value={editData.material}
                                 onChange={handleChange}
                                 required
                             />
