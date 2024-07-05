@@ -16,11 +16,16 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
         {
           voiceId: voiceId,
           answerContent: answerContent,
-          employeeId: employeeId,
+          employee: 2,
         }
       );
+      // 새로고침
+      window.location.reload();
       console.log(voiceId, answerContent, employeeId);
       console.log("답변이 성공적으로 등록되었습니다:", response.data);
+
+      // 서버에서 반환된 처리여부 업데이트
+      const updatedVoiceState = response.data.voiceState; // 예상하는 서버 응답에서 처리여부를 가져옴
 
       // 폼 초기화
       setAnswerContent("");
@@ -28,6 +33,7 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
 
       // 부모 컴포넌트로 등록 완료를 알리기
       onAnswerSubmitted(response.data); // 서버에서 반환된 데이터 전달
+      console.log("업데이트된 처리여부:", updatedVoiceState);
 
       // 답변 등록 후 창 닫기
       onClose();
