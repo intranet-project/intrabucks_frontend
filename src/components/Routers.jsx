@@ -14,6 +14,7 @@ import AddStock from "./Stock/AddStockModal";
 import ApprovalPage from "../pages/ApprovalPage";
 import VoiceList from "../components/CRM/VoiceList";
 import VoiceAnswer from "../components/CRM/VoiceAnswer";
+import ApprovalLine from "./Approval/ApprovalLine";
 
 
 
@@ -37,6 +38,8 @@ const Routers = () => {
 
             <Route path="/voiceList" element={<VoiceList />} />
             <Route path="/voiceAnswer" element={<VoiceAnswer />} />
+
+            <Route path="/ApprovalLine" element={<ApprovalLine />} />
         </Routes>
     );
 
