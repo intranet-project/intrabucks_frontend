@@ -1,56 +1,52 @@
 import React, { useState } from "react";
-import axios from "axios";
-import Button from "../Button"; // Button 컴포넌트 import 경로
-import VoiceAnswer from "./VoiceAnswer"; // VoiceAnswer 컴포넌트 import 경로
+import Button from "../Button";
+import VoiceAnswer from "./VoiceAnswer";
 import "../../styles/VoiceItem.css";
 
-const VoiceItem = ({ voice }) => {
-  const [expanded, setExpanded] = useState(false); // 상세 정보 표시 여부를 관리하는 상태
-  const [mouseOver, setMouseOver] = useState(false); // 마우스 오버 상태를 관리하는 상태
-  const [showAnswerForm, setShowAnswerForm] = useState(false); // 답변 창 표시 여부를 관리하는 상태
+const VoiceItem = ({ voice, onAnswerSubmitted }) => {
+  const [expanded, setExpanded] = useState(false);
+  const [mouseOver, setMouseOver] = useState(false);
+  const [showAnswerForm, setShowAnswerForm] = useState(false);
 
   const toggleExpand = () => {
     if (!showAnswerForm) {
-      setExpanded(!expanded); // 클릭 시 상태를 반전시킴
+      setExpanded(!expanded);
     }
   };
 
   const handleMouseEnter = () => {
     if (!showAnswerForm) {
-      setMouseOver(true); // 마우스 오버 시 상세 정보를 표시
+      setMouseOver(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (!showAnswerForm) {
-      setMouseOver(false); // 마우스 떠날 시 상세 정보 숨김
+      setMouseOver(false);
     }
   };
 
   const getStatusColor = () => {
     if (voice.voiceState === null || voice.voiceState === undefined) {
-      return "red"; // 처리 여부가 null이면 빨간색
+      return "red";
     } else {
       return voice.voiceState === "미처리" ? "red" : "green";
     }
   };
 
-  const handleReply = () => {
-    // 답변 창 열기
+  const handleReply = (e) => {
+    e.stopPropagation(); // Prevent the toggleExpand from being called
     setShowAnswerForm(true);
   };
 
   const handleCloseAnswerForm = () => {
-    // 답변 창 닫기
     setShowAnswerForm(false);
   };
 
-  const handleAnswerSubmitted = (answerData) => {
-    // 답변 등록 후 처리
-    console.log("답변이 등록되었습니다:", answerData);
-
-    // 답변 등록 후 상세 정보 보기 유지
-    setExpanded(true);
+  const handleAnswerSubmitted = (updatedVoice) => {
+    console.log("답변이 등록되었습니다:", updatedVoice);
+    setShowAnswerForm(false);
+    onAnswerSubmitted(updatedVoice); // 부모 컴포넌트로 상태 변경 알림
   };
 
   return (
@@ -64,11 +60,11 @@ const VoiceItem = ({ voice }) => {
         <tbody>
           <tr>
             <td>
-              <strong>번호:</strong> {voice.voiceId}
+              <strong>번호:</strong>
             </td>
-            <td></td>
+            <td>{voice.voiceId}</td>
             <td>
-              <strong>처리여부:</strong>{" "}
+              <strong>처리여부:</strong>
             </td>
             <td>
               <span style={{ color: getStatusColor() }}>
@@ -82,8 +78,7 @@ const VoiceItem = ({ voice }) => {
                 <td>
                   <strong>고객 ID:</strong>
                 </td>
-                <td>{voice.customer.custId}</td>
-
+                <td>{voice.customer?.custId}</td>
                 <td>
                   <strong>생성 날짜:</strong>
                 </td>
@@ -97,19 +92,29 @@ const VoiceItem = ({ voice }) => {
                 <td>
                   <strong>제목:</strong>
                 </td>
-                <td>{voice.voiceTitle}</td>
+                <td colSpan="3">{voice.voiceTitle}</td>
               </tr>
               <tr>
                 <td>
                   <strong>내용:</strong>
                 </td>
-                <td>{voice.voiceContent}</td>
+                <td colSpan="3">{voice.voiceContent}</td>
               </tr>
+              {voice.voiceState === "처리완료" && (
+                <tr>
+                  <td>
+                    <strong>답변 내용:</strong>
+                  </td>
+                  <td colSpan="3">{voice.answerContent}</td>
+                </tr>
+              )}
               <tr>
                 <td colSpan="4" style={{ textAlign: "center" }}>
-                  {!showAnswerForm && (
-                    <Button onClick={handleReply}>답변 등록</Button>
-                  )}
+                  {!showAnswerForm &&
+                    (voice.voiceState === null ||
+                      voice.voiceState === "미처리") && (
+                      <Button onClick={handleReply}>답변 등록</Button>
+                    )}
                 </td>
               </tr>
             </>
@@ -117,7 +122,6 @@ const VoiceItem = ({ voice }) => {
         </tbody>
       </table>
 
-      {/* 답변 창 */}
       {showAnswerForm && (
         <VoiceAnswer
           voiceId={voice.voiceId}

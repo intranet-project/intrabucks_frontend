@@ -10,7 +10,6 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
     event.preventDefault();
 
     try {
-      // 서버에 등록 요청 보내기
       const response = await axios.post(
         "http://localhost:9000/api/v1/intrabucks/customer/answer",
         {
@@ -19,33 +18,29 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
           employee: 2,
         }
       );
-      // 새로고침
-      window.location.reload();
+
       console.log(voiceId, answerContent, employeeId);
       console.log("답변이 성공적으로 등록되었습니다:", response.data);
 
-      // 서버에서 반환된 처리여부 업데이트
-      const updatedVoiceState = response.data.voiceState; // 예상하는 서버 응답에서 처리여부를 가져옴
+      const updatedVoice = {
+        voiceId: voiceId,
+        answerContent: answerContent,
+        voiceState: "처리완료",
+      };
 
-      // 폼 초기화
       setAnswerContent("");
       setEmployeeId("");
 
-      // 부모 컴포넌트로 등록 완료를 알리기
-      onAnswerSubmitted(response.data); // 서버에서 반환된 데이터 전달
-      console.log("업데이트된 처리여부:", updatedVoiceState);
+      onAnswerSubmitted(updatedVoice); // 변경된 데이터를 부모 컴포넌트로 전달
 
-      // 답변 등록 후 창 닫기
       onClose();
     } catch (error) {
       console.error("답변 등록 중 오류 발생:", error);
-      // 등록 실패 시 사용자에게 알림을 주는 로직 추가
-      // 예: 오류 메시지 출력 등
     }
   };
 
   const handleClose = () => {
-    onClose(); // 닫기 버튼 클릭 시 창 닫기
+    onClose();
   };
 
   return (
