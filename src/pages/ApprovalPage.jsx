@@ -1,6 +1,6 @@
 import React from "react";
-import Approval from "../components/Approval/Approval";
 import ApprovalSideBar from "../components/Approval/ApprovalSideBar";
+import ApprovalLine from "../components/Approval/ApprovalLine";
 
 const ApprovalPage = () => {
     console.log("하이루_____________________________________________");
@@ -8,7 +8,7 @@ const ApprovalPage = () => {
     return (
         <div>
             <ApprovalSideBar />
-            <Approval />
+            <ApprovalLine />
         </div>
     );
 }
