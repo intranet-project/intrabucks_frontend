@@ -11,6 +11,7 @@ const ApprovalLine = () => {
   const [approvalLine, setApprovalLine] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null); // 추가: 활성화된 메뉴 상태
   const [sessionData, setSessionData] = useState(null); // 세션 데이터 상태 추가
+  
 
   // 전체조회 API
   const fetchEmployees = async () => {
@@ -31,9 +32,6 @@ const ApprovalLine = () => {
       const response = await axios.get('http://localhost:9000/api/Approval1/session');
       const sessionData = response.data;
       setSessionData(sessionData); // 세션 데이터 설정
-
-    // 세션 데이터 로그 확인
-    console.log('세션 데이터:', sessionData);
 
     } catch (error) {
       console.error('Error fetching session:', error);
@@ -71,32 +69,59 @@ const positionPriority = {
   '사장': 3
 };
 
-//직원 클릭 처리 함수
+
+//수정중
+const [applicants, setApplicants] = useState([]);
+
+useEffect(() => {
+  if (sessionData) {
+    const applicant = {
+      empId: sessionData.empId,
+      deptCode: sessionData.deptCode,
+      empName: sessionData.empName,
+      empPosition: sessionData.empPosition,
+      approvalState: "기안자"
+    };
+    setApplicants([applicant]);
+  }
+}, [sessionData]);
+
+
+
+
 const handlePersonClick = (empId) => {
-  if (selectedEmployees.length >=3) {
-    alert('결재자는 최대 3명까지만 추가할 수 있습니다.');
+  const selectedEmployee = employees.find(emp => emp.empId === empId);
+  if (!selectedEmployee) return;
+
+  // 기안자가 이미 선택되어 있으면 추가하지 않음
+  if (applicants.some(applicant => applicant.empId === selectedEmployee.empId)) {
     return;
   }
 
-  const selectedEmployee = employees.find(emp => emp.empId === empId);
-  console.log('선택된 직원:', selectedEmployee); // 선택된 직원 콘솔 출력
-  if (selectedEmployee) {
-    // 현재 선택된 결재자들 중 가장 높은 직급을 찾기
-    let highestPosition = -1;
-    if (selectedEmployees.length > 0) {
-      highestPosition = Math.max(...selectedEmployees.map(emp => positionPriority[emp.empPosition]));
-    }
+  // 이미 선택된 결재자들 중 가장 높은 직급을 찾기
+  let highestPosition = -1;
+  if (selectedEmployees.length > 0) {
+    highestPosition = Math.max(...selectedEmployees.map(emp => positionPriority[emp.empPosition]));
+  }
 
-    // 선택한 직원의 직급 우선 순위 가져오기
-    const selectedPosition = positionPriority[selectedEmployee.empPosition];
+  // 선택한 직원의 직급 우선 순위 가져오기
+  const selectedPosition = positionPriority[selectedEmployee.empPosition];
 
-    // 직급 우선 순위 비교하여 결재자 추가 여부 결정
-    if (selectedPosition < highestPosition) {
-      alert('직급 우선 순위에 맞게 선택하세요.');
-      return;
-    }
+  // 직급 우선 순위 비교하여 결재자 추가 여부 결정
+  if (selectedPosition < highestPosition) {
+    alert('직급 우선 순위에 맞게 선택하세요.');
+    return;
+  }
 
+  // 세션 데이터로 조회된 기안자는 항상 첫 번째로 배열에 추가
+  if (applicants.length === 0) {
+    setApplicants([selectedEmployee]);
+  } else {
     setSelectedEmployees(prevSelected => {
+      if (prevSelected.length >= 3) {
+        alert('결재자는 최대 3명까지만 추가할 수 있습니다.');
+        return prevSelected;
+      }
       if (!prevSelected.some(emp => emp.empId === empId)) {
         return [...prevSelected, selectedEmployee];
       }
@@ -111,28 +136,9 @@ const handlePersonClick = (empId) => {
     setSelectedEmployees(updatedSelectedEmployees);
   };
 
-  // Handle adding selected employees to approval line
-  const handleAddToApprovalLine = () => {
-    const approvalLineDTOs = selectedEmployees.map((person, index) => ({
-      empId: person.empId,
-      approvalState: index === 0 ? '기안자' : '결재자', // 첫 번째는 기안자, 나머지는 결재자로 설정
-      deptCode: person.deptCode // 부서 코드 추가
-    }));
 
-    console.log('결재 라인 DTOs:', approvalLineDTOs); // 결재 라인 DTOs 콘솔 출력
 
-    // Check order constraint
-    if (!isValidApprovalOrder(approvalLineDTOs)) {
-      alert('팀장이 사장보다 먼저 선택되어야 합니다.');
-      return;
-    }
-
-    setApprovalLine(prevLine => [...prevLine, ...approvalLineDTOs]);
-    setSelectedEmployees([]);
-    setModalIsOpen(false);
-  };
-
-  // Function to check if approval order is valid
+  // 결재순위확인
   const isValidApprovalOrder = (approvalLineDTOs) => {
     const chiefIndex = approvalLineDTOs.findIndex(person => person.empPosition === '결재자');
     const presidentIndex = approvalLineDTOs.findIndex(person => person.empPosition === '사장');
@@ -142,24 +148,26 @@ const handlePersonClick = (empId) => {
   };
 
 
-
+// 직원제거
   const handleRemoveFromApprovalLine = (empId) => {
     const updatedApprovalLine = approvalLine.filter(person => person.empId !== empId);
     setApprovalLine(updatedApprovalLine);
   };
 
+ // 결재라인등록
   const handleConfirm = async () => {
     
     try {
-      const approvalSteps = selectedEmployees.map((person, index) => ({
+      const approvals = selectedEmployees.map((person, index) => ({
         employee: person,
-        approvalState: index === 0 ? '기안자' : '결재자', // 첫 번째 선택한 사람은 '기안자', 그 외에는 '결재자'로 설정
+        approvalState: '결재자', // 첫 번째 선택한 사람은 '기안자', 그 외에는 '결재자'로 설정
         deptCode: person.deptCode // 부서 코드를 DTO에 추가
       }));
-  
+      const approvalSteps = [...applicants, ... approvals];
+      
       const approvalLineDTO = {
-        approvalSteps: approvalSteps
-        
+        approvalSteps: approvalSteps,
+
       };
   
       console.log('결재 라인 DTOs:', approvalLineDTO);
@@ -370,16 +378,12 @@ const handlePersonClick = (empId) => {
               <div style={{ marginBottom: '10px' }}>
                 <h1>결재선</h1>
                 <h3>기안자</h3>
-                {sessionData && (
-                <div>
-                  <p><strong>부서 코드:</strong> {sessionData.deptCode}</p>
-                  <p><strong>이름:</strong> {sessionData.empName}</p>
-                  <p><strong>직책:</strong> {sessionData.empPosition}</p>
-                  {/* 필요한 정보들 추가 */}
-                </div>
-              )}
-
-
+                {applicants.map((applicant) => (
+                  <div key={applicant.empId}>
+                    {applicant.deptCode} - {applicant.empName} - {applicant.empPosition}
+                    {/* 필요한 정보들 추가 */}
+                  </div>
+                ))}
 
                 <h3>결재자</h3>
                 <ul>
