@@ -25,7 +25,6 @@ const AddPurchaseModal = ({ isOpen, onClose }) => {
         try {
             const response = await axios.post('http://localhost:9000/api/v1/intrabucks/purchase/createPurchaseItem', {
                 // DTO의 변수 중 자료형이 엔티티일 경우,
-
                 manager: {
                     managerId: managerId,
                     managerName: "",
