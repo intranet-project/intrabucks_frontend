@@ -15,16 +15,19 @@ const SideBar = () => {
     }
   };
 
+  // 인사관리
   const handleEmployeeListClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     navigate('/employee-list');
   };
 
+// 부서관리
   const handleDepartmentClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     navigate('/department');
   };
 
+// 퇴사관리
   const handleQuitterListClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     navigate('/quitter-list');
@@ -51,6 +54,11 @@ const SideBar = () => {
   const handleApprovalManagementClick = (e) => {
     e.stopPropagation();
     navigate('/approvalPage');
+  }
+
+  const handleApprovalLineManagementClick = (e) => {
+    e.stopPropagation();
+    navigate('/approvalLine');
   }
 
   //CRM 연결
@@ -204,6 +212,9 @@ const SideBar = () => {
             <ul className="submenu">
               <li className="sideBar-subitem" onClick={handleApprovalManagementClick}>
                 전자결재
+              </li>
+              <li className="sideBar-subitem" onClick={handleApprovalLineManagementClick}>
+                결재라인
               </li>
             </ul>
           )}
