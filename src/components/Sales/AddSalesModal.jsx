@@ -23,7 +23,7 @@ const AddSalesModal = ({ isOpen, onClose }) => {
           storeCreatedAt: "",
           storeClose: "",
         },
-        salesTotalAmount: salesTotalAmount,
+        salesTotalAmount: parseBigDecimal(salesTotalAmount),
         salesPri: salesPri
       }
       );
