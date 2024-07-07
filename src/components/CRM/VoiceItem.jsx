@@ -64,6 +64,10 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
             </td>
             <td>{voice.voiceId}</td>
             <td>
+              <strong>매장:</strong>
+            </td>
+            <td>{voice.store.storeId}</td> {/* 여기서 storeId를 표시 */}
+            <td>
               <strong>처리여부:</strong>
             </td>
             <td>
