@@ -72,7 +72,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
     const htmlForm = `${selectOneDocument.documentTypeContent}`;
 
     //결재 올리기
-    const [isApprovalCompleted, setIsApprovalCompleted] = useState(false); // 결재 성공 상태
+    const [isApprovalCompleted, setIsApprovalCompleted] = useState(false); // 결재 성공 상태 추가
 
     const saveHtml = async (selectOneDocument) => {
         try {
@@ -117,42 +117,35 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalPathString: "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//",
     });
 
+
     // 저장 api 구현
     const apiSaveHtml = async (selectOneDocument) => {
         try {
             // 데이터를 포함한 객체 생성
             const data = {
-                "documentId": null,
-                "title": null,
-                "content": selectOneDocument.documentTypeContent,
-                "approvalStage": null,
-                "documentType": {
-                    "documentTypeId": selectOneDocument.documentTypeId, // 수정된 부분
-                    "documentTypeName": selectOneDocument.documentTypeName,
-                    "documentTypeContent": selectOneDocument.documentTypeContent,
-                    "documentAuthority": selectOneDocument.documentAuthority,
-                    "documentFormName": selectOneDocument.documentFormName
-                },
-                "createdAt": null,
-                "updatedAt": null,
-                "employee": {
-                    "empId": 1, // 수정 요망
-                    "empName": "",
-                    "empPassword": "",
-                    "empEmail": "",
-                    "empPhone": "",
-                    "empAddress": "",
-                    "empJoinDate": "",
-                    "empPosition": "",
-                    "department": {
-                        "deptId": null,
-                        "deptCode": "",
-                        "deptName": ""
+                documentId: "",
+                title: "",
+                content: selectOneDocument.documentTypeContent,
+                approvalStage: "",
+                documentType: "selectOneDocument.documentTypeId",
+                createdAt: "",
+                updatedAt: "",
+                employee: {
+                    empId: 1,
+                    empName: "",
+                    empPassword: "",
+                    empEmail: "",
+                    empPhone: "",
+                    empAddress: "",
+                    empJoinDate: "",
+                    empPosition: "",
+                    department: {
+                        deptCode: "",
                     },
-                    "workState": ""
+                    workState: "",
                 },
-                "departmentName": null,
-                "approvalPathString": "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//" // 수정 요망
+                departmentName: "",
+                approvalPathString: "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//",
             };
 
             // axios 요청 보내기
@@ -164,19 +157,12 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 
             console.log("apiSaveHtml response.data: ", response.data);
             setSaveForm(response.data);
+            return response.data; // API 응답 반환
         } catch (error) {
             console.error("에러 발생", error);
             throw error; // 에러 처리
         }
     };
-
-    // 결재 성공 시 알림 표시
-    useEffect(() => {
-        if (isApprovalCompleted) {
-            alert("결재가 성공적으로 완료되었습니다.");
-        }
-    }, [isApprovalCompleted]);
-
 
     //첨부파일 업로드 하기
     const goToUploadFile = (event) => {
@@ -225,17 +211,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         }
     }
 
+    // 결재 성공 시 알림 표시
+    useEffect(() => {
+        if (isApprovalCompleted) {
+            alert("결재가 성공적으로 완료되었습니다.");
+        }
+    }, [isApprovalCompleted]);
+
     return (
         <div>
-            {/** 전자결재 사이드바 */}
-            <div>
-                <button onClick={openFormList}>새결재하기</button>
-            </div>
-            <ul>
-                <li>나의 결재함</li>
-                <li>너의 결재함</li>
-                <li>우리의 결재함</li>
-            </ul>
 
             {/** 폼 선택하기 */}
             {modalFormListOpen && (
@@ -285,8 +269,10 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </div>
                 </div>
             )}
+
         </div>
     );
+
 }
 
 export default ApprovalSideBar;
