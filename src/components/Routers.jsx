@@ -18,6 +18,12 @@ import ApprovalLine from "./Approval/ApprovalLine";
 import SalesListPage from "../pages/SalesListPage";
 import StoreListPage from "../pages/StoreListPage";
 import MenuListPage from "../pages/MenuListPage";
+import Approval from "./Approval/Approval";
+import ApprovalWaiting from "./Approval/ApprovalWaiting";
+import ApprovalSideBar from "./Approval/ApprovalSideBar";
+import ApprovalUpdate from "./Approval/ApprovalUpdate";
+import ApprovalWaitingAll from "../pages/ApprovalWaitingAll";
+import ApprovalGetAll from "../pages/ApprovalGetAll";
 
 
 const Routers = () => {
@@ -44,7 +50,14 @@ const Routers = () => {
             <Route path="/voiceList" element={<VoiceList />} />
             <Route path="/voiceAnswer" element={<VoiceAnswer />} />
 
+            <Route path="/approval" element={<Approval />} />
             <Route path="/ApprovalLine" element={<ApprovalLine />} />
+            <Route path="/approvalWaiting" element={<ApprovalWaiting />} />
+            <Route path="/approvalUpdate" element={<ApprovalUpdate />} />
+            <Route path="/approvalWaitingAll" element={<ApprovalWaitingAll />} />
+            <Route path="/approvalGetAll" element={<ApprovalGetAll />} />
+            <Route path="/approvalSideBar" element={<ApprovalSideBar />} />
+
         </Routes>
     );
 
