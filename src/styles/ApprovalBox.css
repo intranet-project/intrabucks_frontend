@@ -45,3 +45,9 @@ body {
     background-color: #f0f0f0; /* 푸터 배경색 제거 */
   }
   
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+  }
