@@ -49,6 +49,19 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
     onAnswerSubmitted(updatedVoice); // 부모 컴포넌트로 상태 변경 알림
   };
 
+  // 날짜 포맷팅 함수
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+    };
+    return new Date(dateString).toLocaleString("ko-KR", options);
+  };
+
   return (
     <div
       className={`voice-item ${showAnswerForm ? "voice-item-fixed" : ""}`}
@@ -60,15 +73,12 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
         <tbody>
           <tr>
             <td>
-              <strong>번호:</strong>
+              <strong>접수 번호 : </strong>
+              {voice.voiceId}
             </td>
-            <td>{voice.voiceId}</td>
             <td>
-              <strong>매장:</strong>
-            </td>
-            <td>{voice.store.storeId}</td> {/* 여기서 storeId를 표시 */}
-            <td>
-              <strong>처리여부:</strong>
+              <strong>매장: </strong>
+              {voice.store.storeName}
             </td>
             <td>
               <span style={{ color: getStatusColor() }}>
@@ -80,37 +90,47 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
             <>
               <tr>
                 <td>
-                  <strong>고객 ID:</strong>
-                </td>
-                <td>{voice.customer?.custId}</td>
-                <td>
-                  <strong>생성 날짜:</strong>
+                  <strong>고객 ID : </strong>
+                  {voice.customer?.custId}
                 </td>
                 <td>
+                  <strong>고객명 : </strong>
+                  {voice.customer?.custName}
+                </td>
+                <td>
+                  <strong>생성 날짜 : </strong>
                   {voice.voiceDate
-                    ? new Date(voice.voiceDate).toLocaleDateString()
+                    ? formatDate(voice.voiceDate)
                     : "날짜 정보 없음"}
                 </td>
               </tr>
               <tr>
                 <td>
-                  <strong>제목:</strong>
+                  <strong>제목 : </strong>
                 </td>
                 <td colSpan="3">{voice.voiceTitle}</td>
               </tr>
               <tr>
                 <td>
-                  <strong>내용:</strong>
+                  <strong>내용 : </strong>
                 </td>
                 <td colSpan="3">{voice.voiceContent}</td>
               </tr>
               {voice.voiceState === "처리완료" && (
-                <tr>
-                  <td>
-                    <strong>답변 내용:</strong>
-                  </td>
-                  <td colSpan="3">{voice.answerContent}</td>
-                </tr>
+                <>
+                  <br />
+                  <tr>
+                    <td colSpan="4">
+                      <strong>답변 내용 :</strong> {voice.answerContent}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="4">
+                      <strong> 처리일자 :</strong>{" "}
+                      {formatDate(voice.answerDate)}
+                    </td>
+                  </tr>
+                </>
               )}
               <tr>
                 <td colSpan="4" style={{ textAlign: "center" }}>
