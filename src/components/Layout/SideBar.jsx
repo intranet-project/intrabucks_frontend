@@ -33,6 +33,7 @@ const SideBar = () => {
     navigate('/quitter-list');
   };
 
+  // 매출관리
   const handleSalesManagementClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     navigate('/sales-management');
@@ -44,10 +45,22 @@ const SideBar = () => {
     navigate('/stockListPage');
   }
 
+  // 매장관리
+  const handleStoreListClick = (e) => {
+    e.stopPropagation();
+    navigate('/storeListPage');
+  }
+
   //발주관리 연결
   const handlePurchaseManagementClick = (e) => {
     e.stopPropagation();
     navigate('/purchaseListPage');
+  }
+
+  // 메뉴관리
+  const handleMenuListClick = (e) => {
+    e.stopPropagation();
+    navigate('/menuListPage');
   }
 
   //전자결재 연결
@@ -142,7 +155,7 @@ const SideBar = () => {
           <span className="menu-text">매장관리</span>
           {activeMenu === '매장관리' && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
+              <li className="sideBar-subitem" onClick={handleStoreListClick}>
                 매장 관리
               </li>
             </ul>
@@ -168,8 +181,8 @@ const SideBar = () => {
           <span className="menu-text">메뉴관리</span>
           {activeMenu === '메뉴관리' && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleSalesManagementClick}>
-                발주 관리
+              <li className="sideBar-subitem" onClick={handleMenuListClick}>
+                메뉴 관리
               </li>
             </ul>
           )}
