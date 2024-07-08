@@ -12,6 +12,9 @@ const SideBar = () => {
       setActiveMenu(null); // 이미 활성화된 메뉴를 누르면 닫음
     } else {
       setActiveMenu(menu); // 새로운 메뉴를 누르면 해당 메뉴를 열고 다른 메뉴는 닫음
+      if (menu === '전자결재') {
+        navigate('/approvalPage'); // 전자결재 클릭 시 이동할 페이지
+      }
     }
   };
 
@@ -39,6 +42,7 @@ const SideBar = () => {
     navigate('/sales-management');
   };
 
+
   //재고관리 연결
   const handleStockManagementClick = (e) => {
     e.stopPropagation();
@@ -63,16 +67,29 @@ const SideBar = () => {
     navigate('/menuListPage');
   }
 
-  //전자결재 연결
-  const handleApprovalManagementClick = (e) => {
-    e.stopPropagation();
-    navigate('/approvalPage');
-  }
-
-  const handleApprovalLineManagementClick = (e) => {
-    e.stopPropagation();
-    navigate('/approvalLine');
-  }
+    //전자결재 메인연결
+    const handleApprovalManagementClick = (e) => {
+      e.stopPropagation();
+      navigate('/approvalPage');
+    }
+  
+    //전자결재 연결
+    const handleApprovalPageManagementClick = (e) => {
+      e.stopPropagation();
+      navigate('/approvalPage');
+    }
+  
+    // 전자결재라인 생성
+    const handleApprovalLineManagementClick = (e) => {
+      e.stopPropagation();
+      navigate('/approvalLine');
+    }
+  
+    // 전자결재대기함 생성
+    const handleApprovalWaitingManagementClick = (e) => {
+      e.stopPropagation();
+      navigate('/approvalWaiting');
+    }  
 
   //CRM 연결
   const handleVoiceListClick = (e) => {
@@ -220,20 +237,12 @@ const SideBar = () => {
           className={`sideBar-item ${activeMenu === '전자결재' ? 'active' : ''}`}
           onClick={() => handleSubMenuToggle('전자결재')}
         >
-          <span className="menu-text">전자결재</span>
-          {activeMenu === '전자결재' && (
-            <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleApprovalManagementClick}>
-                전자결재
-              </li>
-              <li className="sideBar-subitem" onClick={handleApprovalLineManagementClick}>
-                결재라인
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={() => handleSubMenuToggle('전자결재')}>전자결재</span>
+         
         </li>
       </ul>
     </nav>
+
   );
 }
 
