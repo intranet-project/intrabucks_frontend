@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import AddStoreModal from "./AddStoreModal";
 import DetailStoreModal from "./DetailStoreModal";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 
 const StoreList = ({ data }) => {
+  const navigate = useNavigate();
   const [modalAddStoreOpen, setModalAddStoreOpen] = useState(false);
   const [modalDetailStoreOpen, setModalDetailStoreOpen] = useState(false);
   const [selectedStoreId, setSelectedStoreId] = useState(null);
@@ -48,6 +49,8 @@ const StoreList = ({ data }) => {
 
   const closeAddStoreModal = () => {
     setModalAddStoreOpen(false);
+    alert('매장 정보가 등록되었습니다.');
+    navigate(0);
   };
 
   const openDetailStoreModal = (storeId) => {

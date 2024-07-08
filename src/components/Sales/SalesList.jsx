@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import AddSalesModal from "./AddSalesModal";
-
+import { useNavigate } from 'react-router-dom';
 
 const SalesList = ({ data }) => {
+  const navigate = useNavigate();
   const [modalAddSalesOpen, setModalAddSalesOpen] = useState(false);
 
   const openAddSalesModal = () => {
@@ -11,6 +12,8 @@ const SalesList = ({ data }) => {
 
   const closeAddSalesModal = () => {
     setModalAddSalesOpen(false);
+    alert('매출 정보가 등록되었습니다.');
+    navigate(0);
   };
 
   console.log(data); // 데이터 확인

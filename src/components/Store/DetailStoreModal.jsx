@@ -19,6 +19,7 @@ const DetailStoreModal = ({ detailData, isOpen, onClose }) => {
 
     const closeEditStoreModal = () => {
         setModalEditStoreOpen(false);
+        alert('매장 정보가 수정되었습니다.');
     };
 
     const openEditManagerModal = () => {
@@ -27,6 +28,7 @@ const DetailStoreModal = ({ detailData, isOpen, onClose }) => {
 
     const closeEditManagerModal = () => {
         setModalEditManagerOpen(false);
+        alert('관리자 정보가 수정되었습니다.');
     };
 
     // 모달 열리고, 데이터 넘어온 상태 체크

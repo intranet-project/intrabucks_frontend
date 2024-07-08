@@ -15,7 +15,9 @@ import ApprovalPage from "../pages/ApprovalPage";
 import VoiceList from "../components/CRM/VoiceList";
 import VoiceAnswer from "../components/CRM/VoiceAnswer";
 import ApprovalLine from "./Approval/ApprovalLine";
-
+import SalesListPage from "../pages/SalesListPage";
+import StoreListPage from "../pages/StoreListPage";
+import MenuListPage from "../pages/MenuListPage";
 
 
 const Routers = () => {
@@ -32,6 +34,9 @@ const Routers = () => {
             <Route path="/purchaseListPage" element={<PurchaseListPage />} />
             <Route path="/stockListPage" element={<StockListPage />} />
             <Route path="/approvalPage" element={<ApprovalPage />} />
+            <Route path="/sales-management" element={<SalesListPage />} />
+            <Route path="/storeListPage" element={<StoreListPage />} />
+            <Route path="/menuListPage" element={<MenuListPage />} />
 
             <Route path="/AddStock" element={<AddStock />} />
             <Route path="/DetailStock" element={<AddStock />} />
