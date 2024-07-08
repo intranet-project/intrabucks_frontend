@@ -25,6 +25,7 @@ const Employee = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  /*API직원등록*/
   const createEmployee = async () => {
     try {
       const response = await axios.post('http://localhost:9000/api/employee/create', formData);

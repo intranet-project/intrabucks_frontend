@@ -44,8 +44,7 @@ header {
   flex-grow: 1;
   padding: 20px;
   background-color: #ffffff;
-  display: flex;
-  justify-content: center; /* Center content horizontally */
+  
   align-items: center; /* Center content vertically */
   box-sizing: border-box;
   overflow-y: auto; /* Add vertical scroll if content overflows */

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // axios import 추가 필요
-import '../../styles/Employee.css';
+import '../../styles/Department.css';
 
 const Department = () => {
   const initialFormData = {
@@ -30,7 +30,7 @@ const Department = () => {
   };
 
   return (
-    <div className="employee-form-container">
+    <div className="department-form-container">
       <h2>부서 등록</h2>
       <form id="department-form">
         <div className="form-group">
