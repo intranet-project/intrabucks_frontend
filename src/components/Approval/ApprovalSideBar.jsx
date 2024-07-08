@@ -72,7 +72,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
     const htmlForm = `${selectOneDocument.documentTypeContent}`;
 
     //결재 올리기
-    const [isApprovalCompleted, setIsApprovalCompleted] = useState(false); // 결재 성공 상태 추가
+    const [isApprovalCompleted, setIsApprovalCompleted] = useState(false); // 결재 성공 상태
 
     const saveHtml = async (selectOneDocument) => {
         try {
@@ -117,35 +117,42 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalPathString: "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//",
     });
 
-
     // 저장 api 구현
     const apiSaveHtml = async (selectOneDocument) => {
         try {
             // 데이터를 포함한 객체 생성
             const data = {
-                documentId: "",
-                title: "",
-                content: selectOneDocument.documentTypeContent,
-                approvalStage: "",
-                documentType: "selectOneDocument.documentTypeId",
-                createdAt: "",
-                updatedAt: "",
-                employee: {
-                    empId: 1,
-                    empName: "",
-                    empPassword: "",
-                    empEmail: "",
-                    empPhone: "",
-                    empAddress: "",
-                    empJoinDate: "",
-                    empPosition: "",
-                    department: {
-                        deptCode: "",
-                    },
-                    workState: "",
+                "documentId": null,
+                "title": null,
+                "content": selectOneDocument.documentTypeContent,
+                "approvalStage": null,
+                "documentType": {
+                    "documentTypeId": selectOneDocument.documentTypeId, // 수정된 부분
+                    "documentTypeName": selectOneDocument.documentTypeName,
+                    "documentTypeContent": selectOneDocument.documentTypeContent,
+                    "documentAuthority": selectOneDocument.documentAuthority,
+                    "documentFormName": selectOneDocument.documentFormName
                 },
-                departmentName: "",
-                approvalPathString: "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//",
+                "createdAt": null,
+                "updatedAt": null,
+                "employee": {
+                    "empId": 1, // 수정 요망
+                    "empName": "",
+                    "empPassword": "",
+                    "empEmail": "",
+                    "empPhone": "",
+                    "empAddress": "",
+                    "empJoinDate": "",
+                    "empPosition": "",
+                    "department": {
+                        "deptId": null,
+                        "deptCode": "",
+                        "deptName": ""
+                    },
+                    "workState": ""
+                },
+                "departmentName": null,
+                "approvalPathString": "3,김영호,MS,기안자//-//4,박지영,MS,결재자//-//7,정지훈,GA,결재자//-//1,김철수,EB,결재자//-//" // 수정 요망
             };
 
             // axios 요청 보내기
@@ -157,12 +164,19 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 
             console.log("apiSaveHtml response.data: ", response.data);
             setSaveForm(response.data);
-            return response.data; // API 응답 반환
         } catch (error) {
             console.error("에러 발생", error);
             throw error; // 에러 처리
         }
     };
+
+    // 결재 성공 시 알림 표시
+    useEffect(() => {
+        if (isApprovalCompleted) {
+            alert("결재가 성공적으로 완료되었습니다.");
+        }
+    }, [isApprovalCompleted]);
+
 
     //첨부파일 업로드 하기
     const goToUploadFile = (event) => {
@@ -210,13 +224,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
             console.error("에러 발생", error);
         }
     }
-
-    // 결재 성공 시 알림 표시
-    useEffect(() => {
-        if (isApprovalCompleted) {
-            alert("결재가 성공적으로 완료되었습니다.");
-        }
-    }, [isApprovalCompleted]);
 
     return (
         <div>
@@ -278,10 +285,8 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </div>
                 </div>
             )}
-
         </div>
     );
-
 }
 
 export default ApprovalSideBar;
