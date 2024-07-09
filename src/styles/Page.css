@@ -1,0 +1,29 @@
+/* Reset margins and paddings for consistency */
+.page {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Hide overflow from parent */
+}
+
+/* Style for the container of the page */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Full width of its container */
+  height: 100%; /* Full height of its container */
+  overflow-y: auto; /* Vertical scroll if content overflows */
+  padding: 50px; /* Padding for spacing inside the container */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Styling for the main content of the page */
+.page-component {
+  flex: 1; /* Takes up remaining space */
+  overflow-y: auto; /* Vertical scroll if content overflows */
+  overflow-x: hidden; /* Horizontal scroll hidden */
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+}
