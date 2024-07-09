@@ -449,32 +449,49 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         }
     };
 
-    //첨부파일 업로드 하기
-    const goToUploadFile = (event) => {
-        event.preventDefault();
+    const [file, setFile] = useState(null);
 
-        const formData = new FormData(); // FormData 객체 생성
-        formData.append('file', event.target.file.files[0]); // 파일 추가
+    //업로드
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
 
-        // 파일 업로드 API 호출
-        uploadApi(formData, saveForm.documentId);
-    }
-
-    //첨부파일 업로드 api 연동
-    const [uploadData, setUploadData] = useState('');
-    const uploadApi = async (formData, approvalId) => {
+    const goToUploadFile = async (e) => {
+        e.preventDefault();
+        if (!file) {
+            alert("파일을 선택하세요");
+            return;
+        }
+    
+        if (!selectOneDocument.approvalID) {
+            console.error("Document ID가 없습니다.");
+            alert("파일 업로드 중 오류 발생: approvalID가 없습니다.");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append('file', file);
+    
         try {
-            const response = await axios.post(`http://localhost:9000/api/v1/intrabucks/approval/uploadFile/${approvalId}`, formData, {
+            const response = await axios.post(`/api/v1/intrabucks/approval/uploadFile/${selectOneDocument.approvalID}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // multipart/form-data 설정
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log("uploadApi response.data: ", response.data);
-            setUploadData(response.data);
+    
+            if (response.status === 200) {
+                alert("파일 업로드 성공");
+            } else {
+                alert("파일 업로드 실패");
+            }
         } catch (error) {
-            console.error("에러 발생", error);
+            console.error("파일 업로드 중 오류 발생", error);
+            alert("파일 업로드 중 오류 발생");
         }
-    }
+    
+        // HTML 내용 저장
+        saveHtml(selectOneDocument);
+    };
 
     //첨부파일 업로드 취소
     const cancelUpload = (uploadData) => {
@@ -490,7 +507,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                 }
             });
             console.log("cancelUploadApi response.data: ", response.data);
-            setUploadData(response.data);
+           // setUploadData(response.data);
         } catch (error) {
             console.error("에러 발생", error);
         }
@@ -801,7 +818,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                                 <div>
                                     <h3>첨부파일 업로드</h3>
                                     <form onSubmit={(e) => goToUploadFile(e)}>
-                                        <input type="file" name="file" /> {/* name 속성을 'file'로 변경 */}
+                                        <input type="file" name="file" onChange={handleFileChange}/> {/* name 속성을 'file'로 변경 */}
                                         <br /><br />
                                         <button type="submit">업로드</button>
                                     </form>
