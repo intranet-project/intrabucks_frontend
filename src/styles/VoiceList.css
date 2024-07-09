@@ -1,8 +1,12 @@
 .voice-list {
-  max-height: 770px; /* 최대 높이 설정, 필요에 따라 조정 */
+  max-height: 700px; /* 최대 높이 설정, 필요에 따라 조정 */
   overflow-y: auto; /* 수직 스크롤 적용 */
-  overflow-x: hidden; /* 수직 스크롤 적용 */
-  max-width: 100%;
+  overflow-x: hidden; /* 수평 스크롤 적용 */
+  max-width: 90%;
+  border: 0px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* 가로 가운데 정렬 */
 }
 
 .voice-item {
@@ -11,8 +15,10 @@
   padding: 10px;
   margin-bottom: 10px;
   cursor: pointer;
-  max-width: 100%;
+  width: 60%;
   transition: background-color 0.3s ease;
+  margin: 0 auto; /* 가로 가운데 정렬 */
+  font-size: 20px;
 }
 
 .voice-item table {

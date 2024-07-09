@@ -7,7 +7,15 @@
   height: 100%; /* Full height */
   overflow: hidden; /* Hide overflow from parent */
 }
-
+.page-list {
+  max-height: 700px; /* 최대 높이 설정, 필요에 따라 조정 */
+  overflow-y: auto; /* 수직 스크롤 적용 */
+  overflow-x: hidden; /* 수평 스크롤 적용 */
+  max-width: 80%;
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
+}
 /* Style for the container of the page */
 .page-container {
   display: flex;

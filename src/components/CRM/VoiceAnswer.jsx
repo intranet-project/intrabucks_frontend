@@ -21,7 +21,7 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
 
       console.log(voiceId, answerContent, employeeId);
       console.log("답변이 성공적으로 등록되었습니다:", response.data);
-
+      window.location.reload();
       const updatedVoice = {
         voiceId: voiceId,
         answerContent: answerContent,

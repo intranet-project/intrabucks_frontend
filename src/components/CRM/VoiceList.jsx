@@ -36,7 +36,7 @@ const VoiceList = () => {
       : voices.filter((voice) => voice.voiceState === "처리완료");
 
   return (
-    <div className="container">
+    <div className="voice-container">
       <h2>고객의 소리 리스트</h2>
       <div className="filter-buttons">
         <Button
