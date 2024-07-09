@@ -72,6 +72,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
 
     return (
         <div>
+            <h2>보낸 결재 정보</h2>
             <table>
                 <thead>
                     <tr>

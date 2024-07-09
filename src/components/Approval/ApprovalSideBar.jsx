@@ -28,7 +28,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
     // 보낸결재함(사이드바 목록)
     const handleApprovalSendManagementClick = (e) => {
         e.stopPropagation();
-        navigate('/approvalPage');
+        navigate('/approvalSendList');
     }
 
     // 받을결재대기함(사이드바 목록)
@@ -280,6 +280,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
     }
 
     const closeFormList = () => {
+        alert("처음으로 돌아갑니다.");
         setModalFormListOpen(false);
     }
 
@@ -341,13 +342,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
             console.error("결재 오류 발생", error);
         }
     }
-
-    // 결재 성공 시 알림 표시
-    useEffect(() => {
-        if (isApprovalCompleted) {
-            alert("결재가 성공적으로 완료되었습니다.");
-        }
-    }, [isApprovalCompleted]);
 
     //저장 api 구현
     //객체 선언
@@ -761,6 +755,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 
                     <div className="modal-overlay">
                         <div className="modal">
+                        <button onClick={closeFormList}>닫기</button>
                             <div className="modal-content">
                                 <h1>폼 선택</h1>
                                 <table>
@@ -798,7 +793,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 
                                 <div>
                                     <button onClick={() => saveHtml(selectOneDocument)} disabled={isApprovalCompleted}>
-                                        결재올리기
+                                        내용저장
                                     </button>
                                     <button onClick={closeOneDocument}>취소</button>
                                 </div>
@@ -813,6 +808,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                                     <button onClick={() => cancelUpload()}>업로드 취소</button>
                                 </div>
                             </div>
+                            <button onClick={closeOneDocument}>등록</button>
                         </div>
                     </div>
                 )

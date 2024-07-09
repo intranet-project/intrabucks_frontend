@@ -9,7 +9,7 @@ const ApprovalWaitingAll = () => {
         <ApprovalSideBar />
       </div>
       <div style={{ flex: 1 }}>
-        {/**<ApprovalWaiting />*/}
+        <ApprovalWaiting />
         {/**3. 받은 결재 대기함 */}
       </div>
     </div>

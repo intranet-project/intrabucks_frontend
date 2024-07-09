@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Router, Routes } from "react-router-dom";
 
 import EmployeeList from "../components/Employee/EmployeeList";
 import Employee from "../components/Employee/Employee";
@@ -25,6 +25,7 @@ import ApprovalUpdate from "./Approval/ApprovalUpdate";
 import ApprovalWaitingAll from "../pages/ApprovalWaitingAll";
 import ApprovalGetAll from "../pages/ApprovalGetAll";
 import VoiceListPage from "../pages/VoiceListPage";
+import ApprovalSendAll from "../pages/ApprovalSendAll";
 
 const Routers = () => {
   return (
@@ -57,6 +58,7 @@ const Routers = () => {
       <Route path="/approvalWaitingAll" element={<ApprovalWaitingAll />} />
       <Route path="/approvalGetAll" element={<ApprovalGetAll />} />
       <Route path="/approvalSideBar" element={<ApprovalSideBar />} />
+      <Route path ="/approvalSendList" element={<ApprovalSendAll />} />
     </Routes>
   );
 };
