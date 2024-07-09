@@ -22,6 +22,7 @@ const EditMenuModal = ({ data, isOpen, onClose }) => {
                 menuImg: editData.menuImg
             });
             console.log("수정 완료:", response.data);
+            alert('메뉴 정보가 수정되었습니다.');
             // 수정 후 모달 닫기
             onClose();
         } catch (error) {

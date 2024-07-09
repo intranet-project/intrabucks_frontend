@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import EditMenuModal from './EditMenuModal';
+import { useNavigate } from 'react-router-dom';
 
 const DetailMenuModal = ({ detailData, isOpen, onClose }) => {
+    const navigate = useNavigate();
     // 취소 버튼 클릭 핸들러
     const handleCancel = () => {
         onClose();
@@ -20,7 +22,10 @@ const DetailMenuModal = ({ detailData, isOpen, onClose }) => {
         try {
             const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/menu/delete/${menuId}`);
             console.log("API Response - deleteApi:", response.data);
+            alert('메뉴가 삭제되었습니다.');
             setDeleteData(response.data); // 상태 업데이트
+            
+            navigate(0);
         } catch (error) {
             console.error("에러 발생", error);
         }
@@ -36,7 +41,6 @@ const DetailMenuModal = ({ detailData, isOpen, onClose }) => {
 
     const closeEditMenuModal = () => {
         setModalEditMenuOpen(false);
-        alert('메뉴 정보가 수정되었습니다.');
     };
 
     // 모달 열리고, 데이터 넘어온 상태 체크

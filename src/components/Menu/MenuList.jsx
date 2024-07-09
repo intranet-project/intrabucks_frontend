@@ -26,7 +26,6 @@ const MenuList = ({ data }) => {
 
     const closeAddMenuModal = () => {
         setModalAddMenuOpen(false);
-        alert('메뉴 정보가 등록되었습니다.');
         navigate(0);
     };
 
@@ -100,7 +99,7 @@ const MenuList = ({ data }) => {
                             <tr key={index}>
                                 <td>{item.menuId}</td>
                                 <td>{item.menuName}</td>
-                                <td>{item.categoryName}</td>
+                                <td>{item.category.categoryName}</td>
                                 <td>{item.menuPrice}</td>
                                 <td>
                                     {/* 메뉴 상세 보기 버튼 */}

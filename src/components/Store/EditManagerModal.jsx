@@ -23,6 +23,7 @@ const EditManagerModal = ({ data, isOpen, onClose }) => {
                 managerCreatedAt: editData.managerCreatedAt
             });
             console.log("수정 완료:", response.data);
+            alert('관리자 정보가 수정되었습니다.');
             // 수정 후 모달 닫기
             onClose();
         } catch (error) {
