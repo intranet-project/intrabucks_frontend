@@ -26,7 +26,7 @@ const AddMenuModal = ({ isOpen, onClose }) => {
             }
             );
             console.log("200", response.data);
-            
+            alert('메뉴 정보가 등록되었습니다.');
             // 모달 창 닫기
             onClose();
         } catch (error) {

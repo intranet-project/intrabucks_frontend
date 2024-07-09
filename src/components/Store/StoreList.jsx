@@ -49,7 +49,6 @@ const StoreList = ({ data }) => {
 
   const closeAddStoreModal = () => {
     setModalAddStoreOpen(false);
-    alert('매장 정보가 등록되었습니다.');
     navigate(0);
   };
 
