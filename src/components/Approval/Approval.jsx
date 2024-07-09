@@ -37,13 +37,18 @@ const Approval = () => {
     navigate('/approvalGetAll');
   }
 
+  const handleApproval = (e) => {
+    //e.stopPropagation();
+    navigate('/approvalSideBar');
+  }
+
   return (
     <div className="approval-container">
       <div className="approval-sidebar">
-        <button className="new-payment"onClick={() => handleSubMenuToggle('새 결재 진행')}>새 결재 진행</button>
+        <button className="new-payment" onClick={() => handleApproval('새 결재 진행')}>새 결재 진행</button>
         <div className="frequently-used-forms">
           <div>
-          <span className="menu-text" onClick={() => handleSubMenuToggle('홈')}>홈</span>
+            <span className="menu-text" onClick={() => handleSubMenuToggle('홈')}>홈</span>
           </div>
           <span className="menu-text" onClick={() => handleSubMenuToggle('전자결재')}>전자결재</span>
           {activeMenu === '전자결재' && (

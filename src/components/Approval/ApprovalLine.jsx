@@ -11,7 +11,7 @@ const ApprovalLine = () => {
   const [approvalLine, setApprovalLine] = useState([]);
   const [activeMenu, setActiveMenu] = useState(null); // 추가: 활성화된 메뉴 상태
   const [sessionData, setSessionData] = useState(null); // 세션 데이터 상태 추가
-  
+
 
   // 전체조회 API
   const fetchEmployees = async () => {
@@ -49,7 +49,7 @@ const ApprovalLine = () => {
 
 
 
-// 조직도 메뉴 열고 닫기
+  // 조직도 메뉴 열고 닫기
   const handleSubMenuToggle = (menu) => {
     if (activeMenu === menu) {
       setActiveMenu(null); // 이미 활성화된 메뉴를 누르면 닫음
@@ -62,73 +62,73 @@ const ApprovalLine = () => {
     fetchEmployees();
   }, []);
 
- // 직급 우선 순위 정의
-const positionPriority = {
-  '팀원': 1,
-  '팀장': 2,
-  '사장': 3
-};
+  // 직급 우선 순위 정의
+  const positionPriority = {
+    '팀원': 1,
+    '팀장': 2,
+    '사장': 3
+  };
 
 
-//수정중
-const [applicants, setApplicants] = useState([]);
+  //수정중
+  const [applicants, setApplicants] = useState([]);
 
-useEffect(() => {
-  if (sessionData) {
-    const applicant = {
-      empId: sessionData.empId,
-      deptCode: sessionData.deptCode,
-      empName: sessionData.empName,
-      empPosition: sessionData.empPosition,
-      approvalState: "기안자"
-    };
-    setApplicants([applicant]);
-  }
-}, [sessionData]);
-
-
+  useEffect(() => {
+    if (sessionData) {
+      const applicant = {
+        empId: sessionData.empId,
+        deptCode: sessionData.deptCode,
+        empName: sessionData.empName,
+        empPosition: sessionData.empPosition,
+        approvalState: "기안자"
+      };
+      setApplicants([applicant]);
+    }
+  }, [sessionData]);
 
 
-const handlePersonClick = (empId) => {
-  const selectedEmployee = employees.find(emp => emp.empId === empId);
-  if (!selectedEmployee) return;
 
-  // 기안자가 이미 선택되어 있으면 추가하지 않음
-  if (applicants.some(applicant => applicant.empId === selectedEmployee.empId)) {
-    return;
-  }
 
-  // 이미 선택된 결재자들 중 가장 높은 직급을 찾기
-  let highestPosition = -1;
-  if (selectedEmployees.length > 0) {
-    highestPosition = Math.max(...selectedEmployees.map(emp => positionPriority[emp.empPosition]));
-  }
+  const handlePersonClick = (empId) => {
+    const selectedEmployee = employees.find(emp => emp.empId === empId);
+    if (!selectedEmployee) return;
 
-  // 선택한 직원의 직급 우선 순위 가져오기
-  const selectedPosition = positionPriority[selectedEmployee.empPosition];
+    // 기안자가 이미 선택되어 있으면 추가하지 않음
+    if (applicants.some(applicant => applicant.empId === selectedEmployee.empId)) {
+      return;
+    }
 
-  // 직급 우선 순위 비교하여 결재자 추가 여부 결정
-  if (selectedPosition < highestPosition) {
-    alert('직급 우선 순위에 맞게 선택하세요.');
-    return;
-  }
+    // 이미 선택된 결재자들 중 가장 높은 직급을 찾기
+    let highestPosition = -1;
+    if (selectedEmployees.length > 0) {
+      highestPosition = Math.max(...selectedEmployees.map(emp => positionPriority[emp.empPosition]));
+    }
 
-  // 세션 데이터로 조회된 기안자는 항상 첫 번째로 배열에 추가
-  if (applicants.length === 0) {
-    setApplicants([selectedEmployee]);
-  } else {
-    setSelectedEmployees(prevSelected => {
-      if (prevSelected.length >= 3) {
-        alert('결재자는 최대 3명까지만 추가할 수 있습니다.');
+    // 선택한 직원의 직급 우선 순위 가져오기
+    const selectedPosition = positionPriority[selectedEmployee.empPosition];
+
+    // 직급 우선 순위 비교하여 결재자 추가 여부 결정
+    if (selectedPosition < highestPosition) {
+      alert('직급 우선 순위에 맞게 선택하세요.');
+      return;
+    }
+
+    // 세션 데이터로 조회된 기안자는 항상 첫 번째로 배열에 추가
+    if (applicants.length === 0) {
+      setApplicants([selectedEmployee]);
+    } else {
+      setSelectedEmployees(prevSelected => {
+        if (prevSelected.length >= 3) {
+          alert('결재자는 최대 3명까지만 추가할 수 있습니다.');
+          return prevSelected;
+        }
+        if (!prevSelected.some(emp => emp.empId === empId)) {
+          return [...prevSelected, selectedEmployee];
+        }
         return prevSelected;
-      }
-      if (!prevSelected.some(emp => emp.empId === empId)) {
-        return [...prevSelected, selectedEmployee];
-      }
-      return prevSelected;
-    });
-  }
-};
+      });
+    }
+  };
 
 
   const handleRemoveFromSelectedEmployees = (empId) => {
@@ -142,36 +142,36 @@ const handlePersonClick = (empId) => {
   const isValidApprovalOrder = (approvalLineDTOs) => {
     const chiefIndex = approvalLineDTOs.findIndex(person => person.empPosition === '결재자');
     const presidentIndex = approvalLineDTOs.findIndex(person => person.empPosition === '사장');
-    
+
     // 팀장이 사장보다 먼저 선택되어야 함
     return chiefIndex === -1 || presidentIndex === -1 || chiefIndex < presidentIndex;
   };
 
 
-// 직원제거
+  // 직원제거
   const handleRemoveFromApprovalLine = (empId) => {
     const updatedApprovalLine = approvalLine.filter(person => person.empId !== empId);
     setApprovalLine(updatedApprovalLine);
   };
 
- // 결재라인등록
+  // 결재라인등록
   const handleConfirm = async () => {
-    
+
     try {
       const approvals = selectedEmployees.map((person, index) => ({
         employee: person,
         approvalState: '결재자', // 첫 번째 선택한 사람은 '기안자', 그 외에는 '결재자'로 설정
         deptCode: person.deptCode // 부서 코드를 DTO에 추가
       }));
-      const approvalSteps = [...applicants, ... approvals];
-      
+      const approvalSteps = [...applicants, ...approvals];
+
       const approvalLineDTO = {
         approvalSteps: approvalSteps,
 
       };
-  
+
       console.log('결재 라인 DTOs:', approvalLineDTO);
-  
+
       const response = await axios.post('http://localhost:9000/api/Approval1/create', approvalLineDTO);
       console.log('결재 라인 생성됨:', response.data);
 
@@ -179,9 +179,9 @@ const handlePersonClick = (empId) => {
       setSelectedEmployees([]); // 선택된 직원 초기화
       setModalIsOpen(false);
 
-       // 등록 완료 알림
-       alert('등록이 완료되었습니다.');
-      
+      // 등록 완료 알림
+      alert('등록이 완료되었습니다.');
+
     } catch (error) {
       console.error('결재 라인 생성 오류:', error);
       alert('결재 라인 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
@@ -394,7 +394,7 @@ const handlePersonClick = (empId) => {
                     </li>
                   ))}
                 </ul>
-                
+
                 <ul>
                   {approvalLine.map((person) => (
                     <li key={person.empId}>

@@ -1,19 +1,19 @@
 import React from 'react';
-import Approval from "../components/Approval/Approval";
-import ApprovalWaiting from "../components/Approval/ApprovalWaiting";
-
+import ApprovalSideBar from '../components/Approval/ApprovalSideBar';
+import ApprovalWaiting from '../components/Approval/ApprovalWaiting';
 
 const ApprovalWaitingAll = () => {
-    return (
-        <div style={{ display: "flex", alignItems: "flex-start" }}>
-        <div style={{ flex: 0 }}>
-          <Approval />
-        </div>
-        <div style={{ flex: 1 }}>
-          <ApprovalWaiting />
-        </div>
+  return (
+    <div style={{ display: "flex", alignItems: "flex-start" }}>
+      <div style={{ flex: 0 }}>
+        <ApprovalSideBar />
       </div>
-    );
+      <div style={{ flex: 1 }}>
+        {/**<ApprovalWaiting />*/}
+        {/**3. 받은 결재 대기함 */}
+      </div>
+    </div>
+  );
 };
 
 export default ApprovalWaitingAll;
