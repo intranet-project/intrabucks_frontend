@@ -1,5 +1,5 @@
 .voice-list {
-  max-height: 550px; /* 최대 높이 설정, 필요에 따라 조정 */
+  max-height: 770px; /* 최대 높이 설정, 필요에 따라 조정 */
   overflow-y: auto; /* 수직 스크롤 적용 */
   overflow-x: hidden; /* 수직 스크롤 적용 */
   max-width: 100%;
