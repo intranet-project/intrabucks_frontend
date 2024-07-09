@@ -96,7 +96,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
                             <td>{item.employee.empName}</td>
                             <td>{item.appDocDepartmentGrade}</td>
                             <td>{item.appDocStage}</td>
-                            <td>{item.appDocCreatedAt}</td>
+                            <td>{item.docTypeId.documentTypeContent}</td>
                             <td><button onClick={() => openOneApproval(item.appDocId)}>선택</button></td>
                         </tr>
                     ))}
@@ -112,6 +112,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
                     <p>{detailData.appDocTitle}</p>
                     <p>{detailData.appDocDepartment}</p>
                     <p>{detailData.empId.empName}</p>
+                    <p>{detailData.appDocContent}</p>
                     <p>{detailData.appDocContent}</p>
                 </div>
             )}
