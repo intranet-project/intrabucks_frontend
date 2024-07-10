@@ -26,6 +26,8 @@ import ApprovalWaitingAll from "../pages/ApprovalWaitingAll";
 import ApprovalGetAll from "../pages/ApprovalGetAll";
 import VoiceListPage from "../pages/VoiceListPage";
 import ApprovalSendAll from "../pages/ApprovalSendAll";
+import Login from "../components/Login/Login";
+import Home from "./Login/Home";
 
 const Routers = () => {
   return (
@@ -59,6 +61,9 @@ const Routers = () => {
       <Route path="/approvalGetAll" element={<ApprovalGetAll />} />
       <Route path="/approvalSideBar" element={<ApprovalSideBar />} />
       <Route path ="/approvalSendList" element={<ApprovalSendAll />} />
+
+      <Route path ="/login" element={<Login />} />
+      <Route path ="/home" element={<Home />} />
     </Routes>
   );
 };

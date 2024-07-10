@@ -6,6 +6,25 @@ import logoImg from "../../images/BlackBuckGrouwareLogo.png"; // 이미지 파�
 const SideBar = () => {
   const [activeMenu, setActiveMenu] = useState(null); // 현재 활성화된 상위 메뉴 상태 관리
   const navigate = useNavigate();
+  const token = sessionStorage.getItem('jwt');
+  const checkAccessPermission = async (apiEndpoint, token) => {
+    try {
+      const response = await fetch(apiEndpoint, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.status === 401) {
+        return { status: 401 };
+      } else if (response.status === 403) {
+        return { status: 403 };
+      }
+      return { status: 200 };
+    } catch (error) {
+      console.error('에러가 발생했습니다:', error);
+      return { status: 500 };
+    }
+  };
 
   const handleSubMenuToggle = (menu) => {
     if (activeMenu === menu) {
@@ -18,52 +37,155 @@ const SideBar = () => {
     }
   };
 
-  // 인사관리
-  const handleEmployeeListClick = (e) => {
+  const handleLoginClick = (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate("/employee-list");
+    navigate("/login");
+  };
+
+  // 인사관리
+  const handleEmployeeListClick = async (e) => {
+    e.stopPropagation(); // 이벤트 버블링 방지
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/employee/select', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/employee-list");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   // 부서관리
-  const handleDepartmentClick = (e) => {
+  const handleDepartmentClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate("/department");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/department/create', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/department");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   // 퇴사관리
-  const handleQuitterListClick = (e) => {
+  const handleQuitterListClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate("/quitter-list");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/quitter/select', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/quitter-list");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   // 매출관리
-  const handleSalesManagementClick = (e) => {
+  const handleSalesManagementClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    navigate("/sales-management");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/sales/list', token);
+    console.log(result);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/sales-management");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   //재고관리 연결
-  const handleStockManagementClick = (e) => {
+  const handleStockManagementClick = async (e) => {
     e.stopPropagation();
-    navigate("/stockListPage");
+    // 접근 권한 확인 (해당 API 엔드포인트를 전달)
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/stock/selectStockList', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/stockListPage");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   // 매장관리
-  const handleStoreListClick = (e) => {
+  const handleStoreListClick = async (e) => {
     e.stopPropagation();
-    navigate("/storeListPage");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/store/list', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/storeListPage");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   //발주관리 연결
-  const handlePurchaseManagementClick = (e) => {
+  const handlePurchaseManagementClick = async (e) => {
     e.stopPropagation();
-    navigate("/purchaseListPage");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/purchaseListPage");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   // 메뉴관리
-  const handleMenuListClick = (e) => {
+  const handleMenuListClick = async (e) => {
     e.stopPropagation();
-    navigate("/menuListPage");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/menu/list', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/menuListPage");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   //전자결재 메인연결
@@ -91,9 +213,21 @@ const SideBar = () => {
   };
 
   //CRM 연결
-  const handleVoiceListClick = (e) => {
+  const handleVoiceListClick = async (e) => {
     e.stopPropagation();
-    navigate("/voiceList");
+    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/customer/voiceList', token);
+    if (result.status === 401) {
+      alert('로그인이 필요합니다.');
+      navigate("/login");
+    } else if (result.status === 403) {
+      alert('접근이 금지되었습니다.');
+      navigate(-1);
+    } else if (result.status === 200) {
+      navigate("/voiceList");
+    } else {
+      alert('알 수 없는 오류가 발생했습니다.');
+      navigate(-1);
+    }
   };
 
   const handleAnswerClick = (e) => {
@@ -116,6 +250,16 @@ const SideBar = () => {
           onClick={() => handleSubMenuToggle("로그인")}
         >
           <span className="menu-text">로그인</span>
+          {activeMenu === "로그인" && (
+            <ul className="submenu">
+              <li
+                className="sideBar-subitem"
+                onClick={handleLoginClick}
+              >
+                로그인
+              </li>
+            </ul>
+          )}
         </li>
         <li
           className={`sideBar-item ${
