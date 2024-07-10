@@ -1,0 +1,61 @@
+/* EmployeeList.css */
+
+.employee-list-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .employee-list-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
+  .employee-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .employee-list th,
+  .employee-list td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .employee-list th {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .employee-list tbody tr:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .pagination {
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  

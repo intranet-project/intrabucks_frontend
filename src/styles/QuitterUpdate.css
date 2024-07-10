@@ -1,4 +1,4 @@
-.department-form-container {
+.quitter-form-container {
     width: 60%; /* 폼 컨테이너의 너비를 조정합니다 */
     margin: 0 auto; /* 중앙 정렬을 수행합니다 */
     padding: 20px; /* 내부 여백을 추가합니다 */
@@ -8,7 +8,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다 */
   }
   
-  .department-form-container h2 {
+  .quitter-form h2 {
     margin-bottom: 20px; /* 제목과 폼 사이의 간격을 조정합니다 */
   }
   
