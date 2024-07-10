@@ -5,16 +5,21 @@ import { useNavigate } from 'react-router-dom';
 const QuitterList = () => {
   const navigate = useNavigate();
   const [quitters, setQuitters] = useState([]);
+  const [page, setPage] = useState(0); // 현재 페이지를 상태로 관리
+  const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 상태로 관리
+  const [pageSize] = useState(10); // 페이지당 문서 수
 
   useEffect(() => {
-    fetchQuittersFromApi();
-  }, []);
+    fetchQuittersFromApi(page);
+  }, [page]);
 
-  const fetchQuittersFromApi = async () => {
+  const fetchQuittersFromApi = async (pageNumber) => {
     try {
-      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/quitter/select');
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/quitter/select?page=${pageNumber}&size=${pageSize}`);
+      const { content, totalPages } = response.data; // 서버에서 전달된 내용과 전체 페이지 수 추출
       console.log(response.data); // 데이터 확인용
-      setQuitters(response.data.content);
+      setQuitters(content);
+      setTotalPages(totalPages); // 전체 페이지 수 업데이트
     } catch (error) {
       console.error('Error fetching quitters:', error);
     }
@@ -25,6 +30,11 @@ const QuitterList = () => {
     // 선택한 퇴사자 정보를 QuitterUpdate 페이지로 전달하고 이동
     navigate('/quitter-update', { state: { quitter } });
   };
+
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber); // 페이지 변경 시 페이지 상태 업데이트
+};
+
 
   return (
     <div className="employee-list-container">
@@ -62,6 +72,23 @@ const QuitterList = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="pagination">
+        <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+          이전
+        </button>
+        {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+          <button
+            key={pageNumber}
+            onClick={() => handlePageChange(pageNumber)}
+            disabled={pageNumber === page}
+          >
+            {pageNumber + 1}
+          </button>
+        ))}
+        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+          다음
+        </button>
       </div>
     </div>
   );
