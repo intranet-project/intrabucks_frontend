@@ -14,7 +14,7 @@ const Quitter = () => {
 
   const fetchQuitters = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/quitter/select');
+      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/quitter/select');
       setQuitters(response.data.content);
     } catch (error) {
       console.error('Error fetching quitters:', error);
@@ -23,7 +23,7 @@ const Quitter = () => {
 
   const createQuitter = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/quitter/create', newQuitter);
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/quitter/create', newQuitter);
       alert(`Quitter created with ID: ${response.data}`);
       fetchQuitters();
     } catch (error) {
@@ -33,7 +33,7 @@ const Quitter = () => {
 
   const deleteQuitter = async (quitId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/quitter/delete/${quitId}`);
+      await axios.delete(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${quitId}`);
       alert('Quitter deleted');
       fetchQuitters();
     } catch (error) {
