@@ -1,6 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../../styles/Employee.css';
+import '../../styles/QuitterUpdate.css';
 
 const QuitterUpdate = () => {
   const initialFormData = {
@@ -31,7 +31,7 @@ const QuitterUpdate = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const updateEmployee = () => {
+  const updateQuitter = () => {
     const requestOptions = {
       method: 'PUT', // 수정 요청이므로 PUT 메서드를 사용
       headers: { 'Content-Type': 'application/json' },
@@ -60,7 +60,7 @@ const QuitterUpdate = () => {
     }
   };
 
-  const deleteEmployee = () => {
+  const deleteQuitter = () => {
     if (window.confirm("정말로 이 직원을 삭제하시겠습니까?")) {
       fetch(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${formData.quitId}`, {
         method: 'DELETE',
@@ -84,25 +84,109 @@ const QuitterUpdate = () => {
   };
 
   return (
-    <form id="quitterform">
-      {Object.keys(formData).map((key) => (
-        <React.Fragment key={key}>
-          <label htmlFor={key}>{key}</label>
+    <div className="quitter-form-container">
+      <h2>퇴사자 등록</h2>
+      <form id="quitter-form">
+        <div className="form-group">
+          <label htmlFor="quitId">퇴사자ID</label>
           <input
             type="text"
-            id={key}
-            name={key}
-            value={formData[key]}
+            id="quitId"
+            name="quitId"
+            readOnly
+            value={formData['quitId']}
             onChange={handleChange}
           />
-        </React.Fragment>
-      ))}
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitName">이름</label>
+          <input
+            type="text"
+            id="quitName"
+            name="quitName"
+            value={formData['quitName']}
+            onChange={handleChange}
+          />
+        </div>
+           <div className="form-group">
+          <label htmlFor="deptCode">부서코드</label>
+          <input
+            type="text"
+            id="deptCode"  
+            name="deptCode"
+            value={formData['deptCode']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitPosition">직책</label>
+          <input
+            type="text"
+            id="quitPosition"
+            name="quitPosition"
+            value={formData['quitPosition']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitAddress">이메일</label>
+          <input
+            type="email"
+            id="quitAddress"
+            name="quitAddress"
+            value={formData['quitAddress']}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitPhone">핸드폰</label>
+          <input
+            type="text"
+            id="quitPhone"
+            name="quitPhone"
+            value={formData['quitPhone']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitAddress">주소</label>
+          <input
+            type="text"
+            id="quitAddress"
+            name="quitAddress"
+            value={formData['quitAddress']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitJoindate">입사일</label>
+          <input
+            type="date"
+            id="quitJoindate"
+            name="quitJoindate"
+            value={formData['quitJoindate']}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="quitLeavingdate">퇴사일</label>
+          <input
+            type="date"
+            id="quitLeavingdate"
+            name="quitLeavingdate"
+            value={formData['quitLeavingdate']}
+            onChange={handleChange}
+          />
+        </div>
+
       <div className="buttons">
-        <button type="button" onClick={updateEmployee}>수정</button>
+        <button type="button" onClick={updateQuitter}>수정</button>
         <button type="button" onClick={cancel}>취소</button>
-        <button type="button" onClick={deleteEmployee}>삭제</button>
+        <button type="button" onClick={deleteQuitter}>삭제</button>
       </div>
     </form>
+    </div>
   );
 }
 
