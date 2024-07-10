@@ -73,12 +73,10 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
         <tbody>
           <tr>
             <td>
-              <strong>접수 번호 : </strong>
-              {voice.voiceId}
+              접수 번호 : <strong>{voice.voiceId}</strong>
             </td>
             <td>
-              <strong>매장: </strong>
-              {voice.store.storeName}
+              매장: <strong>{voice.store.storeName}</strong>
             </td>
             <td>
               <span style={{ color: getStatusColor() }}>
@@ -90,44 +88,41 @@ const VoiceItem = ({ voice, onAnswerSubmitted }) => {
             <>
               <tr>
                 <td>
-                  <strong>고객 ID : </strong>
-                  {voice.customer?.custId}
+                  고객 ID : <strong>{voice.customer?.custId} </strong>
                 </td>
                 <td>
-                  <strong>고객명 : </strong>
-                  {voice.customer?.custName}
+                  고객명 :<strong>{voice.customer?.custName} </strong>
                 </td>
                 <td>
-                  <strong>생성 날짜 : </strong>
+                  생성 날짜 :
                   {voice.voiceDate
                     ? formatDate(voice.voiceDate)
                     : "날짜 정보 없음"}
                 </td>
               </tr>
+              <br />
               <tr>
-                <td>
-                  <strong>제목 : </strong>
+                <td colSpan="4">
+                  제목 : <strong> {voice.voiceTitle}</strong>
                 </td>
-                <td colSpan="3">{voice.voiceTitle}</td>
               </tr>
               <tr>
-                <td>
-                  <strong>내용 : </strong>
+                <td colSpan="4">
+                  내용 : <strong> {voice.voiceContent}</strong>
                 </td>
-                <td colSpan="3">{voice.voiceContent}</td>
               </tr>
               {voice.voiceState === "처리완료" && (
                 <>
                   <br />
                   <tr>
                     <td colSpan="4">
-                      <strong>답변 내용 :</strong> {voice.answerContent}
+                      답변 내용 : <strong>{voice.answerContent}</strong>
                     </td>
                   </tr>
                   <tr>
-                    <td colSpan="4">
-                      <strong> 처리일자 :</strong>{" "}
-                      {formatDate(voice.answerDate)}
+                    <td colSpan="2"></td>
+                    <td colSpan="2">
+                      처리일자 : {formatDate(voice.answerDate)}
                     </td>
                   </tr>
                 </>
