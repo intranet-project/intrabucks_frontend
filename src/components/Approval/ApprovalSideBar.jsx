@@ -463,8 +463,8 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
             return;
         }
     
-        if (!selectOneDocument.approvalID) {
-            console.error("Document ID가 없습니다.");
+        if (!saveForm.appDocId) {
+            console.error("appDocId가 없습니다.");
             alert("파일 업로드 중 오류 발생: approvalID가 없습니다.");
             return;
         }
@@ -473,7 +473,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         formData.append('file', file);
     
         try {
-            const response = await axios.post(`/api/v1/intrabucks/approval/uploadFile/${selectOneDocument.approvalID}`, formData, {
+            const response = await axios.post(`http://localhost:9000/api/v1/intrabucks/approval/uploadFile/${saveForm.appDocId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
@@ -490,7 +490,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         }
     
         // HTML 내용 저장
-        saveHtml(selectOneDocument);
+       // saveHtml(selectOneDocument);
     };
 
     //첨부파일 업로드 취소
