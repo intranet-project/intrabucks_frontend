@@ -19,7 +19,7 @@ const Department = () => {
 
   const register = async () => { // async 함수로 변경
     try {
-      const response = await axios.post('http://localhost:9000/api/department/create', formData);
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/department/create', formData);
       console.log('Response from server:', response.data);
       alert("등록이 완료되었습니다..");
       navigate('/department');

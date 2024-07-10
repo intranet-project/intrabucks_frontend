@@ -3,18 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
   const navigate = useNavigate();
+  const [employees, setEmployees] = useState([]);
+  const [approvalDocuments, setApprovalDocuments] = useState([]);
+  const [page, setPage] = useState(0); // 현재 페이지를 상태로 관리
+  const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 상태로 관리
+  const [pageSize] = useState(10); // 페이지당 문서 수
+
 
   useEffect(() => {
-    fetchEmployees();
-  }, []);
+    fetchEmployees(page);
+  }, [page]);
 
   /*API직원목록조회*/
-  const fetchEmployees = async () => {
+  const fetchEmployees = async (pageNumber) => {
     try {
-      const response = await axios.get('http://localhost:9000/api/employee/select');
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/select?page=${pageNumber}&size=${pageSize}`);
       setEmployees(response.data.content);
+      const { content, totalPages } = response.data; // 서버에서 전달된 내용과 전체 페이지 수 추출
+      setApprovalDocuments(content); // 문서 목록 업데이트
+      setTotalPages(totalPages); // 전체 페이지 수 업데이트
     } catch (error) {
       console.error('Error fetching employees:', error);
     }
@@ -27,6 +35,10 @@ const EmployeeList = () => {
   const handleNewEmployeeClick = () => {
     navigate('/employee');
   };
+  
+  const handlePageChange = (pageNumber) => {
+    setPage(pageNumber); // 페이지 변경 시 페이지 상태 업데이트
+};
 
   return (
     <div className="employee-list-container">
@@ -52,7 +64,7 @@ const EmployeeList = () => {
               <tr key={employee.empId}>
                 <td>{employee.empId}</td>
                 <td style={{ cursor: 'pointer' }} onClick={() => handleNameClick(employee.empId)}>{employee.empName}</td>
-                <td>{employee.empPassword}</td>
+                <td>********</td>
                 <td>{employee.deptCode}</td>
                 <td>{employee.empPosition}</td>
                 <td>{employee.empJoinDate}</td>
@@ -66,6 +78,21 @@ const EmployeeList = () => {
         </table>
       </div>
       <button onClick={handleNewEmployeeClick}>신규등록</button>
+      <div className="pagination">
+              
+                <button onClick={() => handlePageChange(page - 1)} disabled={page === 0}>
+                    이전
+                </button>
+                {Array.from(Array(totalPages).keys()).map((pageNumber) => (
+                    <button key={pageNumber} onClick={() => handlePageChange(pageNumber)}>
+                        {pageNumber + 1}
+                    </button>
+                ))}
+                <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages - 1}>
+                    다음
+                </button>
+            </div>
+
     </div>
   );
 };

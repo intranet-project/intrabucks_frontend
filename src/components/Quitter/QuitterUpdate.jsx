@@ -62,7 +62,7 @@ const QuitterUpdate = () => {
 
   const deleteEmployee = () => {
     if (window.confirm("정말로 이 직원을 삭제하시겠습니까?")) {
-      fetch(`http://localhost:9000/api/quitter/delete/${formData.quitId}`, {
+      fetch(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${formData.quitId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

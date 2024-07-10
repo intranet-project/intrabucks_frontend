@@ -28,7 +28,7 @@ const Employee = () => {
   /*API직원등록*/
   const createEmployee = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/employee/create', formData);
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/employee/create', formData);
       console.log('Response from server:', response.data);
       alert('직원 정보가 등록되었습니다.');
       navigate('/employee-list');
