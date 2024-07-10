@@ -7,7 +7,7 @@ const Department = () => {
 
   const createDepartment = async () => {
     try {
-      const response = await axios.post('/api/department/create', newDepartment);
+      const response = await axios.post('/api/v1/intrabucks/department/create', newDepartment);
       alert(`Department created with ID: ${response.data}`);
     } catch (error) {
       console.error('Error creating department:', error);

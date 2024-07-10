@@ -38,7 +38,7 @@ const QuitterUpdate = () => {
       body: JSON.stringify(formData)
     };
   
-    fetch(`http://localhost:9000/api/quitter/update/${formData.empId}`, requestOptions)
+    fetch(`http://localhost:9000/api/v1/intrabucks/quitter/update/${formData.empId}`, requestOptions)
       .then(response => {
         if (response.ok) {
           alert('직원 정보가 수정되었습니다.');
