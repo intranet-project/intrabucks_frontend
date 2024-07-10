@@ -33,14 +33,24 @@ const SideBar = () => {
       setActiveMenu(menu); // 새로운 메뉴를 누르면 해당 메뉴를 열고 다른 메뉴는 닫음
       if (menu === "전자결재") {
         navigate("/approvalPage"); // 전자결재 클릭 시 이동할 페이지
+      } else if (menu === "로그인") {
+        navigate("/login"); // 로그인 클릭 시 이동할 페이지
+      } else if (menu === "매출게시판") {
+        navigate("/sales-management"); // 매출게시판 클릭 시 이동할 페이지
+      } else if (menu === "매장게시판") {
+        navigate("/storeListPage"); // 매장게시판 클릭 시 이동할 페이지
+      } else if (menu === "메뉴협업게시판") {
+        navigate("/menuListPage"); // 메뉴협업게시판 클릭 시 이동할 페이지
+      } else if (menu === "협업게시판") {
+        navigate("/menuListPage"); // 협업게시판 클릭 시 이동할 페이지
       }
     }
   };
 
-  const handleLoginClick = (e) => {
-    e.stopPropagation(); // 이벤트 버블링 방지
-    navigate("/login");
-  };
+  // const handleLoginClick = (e) => {
+  //   e.stopPropagation(); // 이벤트 버블링 방지
+  //   navigate("/login");
+  // };
 
   // 인사관리
   const handleEmployeeListClick = async (e) => {
@@ -188,30 +198,6 @@ const SideBar = () => {
     }
   };
 
-  //전자결재 메인연결
-  const handleApprovalManagementClick = (e) => {
-    e.stopPropagation();
-    navigate("/approvalPage");
-  };
-
-  //전자결재 연결
-  const handleApprovalPageManagementClick = (e) => {
-    e.stopPropagation();
-    navigate("/approvalPage");
-  };
-
-  // 전자결재라인 생성
-  const handleApprovalLineManagementClick = (e) => {
-    e.stopPropagation();
-    navigate("/approvalLine");
-  };
-
-  // 전자결재대기함 생성
-  const handleApprovalWaitingManagementClick = (e) => {
-    e.stopPropagation();
-    navigate("/approvalWaiting");
-  };
-
   //CRM 연결
   const handleVoiceListClick = async (e) => {
     e.stopPropagation();
@@ -250,16 +236,7 @@ const SideBar = () => {
           onClick={() => handleSubMenuToggle("로그인")}
         >
           <span className="menu-text">로그인</span>
-          {activeMenu === "로그인" && (
-            <ul className="submenu">
-              <li
-                className="sideBar-subitem"
-                onClick={handleLoginClick}
-              >
-                로그인
-              </li>
-            </ul>
-          )}
+          
         </li>
         <li
           className={`sideBar-item ${
@@ -270,13 +247,13 @@ const SideBar = () => {
           <span className="menu-text">인사관리</span>
           {activeMenu === "인사관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleEmployeeListClick}>
+              <li className="sideBar-subitem" onClick={handleEmployeeListClick} style={{ fontSize: '22px' }}>
                 직원관리
               </li>
-              <li className="sideBar-subitem" onClick={handleDepartmentClick}>
+              <li className="sideBar-subitem" onClick={handleDepartmentClick} style={{ fontSize: '22px' }}>
                 부서관리
               </li>
-              <li className="sideBar-subitem" onClick={handleQuitterListClick}>
+              <li className="sideBar-subitem" onClick={handleQuitterListClick}style={{ fontSize: '22px' }}>
                 퇴사관리
               </li>
             </ul>
@@ -288,17 +265,7 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("매출관리")}
         >
-          <span className="menu-text">매출관리</span>
-          {activeMenu === "매출관리" && (
-            <ul className="submenu">
-              <li
-                className="sideBar-subitem"
-                onClick={handleSalesManagementClick}
-              >
-                매출 관리
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handleSalesManagementClick}>매출관리</span>
         </li>
 
         <li
@@ -325,14 +292,7 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("매장관리")}
         >
-          <span className="menu-text">매장관리</span>
-          {activeMenu === "매장관리" && (
-            <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleStoreListClick}>
-                매장 관리
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handleStoreListClick}>매장관리</span>
         </li>
         <li
           className={`sideBar-item ${
@@ -358,14 +318,7 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("메뉴관리")}
         >
-          <span className="menu-text">메뉴관리</span>
-          {activeMenu === "메뉴관리" && (
-            <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleMenuListClick}>
-                메뉴 관리
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handleMenuListClick}>메뉴관리</span>
         </li>
         <li
           className={`sideBar-item ${activeMenu === "CRM관리" ? "active" : ""}`}
@@ -390,22 +343,11 @@ const SideBar = () => {
           onClick={() => handleSubMenuToggle("협업게시판")}
         >
           <span className="menu-text">협업게시판</span>
-          {activeMenu === "협업게시판" && (
-            <ul className="submenu">
-              <li
-                className="sideBar-subitem"
-                onClick={handleSalesManagementClick}
-              >
-                협업게시판
-              </li>
-            </ul>
-          )}
         </li>
         <li
           className={`sideBar-item ${
             activeMenu === "전자결재" ? "active" : ""
           }`}
-          onClick={() => handleSubMenuToggle("전자결재")}
         >
           <span
             className="menu-text"
