@@ -10,6 +10,7 @@ function ApprovalWaiting() {
     const [page, setPage] = useState(0); // 현재 페이지를 상태로 관리
     const [totalPages, setTotalPages] = useState(0); // 전체 페이지 수를 상태로 관리
     const [pageSize] = useState(10); // 페이지당 문서 수
+    const token = sessionStorage.getItem('jwt');
 
     const navigate = useNavigate();
 
@@ -20,7 +21,11 @@ function ApprovalWaiting() {
     /* API 문서 전체 목록 조회 */
     const fetchApprovalDocuments = async (pageNumber) => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/Approval1/select?page=${pageNumber}&size=${pageSize}`);
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval1/select?page=${pageNumber}&size=${pageSize}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             const { content, totalPages } = response.data; // 서버에서 전달된 내용과 전체 페이지 수 추출
             setApprovalDocuments(content); // 문서 목록 업데이트
             setTotalPages(totalPages); // 전체 페이지 수 업데이트
