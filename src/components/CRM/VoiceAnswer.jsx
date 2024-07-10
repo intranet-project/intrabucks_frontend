@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Button from "../Button"; // Button 컴포넌트 import 경로
+import "../../styles/VoiceAnswer.css";
 
 const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
   const [answerContent, setAnswerContent] = useState("");
@@ -45,7 +46,7 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
 
   return (
     <div className="voice-answer">
-      <h2>답변 등록 - 번호: {voiceId}</h2>
+      <h4>답변 등록 (접수번호 : {voiceId})</h4>
       <textarea
         rows="4"
         cols="50"
