@@ -6,7 +6,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     const [dataList, setDataList] = useState([]);
     const [modalSelectOne, setModalSelectOne] = useState(false);
     const contentRef = useRef(null);
-    const [d, setD] = useState();
+
 
     useEffect(() => {
         ApprovalSendListApi();
@@ -81,15 +81,6 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     };
 
     //전자결재 문서 값 출력
-    //let appDocIdt_2 = detailData.appDocId; //결재번호
-    //let department = detailData.appDocDepartment; //기안부서
-    //let documentType = detailData.docTypeId; //문서종류
-    //let appDocTitle = detailData.appDocTitle;//제목
-    //let writer = detailData.empId.empName; //기안자
-    //let writeDay = detailData.writeDay; //기안일
-    //let grade = detailData.appDocDepartmentGrade; //비밀등급
-    //let content = detailData.appDocContent; //결재내용
-
     useEffect(() => {
 
         //결재번호
