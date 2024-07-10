@@ -6,6 +6,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     const [dataList, setDataList] = useState([]);
     const [modalSelectOne, setModalSelectOne] = useState(false);
     const contentRef = useRef(null);
+    const token = sessionStorage.getItem('jwt');
 
 
     useEffect(() => {
@@ -15,7 +16,11 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     //기안 문서함 리스트 출력
     const ApprovalSendListApi = async () => {
         try {
-            const response = await axios.get('http://localhost:9000/api/v1/intrabucks/approval/selectApprovalList');
+            const response = await axios.get('http://localhost:9000/api/v1/intrabucks/approval/selectApprovalList', {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log(response.data);
             setDataList(response.data);
         } catch (error) {
@@ -64,7 +69,11 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     const openOneApproval = async (appDocId) => {
         console.log("appDocId : ", appDocId);
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval/checkApproval/${appDocId}`);
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval/checkApproval/${appDocId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             setDetailData(response.data);
             setModalSelectOne(true);
             console.log(response.data);

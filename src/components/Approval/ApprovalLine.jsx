@@ -16,7 +16,12 @@ const ApprovalLine = () => {
   // 전체조회 API
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/employee/selectOnly');
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get('http://localhost:9000/api/employee/selectOnly', {
+        headers: {
+          'Authorization': token
+        }
+      });
       const employeesData = response.data;
       console.log(employeesData);
       setEmployees(employeesData);
@@ -29,7 +34,12 @@ const ApprovalLine = () => {
   // 세션 정보 요청 함수
   const getSession = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/Approval1/session');
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get('http://localhost:9000/api/Approval1/session', {
+        headers: {
+          'Authorization': token
+        }
+      });
       const sessionData = response.data;
       setSessionData(sessionData); // 세션 데이터 설정
 
@@ -162,7 +172,7 @@ const ApprovalLine = () => {
         employee: person,
         approvalState: '결재자', // 첫 번째 선택한 사람은 '기안자', 그 외에는 '결재자'로 설정
         deptCode: person.empPosition // 부서 코드를 DTO에 추가
-        
+
       }));
       const approvalSteps = [...applicants, ...approvals];
 
@@ -172,8 +182,12 @@ const ApprovalLine = () => {
       };
 
       console.log('결재 라인 DTOs:', approvalLineDTO);
-
-      const response = await axios.post('http://localhost:9000/api/Approval1/create', approvalLineDTO);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.post('http://localhost:9000/api/Approval1/create', approvalLineDTO, {
+        headers: {
+          'Authorization': token
+        }
+      });
       console.log('결재 라인 생성됨:', response.data);
 
       setApprovalLine([]); // 결재선 초기화
