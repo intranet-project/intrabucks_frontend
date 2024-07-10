@@ -71,6 +71,9 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
         } catch (error) {
             console.error('에러 발생:', error);
         }
+
+
+
     };
 
     const closeOneDocument = () => {
