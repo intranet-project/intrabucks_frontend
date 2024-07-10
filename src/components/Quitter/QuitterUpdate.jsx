@@ -38,7 +38,7 @@ const QuitterUpdate = () => {
       body: JSON.stringify(formData)
     };
   
-    fetch(`http://localhost:9000/api/quitter/update/${formData.empId}`, requestOptions)
+    fetch(`http://localhost:9000/api/v1/intrabucks/quitter/update/${formData.empId}`, requestOptions)
       .then(response => {
         if (response.ok) {
           alert('직원 정보가 수정되었습니다.');
@@ -62,7 +62,7 @@ const QuitterUpdate = () => {
 
   const deleteEmployee = () => {
     if (window.confirm("정말로 이 직원을 삭제하시겠습니까?")) {
-      fetch(`http://localhost:9000/api/quitter/delete/${formData.quitId}`, {
+      fetch(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${formData.quitId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

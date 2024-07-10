@@ -27,7 +27,7 @@ const EmployeeUpdate = () => {
 
   const fetchEmployeeData = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/employee/${empId}`);
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/${empId}`);
       if (response.data) {
         setFormData(response.data);
       } else {
@@ -44,7 +44,7 @@ const EmployeeUpdate = () => {
 
   const updateEmployee = async () => {
     try {
-      const response = await axios.put(`http://localhost:9000/api/employee/update/${empId}`, formData);
+      const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/employee/update/${empId}`, formData);
       if (response.data) {
         alert('직원 정보가 수정되었습니다.');
         navigate('/employee-list');
@@ -67,7 +67,7 @@ const EmployeeUpdate = () => {
     if (window.confirm("정말로 이 직원을 퇴사등록하시겠습니까? 직원정보가 삭제됩니다.")) {
       try {
         // 직원 삭제 API 요청
-        await axios.delete(`http://localhost:9000/api/employee/delete/${empId}`);
+        await axios.delete(`http://localhost:9000/api/v1/intrabucks/employee/delete/${empId}`);
         alert('직원이 퇴사 등록되었습니다.');
         // 삭제 후 퇴사자 목록 페이지로 이동
         navigate('/quitter-list');
