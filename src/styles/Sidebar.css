@@ -1,11 +1,13 @@
 .sideBar {
-  width: 200px;
+  width: 450px;
   background-color: #333;
   color: white;
-  padding: 20px;
+  padding: 60px;
   box-sizing: border-box; /* 패딩을 높이 계산에 포함 */
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  font-weight: bold; /* 폰트 두껍게 */
 }
 
 .sideBar ul {
@@ -19,7 +21,7 @@
 .sideBar-item {
   cursor: pointer;
   padding: 0; /* 간격 조정 */
-  font-size: 50px; /* 버튼 텍스트 크기 조정 */
+  font-size: 60px; /* 버튼 텍스트 크기 조정 */
 }
 
 .sideBar-item:hover {
@@ -37,5 +39,5 @@
 }
 
 .menu-text {
-  font-size: 18px; /* 상위 메뉴 버튼 텍스트 크기 조정 */
+  font-size: 30px; /* 상위 메뉴 버튼 텍스트 크기 조정 */
 }
