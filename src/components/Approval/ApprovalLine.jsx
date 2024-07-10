@@ -161,7 +161,8 @@ const ApprovalLine = () => {
       const approvals = selectedEmployees.map((person, index) => ({
         employee: person,
         approvalState: '결재자', // 첫 번째 선택한 사람은 '기안자', 그 외에는 '결재자'로 설정
-        deptCode: person.deptCode // 부서 코드를 DTO에 추가
+        deptCode: person.empPosition // 부서 코드를 DTO에 추가
+        
       }));
       const approvalSteps = [...applicants, ...approvals];
 
