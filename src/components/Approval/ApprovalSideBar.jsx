@@ -72,7 +72,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/employee/selectOnly",
         {
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -92,7 +92,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/approval1/session",
         {
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -241,7 +241,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalLineDTO,
         {
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -307,7 +307,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/approval/selectFormList",
         {
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -348,7 +348,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         `http://localhost:9000/api/v1/intrabucks/approval/selectOneForm/${id}`,
         {
           headers: {
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -875,23 +875,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   const apiSaveHtml = async (selectOneDocument) => {
     try {
       // input 값 가져오기
-      let department = $("#department").val();
-      let writeDay = $("#writeDay").val();
-      let documentNo = $("#documentNo").val();
-      let writer = $("#writer").val();
       let grade = $("#grade").val();
       let content = document.getElementById("content").value;
-
-      // let content = $('#content').val();
       let title = $("#title").val();
-
-      let person1Name = $("#person1Name").val();
-      let person2Name = $("#person2Name").val();
-      let person3Name = $("#person3Name").val();
-
-      let person1Stamp = $("#person1Stamp").val();
-      let person2Stamp = $("#person2Stamp").val();
-      let person3Stamp = $("#person3Stamp").val();
 
       // 데이터를 포함한 객체 생성
       const data = {
@@ -904,7 +890,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
           documentFormName: "",
         },
         appDocTitle: title,
-        appDocDepartment: department,
+        appDocDepartment: sessionData.deptCode,
         empId: {
           empId: sessionData.empId,
           empName: sessionData.empName,
@@ -922,7 +908,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         appDocDepartmentGrade: grade,
         appDocContent: content,
         appDocStage: "기안",
-        appDocCreatedAt: writeDay,
+        appDocCreatedAt: formattedDate,
         appDocUpdatedAt: "",
         appDocPathString: approvalLineString, // 결재경로 문자열
       };
@@ -935,7 +921,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
@@ -959,7 +945,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: token,
+              'Authorization': token,
             },
           }
         );
@@ -997,7 +983,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data", // multipart/form-data 설정
-            Authorization: token,
+            'Authorization': token,
           },
         }
       );
