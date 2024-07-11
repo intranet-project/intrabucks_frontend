@@ -6,13 +6,13 @@ import logoImg from "../../images/BlackBuckGrouwareLogo.png"; // 이미지 파�
 const SideBar = () => {
   const [activeMenu, setActiveMenu] = useState(null); // 현재 활성화된 상위 메뉴 상태 관리
   const navigate = useNavigate();
-  const token = sessionStorage.getItem('jwt');
+  const token = sessionStorage.getItem("jwt");
   const checkAccessPermission = async (apiEndpoint, token) => {
     try {
       const response = await fetch(apiEndpoint, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (response.status === 401) {
         return { status: 401 };
@@ -21,7 +21,7 @@ const SideBar = () => {
       }
       return { status: 200 };
     } catch (error) {
-      console.error('에러가 발생했습니다:', error);
+      console.error("에러가 발생했습니다:", error);
       return { status: 500 };
     }
   };
@@ -55,17 +55,20 @@ const SideBar = () => {
   // 인사관리
   const handleEmployeeListClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/employee/select', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/employee/select",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/employee-list");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -73,17 +76,20 @@ const SideBar = () => {
   // 부서관리
   const handleDepartmentClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/department/create', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/department/create",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/department");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -91,17 +97,20 @@ const SideBar = () => {
   // 퇴사관리
   const handleQuitterListClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/quitter/select', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/quitter/select",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/quitter-list");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -109,18 +118,21 @@ const SideBar = () => {
   // 매출관리
   const handleSalesManagementClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/sales/list', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/sales/list",
+      token
+    );
     console.log(result);
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/sales-management");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -129,17 +141,20 @@ const SideBar = () => {
   const handleStockManagementClick = async (e) => {
     e.stopPropagation();
     // 접근 권한 확인 (해당 API 엔드포인트를 전달)
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/stock/selectStockList', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/stock/selectStockList",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/stockListPage");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -147,17 +162,20 @@ const SideBar = () => {
   // 매장관리
   const handleStoreListClick = async (e) => {
     e.stopPropagation();
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/store/list', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/store/list",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/storeListPage");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -165,17 +183,20 @@ const SideBar = () => {
   //발주관리 연결
   const handlePurchaseManagementClick = async (e) => {
     e.stopPropagation();
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/purchaseListPage");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -183,17 +204,20 @@ const SideBar = () => {
   // 메뉴관리
   const handleMenuListClick = async (e) => {
     e.stopPropagation();
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/menu/list', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/menu/list",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
       navigate("/menuListPage");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
   };
@@ -201,24 +225,22 @@ const SideBar = () => {
   //CRM 연결
   const handleVoiceListClick = async (e) => {
     e.stopPropagation();
-    const result = await checkAccessPermission('http://localhost:9000/api/v1/intrabucks/customer/voiceList', token);
+    const result = await checkAccessPermission(
+      "http://localhost:9000/api/v1/intrabucks/customer/voiceList",
+      token
+    );
     if (result.status === 401) {
-      alert('로그인이 필요합니다.');
+      alert("로그인이 필요합니다.");
       navigate("/login");
     } else if (result.status === 403) {
-      alert('접근이 금지되었습니다.');
+      alert("접근이 금지되었습니다.");
       navigate(-1);
     } else if (result.status === 200) {
-      navigate("/voiceList");
+      navigate("/voiceListPage");
     } else {
-      alert('알 수 없는 오류가 발생했습니다.');
+      alert("알 수 없는 오류가 발생했습니다.");
       navigate(-1);
     }
-  };
-
-  const handleAnswerClick = (e) => {
-    e.stopPropagation();
-    navigate("/voiceListPage");
   };
 
   return (
@@ -231,13 +253,12 @@ const SideBar = () => {
         >
           <span className="menu-text">홈</span>
         </li>
-        <li
+        {/* <li
           className={`sideBar-item ${activeMenu === "로그인" ? "active" : ""}`}
           onClick={() => handleSubMenuToggle("로그인")}
         >
           <span className="menu-text">로그인</span>
-          
-        </li>
+        </li> */}
         <li
           className={`sideBar-item ${
             activeMenu === "인사관리" ? "active" : ""
@@ -247,13 +268,25 @@ const SideBar = () => {
           <span className="menu-text">인사관리</span>
           {activeMenu === "인사관리" && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleEmployeeListClick} style={{ fontSize: '22px' }}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleEmployeeListClick}
+                style={{ fontSize: "22px" }}
+              >
                 직원관리
               </li>
-              <li className="sideBar-subitem" onClick={handleDepartmentClick} style={{ fontSize: '22px' }}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleDepartmentClick}
+                style={{ fontSize: "22px" }}
+              >
                 부서관리
               </li>
-              <li className="sideBar-subitem" onClick={handleQuitterListClick}style={{ fontSize: '22px' }}>
+              <li
+                className="sideBar-subitem"
+                onClick={handleQuitterListClick}
+                style={{ fontSize: "22px" }}
+              >
                 퇴사관리
               </li>
             </ul>
@@ -265,7 +298,9 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("매출관리")}
         >
-          <span className="menu-text" onClick={handleSalesManagementClick}>매출관리</span>
+          <span className="menu-text" onClick={handleSalesManagementClick}>
+            매출관리
+          </span>
         </li>
 
         <li
@@ -274,17 +309,9 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("재고관리")}
         >
-          <span className="menu-text">재고관리</span>
-          {activeMenu === "재고관리" && (
-            <ul className="submenu">
-              <li
-                className="sideBar-subitem"
-                onClick={handleStockManagementClick}
-              >
-                재고 관리
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handleStockManagementClick}>
+            재고관리
+          </span>
         </li>
         <li
           className={`sideBar-item ${
@@ -292,7 +319,9 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("매장관리")}
         >
-          <span className="menu-text" onClick={handleStoreListClick}>매장관리</span>
+          <span className="menu-text" onClick={handleStoreListClick}>
+            매장관리
+          </span>
         </li>
         <li
           className={`sideBar-item ${
@@ -300,17 +329,9 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("발주관리")}
         >
-          <span className="menu-text">발주관리</span>
-          {activeMenu === "발주관리" && (
-            <ul className="submenu">
-              <li
-                className="sideBar-subitem"
-                onClick={handlePurchaseManagementClick}
-              >
-                발주 관리
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handlePurchaseManagementClick}>
+            발주관리
+          </span>
         </li>
         <li
           className={`sideBar-item ${
@@ -318,23 +339,17 @@ const SideBar = () => {
           }`}
           onClick={() => handleSubMenuToggle("메뉴관리")}
         >
-          <span className="menu-text" onClick={handleMenuListClick}>메뉴관리</span>
+          <span className="menu-text" onClick={handleMenuListClick}>
+            메뉴관리
+          </span>
         </li>
         <li
           className={`sideBar-item ${activeMenu === "CRM관리" ? "active" : ""}`}
           onClick={() => handleSubMenuToggle("CRM관리")}
         >
-          <span className="menu-text">CRM관리</span>
-          {activeMenu === "CRM관리" && (
-            <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleVoiceListClick}>
-                고객의소리 조회
-              </li>
-              <li className="sideBar-subitem" onClick={handleAnswerClick}>
-                고객의소리 답변 등록
-              </li>
-            </ul>
-          )}
+          <span className="menu-text" onClick={handleVoiceListClick}>
+            CRM관리
+          </span>
         </li>
         <li
           className={`sideBar-item ${

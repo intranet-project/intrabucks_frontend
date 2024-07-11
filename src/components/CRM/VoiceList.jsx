@@ -43,36 +43,34 @@ const VoiceList = () => {
     setSearchQuery(event.target.value);
   };
   return (
-    <div className="voice-container">
-      <h1>고객의 소리 리스트</h1>
+    <div>
       <div className="filter-buttons">
-        <div>
-          <input
-            type="text"
-            placeholder="검색 (매장명, 고객명, 문의 내용)"
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-        </div>
-        <button
+        <Button
           className={filter === "전체" ? "active" : ""}
           onClick={() => setFilter("전체")}
         >
           전체
-        </button>
-        <button
+        </Button>
+        <Button
           className={filter === "나의 소리" ? "active" : ""}
           onClick={() => setFilter("나의 소리")}
         >
           신규
-        </button>
-        <button
+        </Button>
+        <Button
           className={filter === "답변 확인" ? "active" : ""}
           onClick={() => setFilter("답변 확인")}
         >
           완료
-        </button>
+        </Button>
+        <input
+          type="text"
+          placeholder="검색 (매장명, 고객명, 문의 내용)"
+          value={searchQuery}
+          onChange={handleSearch}
+        />
       </div>
+
       <div className="voice-list">
         {filteredVoices.map((voice) => (
           <VoiceItem key={voice.voiceId} voice={voice} />
