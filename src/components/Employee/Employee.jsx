@@ -52,9 +52,9 @@ const Employee = () => {
 
   return (
     <div className="employee-form-container">
-      <h2>직원 등록</h2>
+      <h2 style={{ textAlign: 'center' }}>직원 등록</h2>
       <form id="employee-form">
-        <div className="form-group" style={{display:'flex'}}>
+        <div className="form-group" >
           <label htmlFor="empId">직원ID</label>
           <input
             type="text"
@@ -63,7 +63,6 @@ const Employee = () => {
             readOnly
             value={formData['empId']}
             onChange={handleChange}
-            style={{width:'80%', marginLeft:'40px'}}
           />
         </div>
         <div className="form-group">
@@ -115,6 +114,9 @@ const Employee = () => {
             value={formData['empEmail']}
             onChange={handleChange}
             required
+            style={{ display: 'flex', padding: '1rem', height: '2.3rem'}}
+            
+            
           />
         </div>
         <div className="form-group">
@@ -145,6 +147,7 @@ const Employee = () => {
             name="empJoinDate"
             value={formData['empJoinDate']}
             onChange={handleChange}
+            style={{ display: 'flex', padding: '1rem', height: '2.3rem'}}
           />
         </div>
         <div className="form-group">
