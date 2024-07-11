@@ -1,29 +1,60 @@
-.app {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .header {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .header h1 {
-    font-size: 2rem;
-    color: #333;
-  }
-  
-  .main {
-    text-align: center;
-  }
-  
-  .content {
-    margin-top: 20px;
-  }
-  
-  .footer {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
+/* Home.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+.header h1 {
+  margin: 0;
+}
+
+.main {
+  display: grid;
+  grid-template-areas:
+    "box1 box3"
+    "box2 box3"
+    "box4 box4";
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 80%;
+}
+
+.content {
+  border: 3px solid black;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.box1 {
+  grid-area: box1;
+  height: 200px;
+}
+
+.box2 {
+  grid-area: box2;
+  height: 200px;
+}
+
+.box3 {
+  grid-area: box3;
+  width: 100%;
+}
+
+.box4 {
+  grid-area: box4;
+  width: 100%;
+  height: 100px;
+}
