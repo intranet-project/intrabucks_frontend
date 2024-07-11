@@ -21,7 +21,8 @@ body {
   box-sizing: border-box;
   flex-shrink: 0; /* Prevent sidebar from shrinking */
   height: 100vh; /* Make sidebar height 100% of viewport height */
-  overflow-y: auto; /* Add vertical scroll if content overflows */
+  overflow-y: hidden; /* Add vertical scroll if content overflows */
+  overflow-x: hidden; /* Add vertical scroll if content overflows */
 }
 
 .main-content {
@@ -44,7 +45,7 @@ header {
   flex-grow: 1;
   padding: 20px;
   background-color: #ffffff;
-  
+
   align-items: center; /* Center content vertically */
   box-sizing: border-box;
   overflow-y: auto; /* Add vertical scroll if content overflows */

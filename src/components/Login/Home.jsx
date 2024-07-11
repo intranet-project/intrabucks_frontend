@@ -1,5 +1,5 @@
-import React from 'react';
-import '../../styles/Home.css'
+import React from "react";
+import "../../styles/Home.css";
 
 const Home = () => {
   return (
@@ -13,11 +13,8 @@ const Home = () => {
           <p>다양한 내용을 추가하여 인트라넷을 구축할 수 있습니다.</p>
         </div>
       </main>
-      <footer className="footer">
-        <p>&copy; 2024 우리 회사. All Rights Reserved.</p>
-      </footer>
     </div>
   );
-}
+};
 
 export default Home;

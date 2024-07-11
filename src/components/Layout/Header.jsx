@@ -1,21 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/Header.css";
 
 const Header = () => {
+  // 로그인 상태를 관리하는 useState 훅
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // 로그인/로그아웃 상태를 토글하는 함수
+  const toggleLogin = () => {
+    setIsLoggedIn(!isLoggedIn);
+  };
+
   return (
     <header className="header">
-      {/*홈 화면 네비게이터 자리 */}
       <div className="navigator">
         <nav>
-          <Link to="#" className="nav-link">네비게이터 1</Link>
-          <Link to="#" className="nav-link">네비게이터 2</Link>
-          <Link to="#" className="nav-link">네비게이터 3</Link>
-          <Link to="#" className="nav-link">네비게이터 4</Link>
+          {/* 로그인 상태에 따라 다른 링크를 렌더링 */}
+          {isLoggedIn ? (
+            <Link to="/home" className="nav-link" onClick={toggleLogin}>
+              로그아웃
+            </Link>
+          ) : (
+            <Link to="/login" className="nav-link" onClick={toggleLogin}>
+              로그인
+            </Link>
+          )}
+          <input type="text" placeholder="Search..." />
         </nav>
       </div>
-
-      <input type="text" placeholder="Search..." />
     </header>
   );
 };
