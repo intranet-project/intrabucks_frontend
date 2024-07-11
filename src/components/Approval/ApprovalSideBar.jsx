@@ -72,7 +72,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/employee/selectOnly",
         {
           headers: {
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -92,7 +92,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/approval1/session",
         {
           headers: {
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -241,7 +241,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalLineDTO,
         {
           headers: {
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -307,7 +307,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         "http://localhost:9000/api/v1/intrabucks/approval/selectFormList",
         {
           headers: {
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -348,7 +348,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         `http://localhost:9000/api/v1/intrabucks/approval/selectOneForm/${id}`,
         {
           headers: {
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -487,7 +487,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </table>
                     `;
 
-      $("#approvalLinePosition").after(writerStamp + approval1Stamp);
+      $("#approvalLinePosition").append(writerStamp + approval1Stamp);
     }
 
     //기안자 + 결재자 + 결재자 일 경우
@@ -628,7 +628,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </tr>
                 </table>`;
 
-      $("#approvalLinePosition").after(
+      $("#approvalLinePosition").append(
         writerStamp + approval1Stamp + approval2Stamp
       );
     }
@@ -816,7 +816,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </tr>
                 </table>`;
 
-      $("#approvalLinePosition").after(
+      $("#approvalLinePosition").append(
         writerStamp + approval1Stamp + approval2Stamp + approval3Stamp
       );
     }
@@ -921,7 +921,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         {
           headers: {
             "Content-Type": "application/json",
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
@@ -945,7 +945,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              'Authorization': token,
+              Authorization: token,
             },
           }
         );
@@ -983,7 +983,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         {
           headers: {
             "Content-Type": "multipart/form-data", // multipart/form-data 설정
-            'Authorization': token,
+            Authorization: token,
           },
         }
       );
