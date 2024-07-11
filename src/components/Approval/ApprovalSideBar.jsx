@@ -481,7 +481,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     <!-- 결재일 -->
                     <tr id="tr_Date1">
                     <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
-                        ${formattedDate}
                         <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                     </td>
                     </tr>
@@ -583,7 +582,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                         <!-- 결재일 -->
                         <tr id="tr_Date1">
                         <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
-                            ${formattedDate}
+                            
                             <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                         </td>
                         </tr>
@@ -623,7 +622,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     <!-- 기안일 -->
                     <tr id="tr_Date2">
                         <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
-                            ${formattedDate}
+                           
                             <div class="approval2Date2Input" id="approval2Date2" type="text" name="approval2Date2" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
@@ -732,7 +731,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
             <!-- 결재일 -->
             <tr id="tr_Date1">
                 <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
-                    ${formattedDate}
+                   
                     <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                 </td>
             </tr>
@@ -772,7 +771,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     <!-- 기안일 -->
                     <tr id="tr_Date2">
                         <td style="border: 1px solid black; padding: 5px; height: 15%; text-align: center; ">
-                            ${formattedDate}
+                            
                             <div class="approval2Date2Input" id="approval2Date2" type="text" name="approval2Date2" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
@@ -811,7 +810,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     <!-- 기안일 -->
                     <tr id="tr_Date3">
                         <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
-                            ${formattedDate}
+                           
                             <div class="approval3Date2Input" id="approval2Date3" type="text" name="approval2Date3" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
@@ -928,7 +927,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         appDocPathString: approvalLineString, // 결재경로 문자열
       };
 
-      // axios 요청 보내기
+      // axios 요청 보내기_ 저장
       const token = sessionStorage.getItem("jwt");
       const response = await axios.post(
         "http://localhost:9000/api/v1/intrabucks/approval/saveApproval",
@@ -982,43 +981,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
-
-  // const goToUploadFile = async (e) => {
-  //     e.preventDefault();
-  //     if (!file) {
-  //         alert("파일을 선택하세요");
-  //         return;
-  //     }
-  //     if (!saveForm.appDocId) {
-  //         console.error("appDocId가 없습니다.");
-  //         alert("파일 업로드 중 오류 발생: approvalID가 없습니다.");
-  //         return;
-  //     }
-
-  //     const formData = new FormData();
-  //     formData.append('file', file);
-
-  //     try {
-  //         const response = await axios.post(`http://localhost:9000/api/v1/intrabucks/approval/uploadFile/${saveForm.appDocId}`, formData, {
-  //             headers: {
-  //                 'Content-Type': 'multipart/form-data',
-  //                 'Authorization': token
-  //             }
-  //         });
-
-  //         if (response.status === 200) {
-  //             alert("파일 업로드 성공");
-  //         } else {
-  //             alert("파일 업로드 실패");
-  //         }
-  //     } catch (error) {
-  //         console.error("파일 업로드 중 오류 발생", error);
-  //         alert("파일 업로드 중 오류 발생");
-  //     }
-
-  //     // HTML 내용 저장
-  //     // saveHtml(selectOneDocument);
-  // };
 
   //첨부파일 업로드 취소
   const cancelUpload = (uploadData) => {
