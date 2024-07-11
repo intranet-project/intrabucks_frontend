@@ -62,7 +62,7 @@ const Board = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="deptId">부서코드</label>
+          <label htmlFor="deptId">부서명</label>
           <input
             type="text"
             id="deptId"  
