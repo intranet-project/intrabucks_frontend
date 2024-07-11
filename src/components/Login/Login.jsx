@@ -31,31 +31,34 @@ const Login = () => {
   };
 
   return (
-    <div className="container">
-    <form onSubmit={handleSubmit} className="form">
-        <h2>Login</h2>
-        <div className="formGroup">
+    <div className="login-container">
+    <form onSubmit={handleSubmit} className="login-form">
+    <h1 style={{ fontSize: '50px', fontWeight: 'bold' }}>로그인</h1>
+        <div className="Email-formGroup" >
             <label>Email</label>
+
             <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input"
+                style={{ padding: '1rem', height: '3.5rem' }}  // 입력 필드의 높이와 너비 설정
                 required
             />
         </div>
-        <div className="formGroup">
+        <div className="Pwd-formGroup">
             <label>Password</label>
             <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="input"
+                style={{ padding: '1rem', height: '3.5rem' }} 
                 required
             />
         </div>
         {error && <p className="error">{error}</p>}
-        <button type="submit" className="button">Login</button>
+        <button type="submit" className="login-button">Login</button>
     </form>
 </div>
   );
