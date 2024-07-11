@@ -74,9 +74,10 @@ const Routers = () => {
       <Route path ="/Board" element={<Board />} />
       <Route path ="/BoardList" element={<BoardList />} />
       <Route path ="/BoardUpdate" element={<BoardUpdate />} />
+
       <Route path ="/BoardPage" element={<BoardPage />} />
-      <Route path ="/BoardList" element={<BoardListPage />} />
-      <Route path ="/BoardUpdate" element={<BoardUpdatePage />} />
+      <Route path ="/BoardListPage" element={<BoardListPage />} />
+      <Route path ="/BoardUpdatePage" element={<BoardUpdatePage />} />
 
     </Routes>
   );

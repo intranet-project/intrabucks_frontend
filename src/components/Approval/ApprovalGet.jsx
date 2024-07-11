@@ -12,14 +12,14 @@ const ApprovalGet = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchApprovalDocuments(page); // 페이지가 변경될 때마다 문서 목록을 가져옴
-    }, [page]); // 페이지가 변경될 때 useEffect가 호출되도록 설정
+        fetchApprovalDocuments(); // 페이지가 변경될 때마다 문서 목록을 가져옴
+    }, []); // 페이지가 변경될 때 useEffect가 호출되도록 설정
 
     /* API 문서 전체 목록 조회 */
-    const fetchApprovalDocuments = async (pageNumber) => {
+    const fetchApprovalDocuments = async () => {
         const token = sessionStorage.getItem('jwt');
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval1/select?page=${pageNumber}&size=${pageSize}`, {
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval1/select`, {
             headers: {
               'Authorization': token
           }
