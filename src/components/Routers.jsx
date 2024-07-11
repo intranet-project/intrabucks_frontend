@@ -28,6 +28,12 @@ import VoiceListPage from "../pages/VoiceListPage";
 import ApprovalSendAll from "../pages/ApprovalSendAll";
 import Login from "../components/Login/Login";
 import Home from "./Login/Home";
+import Board from "./Board/Board";
+import BoardList from "./Board/BoardList";
+import BoardUpdate from "./Board/BoardUpdate";
+import BoardPage from "../pages/BoardPage";
+import BoardListPage from "../pages/BoardListPage";
+import BoardUpdatePage from "../pages/BoardUpdatePage";
 
 const Routers = () => {
   return (
@@ -64,6 +70,14 @@ const Routers = () => {
 
       <Route path ="/login" element={<Login />} />
       <Route path ="/home" element={<Home />} />
+
+      <Route path ="/Board" element={<Board />} />
+      <Route path ="/BoardList" element={<BoardList />} />
+      <Route path ="/BoardUpdate" element={<BoardUpdate />} />
+      <Route path ="/BoardPage" element={<BoardPage />} />
+      <Route path ="/BoardList" element={<BoardListPage />} />
+      <Route path ="/BoardUpdate" element={<BoardUpdatePage />} />
+
     </Routes>
   );
 };
