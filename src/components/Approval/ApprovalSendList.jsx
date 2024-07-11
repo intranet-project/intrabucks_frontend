@@ -16,11 +16,12 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     //기안 문서함 리스트 출력
     const ApprovalSendListApi = async () => {
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.get('http://localhost:9000/api/v1/intrabucks/approval/selectApprovalList', {
                 headers: {
-                    'Authorization': token
-                }
-            });
+                  'Authorization': token
+              }
+              });
             console.log(response.data);
             setDataList(response.data);
         } catch (error) {
@@ -69,11 +70,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     const openOneApproval = async (appDocId) => {
         console.log("appDocId : ", appDocId);
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval/checkApproval/${appDocId}`, {
-                headers: {
-                    'Authorization': token
-                }
-            });
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval/checkApproval/${appDocId}`);
             setDetailData(response.data);
             setModalSelectOne(true);
             console.log(response.data);

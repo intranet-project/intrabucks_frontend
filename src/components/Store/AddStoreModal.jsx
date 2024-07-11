@@ -14,6 +14,7 @@ const AddStoreModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = sessionStorage.getItem('jwt');
       const response = await axios.post('http://localhost:9000/api/v1/intrabucks/manager/storemanage/create', {
         employee: {
           empId: employee,
@@ -33,9 +34,11 @@ const AddStoreModal = ({ isOpen, onClose }) => {
         managerName: managerName,
         managerPassword: managerPassword,
         managerEmail: managerEmail,
-        managerCreatedAt: managerCreatedAt
-      }
-      );
+        managerCreatedAt: managerCreatedAt}, {
+          headers: {
+      'Authorization': token
+  }
+});
       console.log("200", response.data);
       alert('매장 정보가 등록되었습니다.');
       // 모달 창 닫기

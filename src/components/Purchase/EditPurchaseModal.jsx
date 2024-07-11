@@ -16,6 +16,7 @@ const EditPurchaseModal = ({ data, isOpen, onClose }) => {
     const handleEditSubmit = async (e) => {
         e.preventDefault();
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/purchase/updatePurchaseItem/${editData.purchaseId}`, {
                 purchaseId: editData.purchaseId,
                 manager: {
@@ -29,9 +30,9 @@ const EditPurchaseModal = ({ data, isOpen, onClose }) => {
                 purchaseAcceptDate: editData.purchaseAcceptDate,
             }, {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': token
                 }
-
             });
             console.log("수정 완료:", response.data);
             onClose();

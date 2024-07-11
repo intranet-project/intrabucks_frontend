@@ -20,6 +20,7 @@ const AddStockModal = ({ isOpen, onClose }) => {
         //폼 제출 이벤트 방지
         e.preventDefault();
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.post('http://localhost:9000/api/v1/intrabucks/stock/createStockItem', {
                 // DTO의 변수 중 자료형이 엔티티일 경우,
                 material: {
@@ -42,8 +43,11 @@ const AddStockModal = ({ isOpen, onClose }) => {
                     storeCreatedAt: "",
                     storeClose: "",
                 }
-            }
-            );
+            }, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log("200", response.data);
 
             // 모달 창 닫기

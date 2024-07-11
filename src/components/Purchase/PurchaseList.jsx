@@ -141,7 +141,12 @@ const PurchaseList = ({ data }) => {
     // 발주 상세 데이터 API 호출 및 상태 업데이트
     const fetchDetailData = async (purchaseId) => {
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/purchase/selectOnePurchase/${purchaseId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/purchase/selectOnePurchase/${purchaseId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log("API Response - detailData:", response.data);
             // 상태 업데이트
             setDetailData(response.data);

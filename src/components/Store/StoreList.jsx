@@ -41,7 +41,7 @@ const StoreList = ({ data }) => {
       },
       workState: ""
     }
-  });
+});
 
   const openAddStoreModal = () => {
     setModalAddStoreOpen(true);
@@ -91,7 +91,12 @@ const StoreList = ({ data }) => {
 
   const fetchDetailData = async (storeId) => {
     try {
-        const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/manager/storemanage/read/${storeId}`);
+      const token = sessionStorage.getItem('jwt');
+        const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/manager/storemanage/read/${storeId}`, {
+        headers: {
+        'Authorization': token
+    }
+    });
         console.log("API Response - detailData:", response.data);
         // 상태 업데이트
         setDetailData(response.data);

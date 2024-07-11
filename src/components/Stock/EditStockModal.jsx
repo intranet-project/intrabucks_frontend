@@ -21,6 +21,7 @@ const EditStockModal = ({ data, isOpen, onClose }) => {
         //폼 제출 이벤트 방지
         e.preventDefault();
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/stock/updateStockItem/${data.stockId}/${editData.stockCount}`, {
                 // DTO의 변수 중 자료형이 엔티티일 경우,
                 material: {
@@ -42,6 +43,10 @@ const EditStockModal = ({ data, isOpen, onClose }) => {
                     storeAddress: "",
                     storeCreatedAt: "",
                     storeClose: "",
+                }
+            }, {
+                headers: {
+                    'Authorization': token
                 }
             });
             console.log("수정 완료:", response.data);

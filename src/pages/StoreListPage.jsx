@@ -10,8 +10,13 @@ const StoreListPage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            const token = sessionStorage.getItem('jwt');
             try {
-                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/store/list');
+                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/store/list', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
                 console.log('================response.data-===================', response.data);
                 setData(response.data);
             } catch (error) {

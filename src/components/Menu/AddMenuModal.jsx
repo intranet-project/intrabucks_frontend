@@ -16,15 +16,18 @@ const AddMenuModal = ({ isOpen, onClose }) => {
         //폼 제출 이벤트 방지
         e.preventDefault();
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.post('http://localhost:9000/api/v1/intrabucks/menu/create', {
                 // DTO의 변수 중 자료형이 엔티티일 경우,
                 categoryName: categoryName,
                 menuName: menuName,
                 menuPrice: parseInt(menuPrice),
                 menuDetail: menuDetail,
-                menuImg: menuImg
-            }
-            );
+                menuImg: menuImg},
+                {headers: {
+                    'Authorization': token
+                }
+            });
             console.log("200", response.data);
             alert('메뉴 정보가 등록되었습니다.');
             // 모달 창 닫기

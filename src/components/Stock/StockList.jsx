@@ -81,7 +81,12 @@ const StockList = ({ data }) => {
     const fetchDetailData = async (stockId) => {
         console.log("fetchDetailData - stockId:", stockId);
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/stock/selectOneStock/${stockId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/stock/selectOneStock/${stockId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log("API Response - detailData:", response.data);
             setDetailData(response.data); // 상태 업데이트
         } catch (error) {

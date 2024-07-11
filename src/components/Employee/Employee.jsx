@@ -28,7 +28,12 @@ const Employee = () => {
   /*API직원등록*/
   const createEmployee = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/employee/create', formData);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/employee/create', formData, {
+        headers: {
+          'Authorization': token
+      }
+      });
       console.log('Response from server:', response.data);
       alert('직원 정보가 등록되었습니다.');
       navigate('/employee-list');

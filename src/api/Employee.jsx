@@ -5,14 +5,19 @@ const Employee = () => {
   const [employees, setEmployees] = useState([]);
   const [employee, setEmployee] = useState({});
   const [newEmployee, setNewEmployee] = useState({ empName: '', empJoinDate: '' });
-
+  
   useEffect(() => {
     fetchEmployees();
   }, []);
 
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/employee/select'); // 포트 번호 9000 명시
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/employee/select', { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       setEmployees(response.data.content);
     } catch (error) {
       console.error('Error fetching employees:', error);
@@ -21,7 +26,12 @@ const Employee = () => {
 
   const fetchEmployeeById = async (empId) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/${empId}`); // 포트 번호 9000 명시
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/${empId}`, { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       setEmployee(response.data);
     } catch (error) {
       console.error('Error fetching employee:', error);
@@ -30,7 +40,12 @@ const Employee = () => {
 
   const createEmployee = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/employee/create', newEmployee); // 포트 번호 9000 명시
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/employee/create', newEmployee, { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       alert(`Employee created with ID: ${response.data}`);
       fetchEmployees();
     } catch (error) {
@@ -40,7 +55,12 @@ const Employee = () => {
 
   const updateEmployee = async (empId) => {
     try {
-      await axios.put(`http://localhost:9000/api/v1/intrabucks/employee/update/${empId}`, employee); // 포트 번호 9000 명시
+      const token = sessionStorage.getItem('jwt');
+      await axios.put(`http://localhost:9000/api/v1/intrabucks/employee/update/${empId}`, employee, { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       alert('Employee updated');
       fetchEmployees();
     } catch (error) {
@@ -50,7 +70,12 @@ const Employee = () => {
 
   const deleteEmployee = async (empId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/intrabucks/employee/delete/${empId}`); // 포트 번호 9000 명시
+      const token = sessionStorage.getItem('jwt');
+      await axios.delete(`http://localhost:9000/api/v1/intrabucks/employee/delete/${empId}`, { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       alert('Employee deleted');
       fetchEmployees();
     } catch (error) {

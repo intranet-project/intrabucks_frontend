@@ -21,6 +21,7 @@ function ApprovalWaiting() {
     /* API 문서 전체 목록 조회 */
     const fetchApprovalDocuments = async (pageNumber) => {
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/approval1/select?page=${pageNumber}&size=${pageSize}`, {
                 headers: {
                     'Authorization': token
