@@ -43,6 +43,8 @@ const SideBar = () => {
         navigate("/menuListPage"); // 메뉴협업게시판 클릭 시 이동할 페이지
       } else if (menu === "협업게시판") {
         navigate("/menuListPage"); // 협업게시판 클릭 시 이동할 페이지
+      } else if (menu === "홈") {
+        navigate("/home"); // 협업게시판 클릭 시 이동할 페이지
       }
     }
   };

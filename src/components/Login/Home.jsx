@@ -8,9 +8,17 @@ const Home = () => {
         <h1>홈 페이지</h1>
       </header>
       <main className="main">
-        <div className="content">
-          <p>여기는 우리 회사의 홈 페이지입니다.</p>
-          <p>다양한 내용을 추가하여 인트라넷을 구축할 수 있습니다.</p>
+        <div className="content box1">
+          <p>1</p>
+        </div>
+        <div className="content box2">
+          <p>2</p>
+        </div>
+        <div className="content box3">
+          <p>3</p>
+        </div>
+        <div className="content box4">
+          <p>4</p>
         </div>
       </main>
     </div>
