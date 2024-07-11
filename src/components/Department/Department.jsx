@@ -35,7 +35,7 @@ const Department = () => {
 
   return (
     <div className="department-form-container">
-      <h2>부서 등록</h2>
+      <h2 style={{ textAlign: 'center' }}>부서 등록</h2>
       <form id="department-form">
         <div className="form-group">
           <label htmlFor="deptId">부서ID</label>
