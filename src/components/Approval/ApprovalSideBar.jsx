@@ -67,14 +67,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전체조회 API
   const fetchEmployees = async () => {
     try {
-            const token = sessionStorage.getItem('jwt');
+      const token = sessionStorage.getItem("jwt");
       const response = await axios.get(
         "http://localhost:9000/api/v1/intrabucks/employee/selectOnly",
         {
           headers: {
             Authorization: token,
-          }
-        });
+          },
+        }
+      );
       const employeesData = response.data;
       console.log(employeesData);
       setEmployees(employeesData);
@@ -86,14 +87,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 세션 정보 요청 함수
   const getSession = async () => {
     try {
-            const token = sessionStorage.getItem('jwt');
+      const token = sessionStorage.getItem("jwt");
       const response = await axios.get(
         "http://localhost:9000/api/v1/intrabucks/approval1/session",
         {
           headers: {
             Authorization: token,
-          }
-        });
+          },
+        }
+      );
       console.log(response.data);
       setSessionData(response.data); // 세션 데이터 설정
     } catch (error) {
@@ -232,14 +234,18 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalSteps: approvalSteps,
       };
 
-            console.log('결재 라인 DTOs:', approvalLineDTO);
-            const token = sessionStorage.getItem('jwt');
-            const response = await axios.post("http://localhost:9000/api/v1/intrabucks/approval1/create", approvalLineDTO, {
-                headers: {
-                  'Authorization': token
-              }
-              });
-            console.log('결재 라인 생성됨:', response.data);
+      console.log("결재 라인 DTOs:", approvalLineDTO);
+      const token = sessionStorage.getItem("jwt");
+      const response = await axios.post(
+        "http://localhost:9000/api/v1/intrabucks/approval1/create",
+        approvalLineDTO,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log("결재 라인 생성됨:", response.data);
 
       //결재선 String 값 저장
       setApprovalLineString(response.data);
@@ -296,14 +302,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전자결재 리스트 출력 api 연동
   const apiSelectList = async () => {
     try {
-            const token = sessionStorage.getItem('jwt');
+      const token = sessionStorage.getItem("jwt");
       const response = await axios.get(
         "http://localhost:9000/api/v1/intrabucks/approval/selectFormList",
         {
           headers: {
             Authorization: token,
           },
-        });
+        }
+      );
       console.log("apiSelectList - data:", response.data);
       // Update form list state
       setFormList(response.data);
@@ -336,14 +343,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전자결재 선택 api 연동
   const apiSelectOne = async (id) => {
     try {
-      const token = sessionStorage.getItem('jwt');
+      const token = sessionStorage.getItem("jwt");
       const response = await axios.get(
         `http://localhost:9000/api/v1/intrabucks/approval/selectOneForm/${id}`,
         {
           headers: {
             Authorization: token,
           },
-        });
+        }
+      );
       console.log("apiSelectOne response.data: ", response.data);
       setSelectOneDocument(response.data);
     } catch (error) {
@@ -401,9 +409,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
       let firstApprovalPosition = approvalLineSplit[1].split(",")[2];
       let firstApproval = approvalLineSplit[1].split(",")[3];
       //기안자 도장 위치
-      const writerStamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const writerStamp = `<table id="approvalLineTable1" style="float: left;  width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                         <tr id="tr_position1">
-                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px; ">
+                        <td rowspan="4" style="border: 1px solid black; width: 17%; padding: 5px; ">
                             <div>
                         <!-- 기안위치 -->
                                 <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; 
@@ -413,27 +421,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                             </div>
                         </td>
                         <!-- 기안자 직위 -->
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; width: 83%; height: 15%;  padding: 5px; text-align: center;">
                             ${writerPosition}
                             <div class="person1PositionInput" id="person1Position" style="width: 100%; text-align: right;"></div>
                         </td> 
                         </tr>
                         <!-- 기안자 도장 -->
-                        <tr id="tr_stamp1" style=" height: 80px; "> 
-                            <td style="border: 1px solid black; ">
-                                <img src=${approvedImage} alt="Approved" />
+                        <tr id="tr_stamp1" style=" height: 55%; "> 
+                            <td style="border: 1px solid black; text-align: center;">
+                                <img src=${approvedImage} alt="Approved " style="max-width: 86%; height: 86%;" />
                                 </td>
                         </tr>
                         <!-- 기안자 이름 -->
                         <tr id="tr_name1">
-                            <td style="border: 1px solid black; padding: 5px;">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
                             ${writerName}   
                             <div className='person1NameInput' type="text" id= "person1Name" name="person1Name" style="width: 100%; text-align: right;"></div>
                             </td>
                         </tr>
                         <!-- 기안일 -->
                         <tr id="tr_date1">
-                            <td style="border: 1px solid black; padding: 5px;">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
                             ${formattedDate}    
                             <div className='person1DateInput' type="text" id="person1Date" name="person1Date" style="width: 100%; text-align: right;"></div>
                             </td>
@@ -441,9 +449,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </table>`;
 
       // 결재자1 도장 위치
-      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                     <tr id="tr_position2">
-                    <td rowspan="4" style="border: 1px solid black; padding: 5px;">
+                    <td rowspan="4" style="border: 1px solid black; width: 17%; padding: 5px;">
                         <div>
                             <!-- 결재위치 -->
                             <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -452,27 +460,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                         </div>
                     </td>
                     <!-- 결재자 직위 -->
-                    <td style="border: 1px solid black; padding: 5px;">
+                    <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center;  padding: 5px;">
                         ${firstApprovalPosition}
                         <div class="approval1PositionInput" id="approval1Position" style="width: 100%; text-align: right;"></div>
                     </td>
                     </tr>
                     <!-- 결재자 도장 -->
-                    <tr id="tr_stamp1" style="height: 80px;">
-                    <td style="border: 1px solid black;">
+                    <tr id="tr_stamp1" >
+                    <td style="border: 1px solid black; height: 55%; text-align: center;">
                         <div id="approval1StampDisplay"></div>
                     </td>
                     </tr>
                     <!-- 결재자 이름 -->
                     <tr id="tr_name1">
-                    <td style="border: 1px solid black; padding: 5px;">
+                    <td style="border: 1px solid black;  height: 15%; text-align: center; padding: 5px;">
                         ${firstApprovalName}
                         <div class="approval1NameInput" id="approvalName1" style="width: 100%; text-align: right;"></div>
                     </td>
                     </tr>
                     <!-- 결재일 -->
                     <tr id="tr_Date1">
-                    <td style="border: 1px solid black; padding: 5px;">
+                    <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
                         ${formattedDate}
                         <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                     </td>
@@ -503,49 +511,49 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
       let secondApproval = approvalLineSplit[2].split(",")[3];
 
       //기안자 도장 위치
-      const writerStamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
-                    <tr id="tr_position1">
-                    <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px; ">
-                        <div>
-                    <!-- 기안위치 -->
-                            <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; 
-                            text-orientation: upright; letter-spacing: 0.2em;">
-                                기안자
-                            </span><br>
-                        </div>
-                    </td>
-                    <!-- 기안자 직위 -->
-                    <td style="border: 1px solid black; padding: 5px;">
-                        ${writerPosition}
-                        <div class="person1PositionInput" id="person1Position" style="width: 100%; text-align: right;"></div>
-                    </td> 
-                    </tr>
-                    <!-- 기안자 도장 -->
-                    <tr id="tr_stamp1" style=" height: 80px; "> 
-                        <td style="border: 1px solid black; ">
-                            <img src=${approvedImage} alt="Approved" />
+      const writerStamp = `<table id="approvalLineTable1" style="float: left;  width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+                        <tr id="tr_position1">
+                        <td rowspan="4" style="border: 1px solid black; width: 17%; padding: 5px; ">
+                            <div>
+                        <!-- 기안위치 -->
+                                <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; 
+                                text-orientation: upright; letter-spacing: 0.2em;">
+                                    기안자
+                                </span><br>
+                            </div>
+                        </td>
+                        <!-- 기안자 직위 -->
+                        <td style="border: 1px solid black; width: 83%; height: 15%;  padding: 5px; text-align: center;">
+                            ${writerPosition}
+                            <div class="person1PositionInput" id="person1Position" style="width: 100%; text-align: right;"></div>
+                        </td> 
+                        </tr>
+                        <!-- 기안자 도장 -->
+                        <tr id="tr_stamp1" style=" height: 55%; "> 
+                            <td style="border: 1px solid black; text-align: center;">
+                                <img src=${approvedImage} alt="Approved " style="max-width: 86%; height: 86%;" />
+                                </td>
+                        </tr>
+                        <!-- 기안자 이름 -->
+                        <tr id="tr_name1">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
+                            ${writerName}   
+                            <div className='person1NameInput' type="text" id= "person1Name" name="person1Name" style="width: 100%; text-align: right;"></div>
                             </td>
-                    </tr>
-                    <!-- 기안자 이름 -->
-                    <tr id="tr_name1">
-                        <td style="border: 1px solid black; padding: 5px;">
-                        ${writerName}   
-                        <div className='person1NameInput' type="text" id= "person1Name" name="person1Name" style="width: 100%; text-align: right;"></div>
-                        </td>
-                    </tr>
-                    <!-- 기안일 -->
-                    <tr id="tr_date1">
-                        <td style="border: 1px solid black; padding: 5px;">
-                        ${formattedDate}    
-                        <div className='person1DateInput' type="text" id="person1Date" name="person1Date" style="width: 100%; text-align: right;"></div>
-                        </td>
-                    </tr>
-                </table>`;
+                        </tr>
+                        <!-- 기안일 -->
+                        <tr id="tr_date1">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
+                            ${formattedDate}    
+                            <div className='person1DateInput' type="text" id="person1Date" name="person1Date" style="width: 100%; text-align: right;"></div>
+                            </td>
+                        </tr>
+                    </table>`;
 
       // 결재자1 도장 위치
-      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                         <tr id="tr_position2">
-                        <td rowspan="4" style="border: 1px solid black; padding: 5px;">
+                        <td rowspan="4" style="border: 1px solid black;  width: 17%; padding: 5px;">
                             <div>
                                 <!-- 결재위치 -->
                                 <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -554,27 +562,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                             </div>
                         </td>
                         <!-- 결재자 직위 -->
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center; padding: 5px;">
                             ${firstApprovalPosition}
                             <div class="approval1PositionInput" id="approval1Position" style="width: 100%; text-align: right;"></div>
                         </td>
                         </tr>
                         <!-- 결재자 도장 -->
-                        <tr id="tr_stamp1" style="height: 80px;">
-                        <td style="border: 1px solid black;">
+                        <tr id="tr_stamp1" >
+                        <td style="border: 1px solid black; height: 55%; text-align: center;">
                             <div id="approval1StampDisplay"></div>
                         </td>
                         </tr>
                         <!-- 결재자 이름 -->
                         <tr id="tr_name1">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${firstApprovalName}
                             <div class="approval1NameInput" id="approvalName1" style="width: 100%; text-align: right;"></div>
                         </td>
                         </tr>
                         <!-- 결재일 -->
                         <tr id="tr_Date1">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${formattedDate}
                             <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                         </td>
@@ -583,9 +591,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                         `;
 
       //결재자2 도장 위치
-      const approval2Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval2Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                     <tr id="tr_position3">
-                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px;">
+                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 17%; ">
                             <div>
                                 <!-- 기안위치 -->
                                 <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -594,27 +602,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                             </div>
                         </td>
                         <!-- 기안자 직위 -->
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center; padding: 5px;">
                             ${secondApprovalPosition}
                             <div class="approval2PositionInput" id="approval2Position" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안자 도장 -->
-                    <tr id="tr_stamp2" style="height: 80px;">
-                        <td style="border: 1px solid black;">
+                    <tr id="tr_stamp2" >
+                        <td style="border: 1px solid black; height: 55%; text-align: center;">
                             <div id="stamp2Display"></div>
                         </td>
                     </tr>
                     <!-- 기안자 이름 -->
                     <tr id="tr_name2">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${secondApprovalName}
                             <div class="approval2NameInput" id="approvalName2" type="text" name="approvalName2" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안일 -->
                     <tr id="tr_Date2">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${formattedDate}
                             <div class="approval2Date2Input" id="approval2Date2" type="text" name="approval2Date2" style="width: 100%; text-align: right;"></div>
                         </td>
@@ -652,49 +660,49 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
       let thirdApproval = approvalLineSplit[3].split(",")[3];
 
       //기안자 도장 위치
-      const writerStamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
-                    <tr id="tr_position1">
-                    <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px; ">
-                        <div>
-                    <!-- 기안위치 -->
-                            <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; 
-                            text-orientation: upright; letter-spacing: 0.2em;">
-                                기안자
-                            </span><br>
-                        </div>
-                    </td>
-                    <!-- 기안자 직위 -->
-                    <td style="border: 1px solid black; padding: 5px;">
-                        ${writerPosition}
-                        <div class="person1PositionInput" id="person1Position" style="width: 100%; text-align: right;"></div>
-                    </td> 
-                    </tr>
-                    <!-- 기안자 도장 -->
-                    <tr id="tr_stamp1" style=" height: 80px; "> 
-                        <td style="border: 1px solid black; ">
-                            <img src=${approvedImage} alt="Approved" />
+      const writerStamp = `<table id="approvalLineTable1" style="float: left;  width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+                        <tr id="tr_position1">
+                        <td rowspan="4" style="border: 1px solid black; width: 17%; padding: 5px; ">
+                            <div>
+                        <!-- 기안위치 -->
+                                <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; 
+                                text-orientation: upright; letter-spacing: 0.2em;">
+                                    기안자
+                                </span><br>
+                            </div>
+                        </td>
+                        <!-- 기안자 직위 -->
+                        <td style="border: 1px solid black; width: 83%; height: 15%;  padding: 5px; text-align: center;">
+                            ${writerPosition}
+                            <div class="person1PositionInput" id="person1Position" style="width: 100%; text-align: right;"></div>
+                        </td> 
+                        </tr>
+                        <!-- 기안자 도장 -->
+                        <tr id="tr_stamp1" style=" height: 55%; "> 
+                            <td style="border: 1px solid black; text-align: center;">
+                                <img src=${approvedImage} alt="Approved " style="max-width: 86%; height: 86%;" />
+                                </td>
+                        </tr>
+                        <!-- 기안자 이름 -->
+                        <tr id="tr_name1">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
+                            ${writerName}   
+                            <div className='person1NameInput' type="text" id= "person1Name" name="person1Name" style="width: 100%; text-align: right;"></div>
                             </td>
-                    </tr>
-                    <!-- 기안자 이름 -->
-                    <tr id="tr_name1">
-                        <td style="border: 1px solid black; padding: 5px;">
-                        ${writerName}   
-                        <div className='person1NameInput' type="text" id= "person1Name" name="person1Name" style="width: 100%; text-align: right;"></div>
-                        </td>
-                    </tr>
-                    <!-- 기안일 -->
-                    <tr id="tr_date1">
-                        <td style="border: 1px solid black; padding: 5px;">
-                        ${formattedDate}    
-                        <div className='person1DateInput' type="text" id="person1Date" name="person1Date" style="width: 100%; text-align: right;"></div>
-                        </td>
-                    </tr>
-            </table>`;
+                        </tr>
+                        <!-- 기안일 -->
+                        <tr id="tr_date1">
+                            <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
+                            ${formattedDate}    
+                            <div className='person1DateInput' type="text" id="person1Date" name="person1Date" style="width: 100%; text-align: right;"></div>
+                            </td>
+                        </tr>
+                    </table>`;
 
       // 결재자1 도장 위치
-      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval1Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
             <tr id="tr_position2">
-                <td rowspan="4" style="border: 1px solid black; padding: 5px;">
+                <td rowspan="4" style="border: 1px solid black; width: 17%; padding: 5px; padding: 5px;">
                     <div>
                         <!-- 결재위치 -->
                         <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -703,27 +711,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                     </div>
                 </td>
                 <!-- 결재자 직위 -->
-                <td style="border: 1px solid black; padding: 5px;">
+                <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center; padding: 5px;">
                     ${firstApprovalPosition}
                     <div class="approval1PositionInput" id="approval1Position" style="width: 100%; text-align: right;"></div>
                 </td>
             </tr>
             <!-- 결재자 도장 -->
-            <tr id="tr_stamp1" style="height: 80px;">
-                <td style="border: 1px solid black;">
+            <tr id="tr_stamp1" >
+                <td style="border: 1px solid black; height: 55%; text-align: center;">
                     <div id="approval1StampDisplay"></div>
                 </td>
             </tr>
             <!-- 결재자 이름 -->
             <tr id="tr_name1">
-                <td style="border: 1px solid black; padding: 5px;">
+                <td style="border: 1px solid black; height: 15%; text-align: center; padding: 5px;">
                     ${firstApprovalName}
                     <div class="approval1NameInput" id="approvalName1" style="width: 100%; text-align: right;"></div>
                 </td>
             </tr>
             <!-- 결재일 -->
             <tr id="tr_Date1">
-                <td style="border: 1px solid black; padding: 5px;">
+                <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                     ${formattedDate}
                     <div class="approvalDate1Input" id="approvalDate1" style="width: 100%; text-align: right;"></div>
                 </td>
@@ -732,9 +740,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 `;
 
       //결재자2 도장 위치
-      const approval2Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval2Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                     <tr id="tr_position3">
-                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px;">
+                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 17%; ">
                             <div>
                                 <!-- 기안위치 -->
                                 <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -743,27 +751,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                             </div>
                         </td>
                         <!-- 기안자 직위 -->
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center; padding: 5px;">
                             ${secondApprovalPosition}
                             <div class="approval2PositionInput" id="approval2Position" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안자 도장 -->
-                    <tr id="tr_stamp2" style="height: 80px;">
-                        <td style="border: 1px solid black;">
+                    <tr id="tr_stamp2">
+                        <td style="border: 1px solid black;  height: 55%; text-align: center;">
                             <div id="stamp2Display"></div>
                         </td>
                     </tr>
                     <!-- 기안자 이름 -->
                     <tr id="tr_name2">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; padding: 5px; height: 15%; text-align: center; ">
                             ${secondApprovalName}
                             <div class="approval2NameInput" id="approvalName2" type="text" name="approvalName2" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안일 -->
                     <tr id="tr_Date2">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; padding: 5px; height: 15%; text-align: center; ">
                             ${formattedDate}
                             <div class="approval2Date2Input" id="approval2Date2" type="text" name="approval2Date2" style="width: 100%; text-align: right;"></div>
                         </td>
@@ -771,9 +779,9 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                 </table>`;
 
       //결재자3 도장 위치
-      const approval3Stamp = `<table id="approvalLineTable1" style="float: left; width: 30px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
+      const approval3Stamp = `<table id="approvalLineTable1" style="float: left; width: 120px; height: 180px; border-collapse: collapse; margin-left: auto; margin-right: 3px;">
                     <tr id="tr_position4">
-                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 1px; height: 50px;">
+                        <td rowspan="4" style="border: 1px solid black; padding: 5px; width: 17%; ">
                             <div>
                                 <!-- 기안위치 -->
                                 <span style="font-size: 10px; writing-mode: vertical-lr; white-space: nowrap; text-orientation: upright; letter-spacing: 0.2em;">
@@ -782,27 +790,27 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                             </div>
                         </td>
                         <!-- 기안자 직위 -->
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; width: 83%; height: 15%; text-align: center; padding: 5px;">
                             ${thirdApprovalPosition}
                             <div class="approval3PositionInput" id="approval3Position" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안자 도장 -->
-                    <tr id="tr_stamp3" style="height: 80px;">
-                        <td style="border: 1px solid black;">
+                    <tr id="tr_stamp3" >
+                        <td style="border: 1px solid black; height: 55%; text-align: center;">
                             <div id="stamp3Display"></div>
                         </td>
                     </tr>
                     <!-- 기안자 이름 -->
                     <tr id="tr_name3">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${thirdApprovalName}
                             <div class="approval3NameInput" id="approvalName3" type="text" name="approvalName3" style="width: 100%; text-align: right;"></div>
                         </td>
                     </tr>
                     <!-- 기안일 -->
                     <tr id="tr_Date3">
-                        <td style="border: 1px solid black; padding: 5px;">
+                        <td style="border: 1px solid black; height: 15%; text-align: center;  padding: 5px;">
                             ${formattedDate}
                             <div class="approval3Date2Input" id="approval2Date3" type="text" name="approval2Date3" style="width: 100%; text-align: right;"></div>
                         </td>
@@ -920,15 +928,18 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         appDocPathString: approvalLineString, // 결재경로 문자열
       };
 
-            // axios 요청 보내기
-            const token = sessionStorage.getItem('jwt');
-            const response = await axios.post("http://localhost:9000/api/v1/intrabucks/approval/saveApproval", data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                }
-            });
-
+      // axios 요청 보내기
+      const token = sessionStorage.getItem("jwt");
+      const response = await axios.post(
+        "http://localhost:9000/api/v1/intrabucks/approval/saveApproval",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       console.log("apiSaveHtml response.data: ", response.data);
       setSaveForm(response.data);
@@ -949,8 +960,8 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              'Authorization': token
-            }
+              Authorization: token,
+            },
           }
         );
 
@@ -1017,15 +1028,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   //첨부파일 업로드 취소 api 연동
   const cancelUploadApi = async (uploadData) => {
     try {
-      const token = sessionStorage.getItem('jwt');
+      const token = sessionStorage.getItem("jwt");
       const response = await axios.delete(
         `http://localhost:9000/api/v1/intrabucks/approval/deleteFile/${uploadData.documentId}`,
         uploadData,
         {
           headers: {
             "Content-Type": "multipart/form-data", // multipart/form-data 설정
-            'Authorization': token
-          }
+            Authorization: token,
+          },
         }
       );
       console.log("cancelUploadApi response.data: ", response.data);
