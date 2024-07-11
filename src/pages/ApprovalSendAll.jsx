@@ -10,7 +10,7 @@ const ApprovalSendAll = () => {
             <div style={{ flex: 0 }}>
                 <ApprovalSideBar />
             </div>
-            <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, paddingLeft: '20px' }}>
                 <ApprovalSendList /> {/** 2. 기안함 */}
             </div>
         </div>

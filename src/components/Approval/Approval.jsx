@@ -48,18 +48,18 @@ const Approval = () => {
         <button className="new-payment" onClick={() => handleApproval('새 결재 진행')}>새 결재 진행</button>
         <div className="frequently-used-forms">
           <div>
-            <span className="menu-text" onClick={() => handleSubMenuToggle('홈')}>홈</span>
+            <span className="approval-menu-text" onClick={() => handleSubMenuToggle('홈')}>홈</span>
           </div>
-          <span className="menu-text" onClick={() => handleSubMenuToggle('전자결재')}>전자결재</span>
+          <span className="approval-menu-text" onClick={() => handleSubMenuToggle('전자결재')}>전자결재</span>
           {activeMenu === '전자결재' && (
             <ul className="submenu">
-              <li className="sideBar-subitem" onClick={handleApprovalSendManagementClick}>
+              <li className="approval-sideBar-subitem" onClick={handleApprovalSendManagementClick}>
                 보낸결재함
               </li>
-              <li className="sideBar-subitem" onClick={handleApprovalWaitingManagementClick}>
+              <li className="approval-sideBar-subitem" onClick={handleApprovalWaitingManagementClick}>
                 받은결재대기함
               </li>
-              <li className="sideBar-subitem" onClick={handleApprovalGetManagementClick}>
+              <li className="approval-sideBar-subitem" onClick={handleApprovalGetManagementClick}>
                 받은결재함
               </li>
             </ul>

@@ -1,5 +1,5 @@
 .employee-form-container {
-  width: 60%; /* 폼 컨테이너의 너비를 조정합니다 */
+  width: 20%; /* 폼 컨테이너의 너비를 조정합니다 */
   margin: 0 auto; /* 중앙 정렬을 수행합니다 */
   padding: 20px; /* 내부 여백을 추가합니다 */
   border: 1px solid #ccc; /* 테두리를 추가합니다 */
@@ -10,6 +10,7 @@
 
 .employee-form-container h2 {
   margin-bottom: 20px; /* 제목과 폼 사이의 간격을 조정합니다 */
+  font-size: 24px; /* 제목 폰트 크기를 조정합니다 */
 }
 
 .form-group {
@@ -20,28 +21,15 @@ label {
   display: block; /* 레이블을 블록 레벨 요소로 설정하여 위 아래로 정렬합니다 */
   font-weight: bold; /* 레이블 텍스트를 굵게 설정합니다 */
   margin-bottom: 5px; /* 레이블과 입력 필드 사이의 간격을 조정합니다 */
+  font-size: 18px; /* 레이블 텍스트 크기를 조정합니다 */
 }
 
-input[type="text"] {
-  width: 100px; /* 입력 필드 너비를 조정합니다 */
-  padding: 8px; /* 입력 필드 내부 여백을 설정합니다 */
-  font-size: 14px; /* 폰트 크기를 조정합니다 */
-  border: 1px solid #ccc; /* 테두리를 추가합니다 */
-  border-radius: 3px; /* 둥근 테두리를 적용합니다 */
-}
-
-input[type="email"] {
-  width: calc(100% - 10px); /* 입력 필드 너비를 조정합니다 */
-  padding: 8px; /* 입력 필드 내부 여백을 설정합니다 */
-  font-size: 14px; /* 폰트 크기를 조정합니다 */
-  border: 1px solid #ccc; /* 테두리를 추가합니다 */
-  border-radius: 3px; /* 둥근 테두리를 적용합니다 */
-}
-
+input[type="text"],
+input[type="email"],
 input[type="date"] {
   width: calc(100% - 10px); /* 입력 필드 너비를 조정합니다 */
-  padding: 8px; /* 입력 필드 내부 여백을 설정합니다 */
-  font-size: 14px; /* 폰트 크기를 조정합니다 */
+  padding: 10px; /* 입력 필드 내부 여백을 설정합니다 */
+  font-size: 18px; /* 폰트 크기를 조정합니다 */
   border: 1px solid #ccc; /* 테두리를 추가합니다 */
   border-radius: 3px; /* 둥근 테두리를 적용합니다 */
   box-sizing: border-box; /* 입력 필드의 너비와 패딩을 박스 모델에 맞춥니다 */
@@ -53,8 +41,8 @@ input[type="date"] {
 }
 
 .buttons button {
-  padding: 10px 20px; /* 버튼의 패딩을 조정합니다 */
-  font-size: 16px; /* 버튼의 폰트 크기를 설정합니다 */
+  padding: 15px 30px; /* 버튼의 패딩을 조정합니다 */
+  font-size: 18px; /* 버튼의 폰트 크기를 설정합니다 */
   background-color: #007bff; /* 배경색을 설정합니다 */
   color: #fff; /* 텍스트 색상을 설정합니다 */
   border: none; /* 테두리를 제거합니다 */
