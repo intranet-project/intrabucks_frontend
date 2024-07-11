@@ -90,7 +90,7 @@ const EmployeeUpdate = () => {
 
   return (
     <div className="employee-form-container">
-      <h2>직원 등록</h2>
+      <h2 style={{ textAlign: 'center' }}>직원정보수정</h2>
       <form id="employee-form">
         <div className="form-group">
           <label htmlFor="empId">직원ID</label>
