@@ -49,7 +49,12 @@ const EmployeeUpdate = () => {
 
   const updateEmployee = async () => {
     try {
-      const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/employee/update/${empId}`, formData);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/employee/update/${empId}`, formData, {
+        headers: {
+          'Authorization': token
+      }
+      });
       if (response.data) {
         alert('직원 정보가 수정되었습니다.');
         navigate('/employee-list');
