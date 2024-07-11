@@ -55,7 +55,7 @@ const EmployeeList = () => {
             <tr>
               <th>직원ID</th>
               <th>이름</th>
-              <th>비밀ID</th>
+              <th>비밀번호</th>
               <th>부서코드</th>
               <th>직책</th>
               <th>입사일</th>

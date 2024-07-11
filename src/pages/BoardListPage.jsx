@@ -5,7 +5,7 @@ const BoardListPage = () => {
     return (
         <div>
         <div>
-          <h1>게시물목록 페이지</h1>
+          <h1>협업게시판</h1>
           <div className="page"></div>
           <div className="page-container">
             <BoardList />

@@ -7,7 +7,7 @@ const EmployeeUpdate = () => {
   const initialFormData = {
     직원ID: '',
     이름: '',
-    비밀ID: '',
+    비밀번호: '',
     부서코드: '',
     직책: '',
     입사일: '',
@@ -114,12 +114,11 @@ const EmployeeUpdate = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="empPassword">비밀ID</label>
+          <label htmlFor="empPassword">비밀번호</label>
           <input
             type="text"
             id="empPassword"
             name="empPassword"
-            value={formData['empPassword']}
             onChange={handleChange}
           />
         </div>
