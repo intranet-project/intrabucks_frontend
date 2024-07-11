@@ -1,7 +1,7 @@
 import React from 'react';
 import EmployeeList from "../components/Employee/EmployeeList";
 
-const EmployeeList = () => {
+const EmployeeListPage = () => {
     return (
         <div>
       <div>
@@ -15,4 +15,4 @@ const EmployeeList = () => {
   );
 };
 
-export default EmployeeList;
+export default EmployeeListPage;

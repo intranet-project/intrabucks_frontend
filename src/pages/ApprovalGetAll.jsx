@@ -8,7 +8,7 @@ const ApprovalGetAll = () => {
       <div style={{ flex: 0 }}>
         <ApprovalSideBar />
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ flex: 1, paddingLeft: '20px' }}>
         <ApprovalGet /> {/** 4. 받은 결재함 */}
       </div>
     </div>

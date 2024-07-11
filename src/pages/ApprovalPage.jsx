@@ -15,10 +15,10 @@ const ApprovalPage = () => {
             </div>
             {/** 수정 가능  */}
             <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                <div style={{ flex: 1 }}>
+            <div style={{ flex: 1, paddingLeft: '20px' }}>
                     <ApprovalWaiting /> {/** 3. 결재 대기함 */}
                 </div>
-                <div style={{ flex: 1 }}>
+                <div style={{ flex: 1, paddingLeft: '20px' }}>
                     <ApprovalGet />{/** 4. 받은 결재함 */}
                 </div>
             </div>

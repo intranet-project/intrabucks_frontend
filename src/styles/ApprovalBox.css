@@ -1,32 +1,43 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
+ 
   .approval-container {
     display: flex;
     flex: 1;
     overflow: hidden;
+    
   }
   
   .approval-sidebar {
     width: 300px; /* 사이드바 너비 */
     background-color: #1234; /* 사이드바 배경색 */
     color: white;
-    padding: 80px;
+    padding: 30px;
     box-sizing: border-box;
     flex-shrink: 0; /* 사이드바 축소 방지 */
     height: 100vh; /* 사이드바 높이를 뷰포트 높이의 100%로 설정 */
     overflow-y: auto; /* 내용이 넘치면 수직 스크롤 추가 */
   }
   
+  .new-payment{
+    margin: 30;
+    font-size: 34px; /* 글자 크기 키우기 */
+    text-align: center; /* 가운데 정렬 */
+    font-weight: bold; /* 굵게 설정 */
+  }
+
+  .frequently-used-forms{
+    padding: 40px;
+    font-size: 24px; /* 글자 크기 키우기 */
+    text-align: flex-start; /* 가운데 정렬 */
+    font-weight: bold; /* 굵게 설정 */
+ 
+  }
+
+
+
   .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px 0;
+    
   }
