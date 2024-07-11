@@ -15,9 +15,16 @@ const PurchaseListPage = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
+        
         const fetchData = async () => {
+            
             try {
-                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList');
+                const token = sessionStorage.getItem('jwt');
+                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/purchase/selectPurchaseList', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
                 setData(response.data);
             } catch (error) {
                 console.error('에러 발생', error);

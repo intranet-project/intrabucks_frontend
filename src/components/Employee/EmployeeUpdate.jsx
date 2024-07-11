@@ -27,7 +27,12 @@ const EmployeeUpdate = () => {
 
   const fetchEmployeeData = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/${empId}`);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/${empId}`, {
+        headers: {
+          'Authorization': token
+      }
+      });
       if (response.data) {
         setFormData(response.data);
       } else {

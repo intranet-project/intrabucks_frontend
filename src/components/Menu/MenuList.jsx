@@ -51,7 +51,12 @@ const MenuList = ({ data }) => {
     const fetchDetailData = async (menuId) => {
         console.log("fetchDetailData - menuId:", menuId);
         try {
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/menu/read/${menuId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/menu/read/${menuId}`,  {
+                headers: {
+                'Authorization': token
+            }
+        });
             console.log("API Response - detailData:", response.data);
             setDetailData(response.data); // 상태 업데이트
         } catch (error) {

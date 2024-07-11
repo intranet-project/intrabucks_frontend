@@ -67,14 +67,14 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전체조회 API
   const fetchEmployees = async () => {
     try {
+            const token = sessionStorage.getItem('jwt');
       const response = await axios.get(
         "http://localhost:9000/api/v1/intrabucks/employee/selectOnly",
         {
           headers: {
             Authorization: token,
-          },
-        }
-      );
+          }
+        });
       const employeesData = response.data;
       console.log(employeesData);
       setEmployees(employeesData);
@@ -86,14 +86,14 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 세션 정보 요청 함수
   const getSession = async () => {
     try {
+            const token = sessionStorage.getItem('jwt');
       const response = await axios.get(
         "http://localhost:9000/api/v1/intrabucks/approval1/session",
         {
           headers: {
             Authorization: token,
-          },
-        }
-      );
+          }
+        });
       console.log(response.data);
       setSessionData(response.data); // 세션 데이터 설정
     } catch (error) {
@@ -232,18 +232,14 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         approvalSteps: approvalSteps,
       };
 
-      console.log("결재 라인 DTOs:", approvalLineDTO);
-
-      const response = await axios.post(
-        "http://localhost:9000/api/v1/intrabucks/approval1/create",
-        approvalLineDTO,
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      );
-      console.log("결재 라인 생성됨:", response.data);
+            console.log('결재 라인 DTOs:', approvalLineDTO);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.post("http://localhost:9000/api/v1/intrabucks/approval1/create", approvalLineDTO, {
+                headers: {
+                  'Authorization': token
+              }
+              });
+            console.log('결재 라인 생성됨:', response.data);
 
       //결재선 String 값 저장
       setApprovalLineString(response.data);
@@ -300,14 +296,14 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전자결재 리스트 출력 api 연동
   const apiSelectList = async () => {
     try {
+            const token = sessionStorage.getItem('jwt');
       const response = await axios.get(
-        `http://localhost:9000/api/v1/intrabucks/approval/selectFormList`,
+        "http://localhost:9000/api/v1/intrabucks/approval/selectFormList",
         {
           headers: {
             Authorization: token,
           },
-        }
-      );
+        });
       console.log("apiSelectList - data:", response.data);
       // Update form list state
       setFormList(response.data);
@@ -340,14 +336,14 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   // 전자결재 선택 api 연동
   const apiSelectOne = async (id) => {
     try {
+      const token = sessionStorage.getItem('jwt');
       const response = await axios.get(
         `http://localhost:9000/api/v1/intrabucks/approval/selectOneForm/${id}`,
         {
           headers: {
             Authorization: token,
           },
-        }
-      );
+        });
       console.log("apiSelectOne response.data: ", response.data);
       setSelectOneDocument(response.data);
     } catch (error) {
@@ -924,17 +920,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
         appDocPathString: approvalLineString, // 결재경로 문자열
       };
 
-      // axios 요청 보내기
-      const response = await axios.post(
-        `http://localhost:9000/api/v1/intrabucks/approval/saveApproval`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
+            // axios 요청 보내기
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.post("http://localhost:9000/api/v1/intrabucks/approval/saveApproval", data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            });
+
 
       console.log("apiSaveHtml response.data: ", response.data);
       setSaveForm(response.data);
@@ -955,8 +949,8 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
-              Authorization: token,
-            },
+              'Authorization': token
+            }
           }
         );
 
@@ -1023,14 +1017,15 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
   //첨부파일 업로드 취소 api 연동
   const cancelUploadApi = async (uploadData) => {
     try {
+      const token = sessionStorage.getItem('jwt');
       const response = await axios.delete(
         `http://localhost:9000/api/v1/intrabucks/approval/deleteFile/${uploadData.documentId}`,
         uploadData,
         {
           headers: {
             "Content-Type": "multipart/form-data", // multipart/form-data 설정
-            Authorization: token,
-          },
+            'Authorization': token
+          }
         }
       );
       console.log("cancelUploadApi response.data: ", response.data);

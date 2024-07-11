@@ -20,7 +20,12 @@ const DetailMenuModal = ({ detailData, isOpen, onClose }) => {
     const [deleteData, setDeleteData] = useState(null);
     const deleteApi = async (menuId) => {
         try {
-            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/menu/delete/${menuId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/menu/delete/${menuId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log("API Response - deleteApi:", response.data);
             alert('메뉴가 삭제되었습니다.');
             setDeleteData(response.data); // 상태 업데이트

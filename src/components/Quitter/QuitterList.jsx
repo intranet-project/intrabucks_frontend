@@ -15,8 +15,13 @@ const QuitterList = () => {
 
   const fetchQuittersFromApi = async (pageNumber) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/quitter/select?page=${pageNumber}&size=${pageSize}`);
+      const token = sessionStorage.getItem('jwt');
       const { content, totalPages } = response.data; // 서버에서 전달된 내용과 전체 페이지 수 추출
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/quitter/select?page=${pageNumber}&size=${pageSize}`, {
+        headers: {
+            'Authorization': token
+        }
+    });
       console.log(response.data); // 데이터 확인용
       setQuitters(content);
       setTotalPages(totalPages); // 전체 페이지 수 업데이트

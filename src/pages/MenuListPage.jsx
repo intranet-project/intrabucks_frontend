@@ -6,13 +6,17 @@ import { useState, useEffect } from "react";
 const MenuListPage = () => {
   //API 통신(List)
   const [data, setData] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = sessionStorage.getItem('jwt');
         const response = await axios.get(
-          "http://localhost:9000/api/v1/intrabucks/menu/list"
-        );
+          "http://localhost:9000/api/v1/intrabucks/menu/list",
+          {
+            headers: {
+                'Authorization': token
+            }
+        });
         console.log(
           "================response.data-===================",
           response.data

@@ -11,14 +11,17 @@ const VoiceAnswer = ({ voiceId, onClose, onAnswerSubmitted }) => {
     event.preventDefault();
 
     try {
+      const token = sessionStorage.getItem('jwt');
       const response = await axios.post(
         "http://localhost:9000/api/v1/intrabucks/customer/answer",
         {
           voiceId: voiceId,
           answerContent: answerContent,
-          employee: 2,
+          employee: 2},
+          {headers: {
+            'Authorization': token
         }
-      );
+        });
 
       console.log(voiceId, answerContent, employeeId);
       console.log("답변이 성공적으로 등록되었습니다:", response.data);

@@ -28,7 +28,12 @@ const DetailPurchaseModal = ({ detailData, isOpen, onClose }) => {
     const [deleteData, setDeleteData] = useState(null);
     const deleteApi = async (purchaseId) => {
         try {
-            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/purchase/deleteOnePurchase/${purchaseId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/purchase/deleteOnePurchase/${purchaseId}`, {
+                headers: {
+                'Authorization': token
+            }
+        });
             setDeleteData(response.data); // 상태 업데이트
         } catch (error) {
             console.error("에러 발생", error);

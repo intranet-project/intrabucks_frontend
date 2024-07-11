@@ -17,10 +17,10 @@ const ApprovalLine = () => {
   const fetchEmployees = async () => {
     try {
       const token = sessionStorage.getItem('jwt');
-      const response = await axios.get('http://localhost:9000/api/employee/selectOnly', {
+      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/employee/selectOnly', {
         headers: {
           'Authorization': token
-        }
+      }
       });
       const employeesData = response.data;
       console.log(employeesData);
@@ -34,12 +34,7 @@ const ApprovalLine = () => {
   // 세션 정보 요청 함수
   const getSession = async () => {
     try {
-      const token = sessionStorage.getItem('jwt');
-      const response = await axios.get('http://localhost:9000/api/Approval1/session', {
-        headers: {
-          'Authorization': token
-        }
-      });
+      const response = await axios.get('http://localhost:9000/api/Approval1/session');
       const sessionData = response.data;
       setSessionData(sessionData); // 세션 데이터 설정
 
@@ -182,12 +177,8 @@ const ApprovalLine = () => {
       };
 
       console.log('결재 라인 DTOs:', approvalLineDTO);
-      const token = sessionStorage.getItem('jwt');
-      const response = await axios.post('http://localhost:9000/api/Approval1/create', approvalLineDTO, {
-        headers: {
-          'Authorization': token
-        }
-      });
+
+      const response = await axios.post('http://localhost:9000/api/Approval1/create', approvalLineDTO);
       console.log('결재 라인 생성됨:', response.data);
 
       setApprovalLine([]); // 결재선 초기화

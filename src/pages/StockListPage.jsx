@@ -17,7 +17,12 @@ const StockListPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/stock/selectStockList');
+                const token = sessionStorage.getItem('jwt');
+                const response = await axios.get('http://localhost:9000/api/v1/intrabucks/stock/selectStockList', {
+                    headers: {
+                        'Authorization': token
+                    }
+                });
                 console.log('================response.data-===================', response.data);
                 setData(response.data);
             } catch (error) {

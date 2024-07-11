@@ -32,14 +32,18 @@ const QuitterUpdate = () => {
   };
 
   const updateQuitter = () => {
+    const token = sessionStorage.getItem('jwt');
     const requestOptions = {
       method: 'PUT', // 수정 요청이므로 PUT 메서드를 사용
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     };
   
-    fetch(`http://localhost:9000/api/v1/intrabucks/quitter/update/${formData.empId}`, requestOptions)
-      .then(response => {
+    fetch(`http://localhost:9000/api/v1/intrabucks/quitter/update/${formData.empId}`, requestOptions, {
+      headers: {
+          'Authorization': token
+      }
+  }).then(response => {
         if (response.ok) {
           alert('직원 정보가 수정되었습니다.');
           navigate('/quitter-list'); // 수정 성공 후 페이지 이동
@@ -62,10 +66,12 @@ const QuitterUpdate = () => {
 
   const deleteQuitter = () => {
     if (window.confirm("정말로 이 직원을 삭제하시겠습니까?")) {
+      const token = sessionStorage.getItem('jwt');
       fetch(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${formData.quitId}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': token
         }
       })
         .then(response => {

@@ -19,7 +19,12 @@ const EmployeeList = () => {
   /*API직원목록조회*/
   const fetchEmployees = async (pageNumber) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/select?page=${pageNumber}&size=${pageSize}`);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/employee/select?page=${pageNumber}&size=${pageSize}`, {
+        headers: {
+          'Authorization': token
+      }
+      });
       setEmployees(response.data.content);
       const { content, totalPages } = response.data; // 서버에서 전달된 내용과 전체 페이지 수 추출
       setApprovalDocuments(content); // 문서 목록 업데이트

@@ -16,10 +16,14 @@ const Department = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
   const register = async () => { // async 함수로 변경
     try {
-      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/department/create', formData);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/department/create', formData, {
+        headers: {
+          'Authorization': token
+      }
+      });
       console.log('Response from server:', response.data);
       alert("등록이 완료되었습니다..");
       navigate('/department');

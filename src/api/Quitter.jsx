@@ -14,7 +14,12 @@ const Quitter = () => {
 
   const fetchQuitters = async () => {
     try {
-      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/quitter/select');
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.get('http://localhost:9000/api/v1/intrabucks/quitter/select', { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       setQuitters(response.data.content);
     } catch (error) {
       console.error('Error fetching quitters:', error);
@@ -23,7 +28,12 @@ const Quitter = () => {
 
   const createQuitter = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/quitter/create', newQuitter);
+      const token = sessionStorage.getItem('jwt');
+      const response = await axios.post('http://localhost:9000/api/v1/intrabucks/quitter/create', { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       alert(`Quitter created with ID: ${response.data}`);
       fetchQuitters();
     } catch (error) {
@@ -33,7 +43,12 @@ const Quitter = () => {
 
   const deleteQuitter = async (quitId) => {
     try {
-      await axios.delete(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${quitId}`);
+      const token = sessionStorage.getItem('jwt');
+      await axios.delete(`http://localhost:9000/api/v1/intrabucks/quitter/delete/${quitId}`, { // 포트 번호 9000 명시,
+        headers: {
+          'Authorization': token
+      }
+      });
       alert('Quitter deleted');
       fetchQuitters();
     } catch (error) {

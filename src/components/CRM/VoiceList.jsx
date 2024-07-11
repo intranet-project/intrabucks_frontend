@@ -11,10 +11,13 @@ const VoiceList = () => {
   useEffect(() => {
     const fetchVoices = async () => {
       try {
+        const token = sessionStorage.getItem('jwt');
         const response = await axios.get(
-          "http://localhost:9000/api/v1/intrabucks/customer/voice"
-        );
-        // 접수번호 최신순으로 정렬
+          "http://localhost:9000/api/v1/intrabucks/customer/voice", { // 포트 번호 9000 명시,
+            headers: {
+              'Authorization': token
+          }
+          });
         const sortedVoices = response.data.sort(
           (a, b) => b.voiceId - a.voiceId
         );

@@ -12,6 +12,7 @@ const EditStoreModal = ({ data, isOpen, onClose }) => {
         //폼 제출 이벤트 방지
         e.preventDefault();
         try {
+            const token = sessionStorage.getItem('jwt');
             const response = await axios.put(`http://localhost:9000/api/v1/intrabucks/store/update/${editData.storeId}`, {
                 // DTO의 변수 중 자료형이 엔티티일 경우,
                 storeId: editData.storeId,
@@ -21,7 +22,11 @@ const EditStoreModal = ({ data, isOpen, onClose }) => {
                 storeAddress: editData.storeAddress,
                 storeCreatedAt: editData.storeCreatedAt,
                 storeClose: editData.storeClose
-            });
+            }, {
+                    headers: {
+                'Authorization': token
+            }
+        });
             console.log("수정 완료:", response.data);
             alert('매장 정보가 수정되었습니다.');
             // 수정 후 모달 닫기

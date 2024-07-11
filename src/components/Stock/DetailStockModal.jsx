@@ -25,7 +25,12 @@ const DetailStockModal = ({ detailData, isOpen, onClose }) => {
     const [deleteData, setDeleteData] = useState(null);
     const deleteApi = async (stockId) => {
         try {
-            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/stock/deleteOneStock/${stockId}`);
+            const token = sessionStorage.getItem('jwt');
+            const response = await axios.delete(`http://localhost:9000/api/v1/intrabucks/stock/deleteOneStock/${stockId}`, {
+                headers: {
+                    'Authorization': token
+                }
+            });
             console.log("API Response - deleteApi:", response.data);
             setDeleteData(response.data); // 상태 업데이트
         } catch (error) {
