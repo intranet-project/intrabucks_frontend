@@ -1,0 +1,12 @@
+.calendar-day {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 2px;
+    cursor: pointer;
+  }
+  
+  .calendar-day.holiday {
+    background-color: red;
+    color: white;
+  }
+  

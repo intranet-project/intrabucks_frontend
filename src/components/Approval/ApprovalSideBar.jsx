@@ -32,12 +32,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
     navigate("/approvalSendList");
   };
 
-  // 받을결재대기함(사이드바 목록)
-  const handleApprovalWaitingManagementClick = (e) => {
-    e.stopPropagation();
-    navigate("/approvalWaitingAll");
-  };
-
   // 받은결재함(사이드바 목록)
   const handleApprovalGetManagementClick = (e) => {
     e.stopPropagation();
@@ -1033,12 +1027,7 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
                 >
                   보낸결재함
                 </li>
-                <li
-                  className="sideBar-subitem"
-                  onClick={handleApprovalWaitingManagementClick}
-                >
-                  받은결재대기함
-                </li>
+
                 <li
                   className="sideBar-subitem"
                   onClick={handleApprovalGetManagementClick}
