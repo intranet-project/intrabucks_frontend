@@ -32,8 +32,6 @@
  
   }
 
-
-
   .pagination {
     display: flex;
     justify-content: center;
@@ -41,3 +39,10 @@
     padding: 10px 0;
     
   }
+
+  .li sideBar-subitem {
+    padding: 40px;
+    font-size: 24px; /* 글자 크기 키우기 */
+    text-align: flex-start; /* 가운데 정렬 */
+    font-weight: bold; /* 굵게 설정 */
+}

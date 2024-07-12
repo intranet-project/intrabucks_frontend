@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../styles/Board.css';
@@ -6,39 +6,76 @@ import '../../styles/Board.css';
 const Board = () => {
   const initialFormData = {
     boardId: '',
-    deptId: '', // 부서 선택
-    empEmail: '',
     boardTitle: '',
     boardContent: '',
+    empEmail: '',
     boardDate: '',
     boardFile: null,
+    department: {
+      deptCode: '',
+      deptName: '',
+    },
+    employee: {
+      empId: null,
+      empName: '',
+      empPassword: '',
+      empEmail: '',
+      empPhone: '',
+      empAddress: '',
+      empJoinDate: '',
+      empPosition: '',
+      department: {
+        deptCode: '',
+      },
+      workState: '',
+    },
   };
 
   const [formData, setFormData] = useState(initialFormData);
-  const [departments, setDepartments] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === 'empEmail' || name === 'empName') {
+      setFormData({
+        ...formData,
+        employee: {
+          ...formData.employee,
+          [name]: value,
+        },
+      });
+    } else if (name === 'boardTitle' || name === 'boardContent' || name === 'boardDate' || name === 'boardFile') {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    } else if (name === 'department') {
+      setFormData({
+        ...formData,
+        department: {
+          ...formData.department,
+          deptName: value,
+        },
+      });
+    }
   };
 
-  /*API직원등록*/
   const createBoard = async () => {
     try {
       const token = sessionStorage.getItem('jwt');
       const response = await axios.post('http://localhost:9000/api/v1/intrabucks/board/createBoard', formData, {
         headers: {
-          'Authorization': token
-      }
+          'Authorization': token,
+        },
       });
       console.log('Response from server:', response.data);
-      alert('직원 정보가 등록되었습니다.');
+      alert('게시글이 등록되었습니다.');
       navigate('/BoardList');
     } catch (error) {
       console.error('Error creating board:', error);
-      alert('부서 코드를 확인하세요.');
+      alert('게시글 등록 중 오류가 발생했습니다.');
     }
-  }; 
+  };
 
   const cancel = () => {
     if (window.confirm('취소하시겠습니까?')) {
@@ -50,56 +87,46 @@ const Board = () => {
   return (
     <div className="board-form-container">
       <form id="board-form">
-        <div className="form-group" >
+        <div className="form-group">
           <label htmlFor="boardId">문서번호</label>
           <input
             type="text"
             id="boardId"
             name="boardId"
             readOnly
-            value={formData['boardId']}
+            value={formData.boardId}
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="deptId">부서명</label>
-          <input
-            type="text"
-            id="deptId"  
-            name="deptId"
-            value={formData['deptId']}
-            onChange={handleChange}
-          />
-        </div>
+        
         <div className="form-group">
           <label htmlFor="empEmail">이메일</label>
           <input
             type="email"
             id="empEmail"
             name="empEmail"
-            value={formData['empEmail']}
+            value={formData.employee.empEmail}
             onChange={handleChange}
             required
-            style={{ display: 'flex', padding: '1rem', height: '2.3rem'}}  
           />
         </div>
+        
         <div className="form-group">
           <label htmlFor="boardTitle">제목</label>
           <input
             type="text"
             id="boardTitle"
             name="boardTitle"
-            value={formData['boardTitle']}
+            value={formData.boardTitle}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="boardPassword">내용</label>
+          <label htmlFor="boardContent">내용</label>
           <textarea
-            type="boardContent"
             id="boardContent"
             name="boardContent"
-            value={formData['boardContent']}
+            value={formData.boardContent}
             onChange={handleChange}
           />
         </div>
@@ -109,22 +136,20 @@ const Board = () => {
             type="date"
             id="boardDate"
             name="boardDate"
-            value={formData['boardDate']}
+            value={formData.boardDate}
             onChange={handleChange}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="boardDate">첨부파일</label>
+          <label htmlFor="boardFile">첨부파일</label>
           <input
             type="file"
             id="boardFile"
             name="boardFile"
-            value={formData['boardFile']}
             onChange={handleChange}
           />
         </div>
 
-        
         <div className="buttons">
           <button type="button" onClick={createBoard}>
             등록
