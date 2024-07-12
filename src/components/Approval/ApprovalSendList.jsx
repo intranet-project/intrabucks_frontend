@@ -94,7 +94,7 @@ const ApprovalSendList = ({ isOpen, isClose }) => {
     console.log("appDocId : ", appDocId);
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/v1/approval/selectUser/${appDocId}`,
+        `http://localhost:9000/api/v1/intrabucks/approval/selectUser/${appDocId}`,
         {
           headers: {
             Authorization: token,
