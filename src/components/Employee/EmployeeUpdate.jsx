@@ -74,10 +74,16 @@ const EmployeeUpdate = () => {
   };
 
   const deleteEmployee = async () => {
+    const token = sessionStorage.getItem('jwt');
     if (window.confirm("정말로 이 직원을 퇴사등록하시겠습니까? 직원정보가 삭제됩니다.")) {
       try {
         // 직원 삭제 API 요청
-        await axios.delete(`http://localhost:9000/api/v1/intrabucks/employee/delete/${empId}`);
+
+        await axios.delete(`http://localhost:9000/api/v1/intrabucks/employee/delete/${empId}`, 
+          {headers: {
+          'Authorization': token
+      }
+      });
         alert('직원이 퇴사 등록되었습니다.');
         // 삭제 후 퇴사자 목록 페이지로 이동
         navigate('/quitter-list');
