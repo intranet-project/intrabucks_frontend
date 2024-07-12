@@ -4,9 +4,9 @@ const VoiceListPage = () => {
   return (
     <div>
       <div>
-        <h1>고객의소리 페이지</h1>
         <div className="page"></div>
         <div className="page-container">
+          <h1>고객의소리</h1>
           <VoiceList />
         </div>
       </div>
