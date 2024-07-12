@@ -68,7 +68,7 @@ const DetailStoreModal = ({ detailData, isOpen, onClose }) => {
                     </div>
                     <div>
                         <label>관리자 비밀번호</label>
-                        <p aria-readonly="true">{detailData.managerPassword}</p>
+                        <p aria-readonly="true">********</p>
                     </div>
                     <div>
                         <label>관리자 이메일</label>

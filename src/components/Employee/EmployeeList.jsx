@@ -12,9 +12,6 @@ const EmployeeList = () => {
   const [pageSize] = useState(10); // 페이지당 문서 수
 
 
-  useEffect(() => {
-    fetchEmployees(page);
-  }, [page]);
 
   /*API직원목록조회*/
   const fetchEmployees = async (pageNumber) => {
@@ -33,6 +30,12 @@ const EmployeeList = () => {
       console.error('Error fetching employees:', error);
     }
   };
+
+  useEffect(() => {
+    fetchEmployees(page);
+  }, [page]);
+
+  
 
   const handleNameClick = (empId) => {
     navigate(`/employee-update/${empId}`);
