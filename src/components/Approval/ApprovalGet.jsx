@@ -379,7 +379,9 @@ const ApprovalGet = ({ isOpen, isClose }) => {
               <div style={{ textAlign: "right" }}>
                 {ApprovalDataList.map(
                   (approval, index) =>
-                    approval.empId === sessionData.empId && (
+                    approval.empId === sessionData.empId &&
+                    approval.approvalStep !== 0 &&
+                    approval.approvalResult !== "승인" && (
                       <div key={index} style={{ display: "inline-block" }}>
                         <button
                           key={index}
