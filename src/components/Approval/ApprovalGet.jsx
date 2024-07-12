@@ -14,10 +14,41 @@ const ApprovalGet = ({ isOpen, isClose }) => {
   const [dataList, setDataList] = useState([]);
   const [modalSelectOne, setModalSelectOne] = useState(false);
   const token = sessionStorage.getItem("jwt");
+  const [sessionData, setSessionData] = useState({
+    empId: null,
+    empName: "",
+    empPassword: "",
+    empEmail: "",
+    empPhone: "",
+    empAddress: "",
+    empJoinDate: "",
+    empPosition: "",
+    deptCode: "",
+    workState: "",
+  }); // 세션 데이터 상태 추가
+
+  const getSession = async () => {
+    try {
+      const token = sessionStorage.getItem("jwt");
+      const response = await axios.get(
+        "http://localhost:9000/api/v1/intrabucks/approval1/session",
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log("session : ", response.data);
+      setSessionData(response.data); // 세션 데이터 설정
+    } catch (error) {
+      console.error("Error fetching session:", error);
+    }
+  };
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    getSession();
     fetchApprovalDocuments(page); // 페이지가 변경될 때마다 문서 목록을 가져옴
   }, [page]); // 페이지가 변경될 때 useEffect가 호출되도록 설정
 
@@ -106,7 +137,7 @@ const ApprovalGet = ({ isOpen, isClose }) => {
     console.log("appDocId : ", appDocId);
     try {
       const response = await axios.get(
-        `http://localhost:9000/api/v1/approval/selectUser/${appDocId}`,
+        `http://localhost:9000/api/v1/intrabucks/approval/selectUser/${appDocId}`,
         {
           headers: {
             Authorization: token,
@@ -117,6 +148,49 @@ const ApprovalGet = ({ isOpen, isClose }) => {
       setApprovalData(response.data);
     } catch (error) {
       console.error("에러 발생:", error);
+    }
+  };
+
+  const updateApproval = async (empId, Result) => {
+    console.log("empId : ", empId);
+    console.log("Result : ", Result);
+    console.log("ApprovalDataList : ", ApprovalDataList);
+    if (window.confirm(Result + " 하시겠습니까?")) {
+      try {
+        const approvalData = ApprovalDataList.find(
+          (approval) => approval.empId === empId
+        );
+
+        if (!approvalData) {
+          console.error(`No approval data found for empId: ${empId}`);
+          return;
+        }
+
+        const requestData = {
+          ...approvalData,
+          approvalResult: Result,
+        };
+        console.log("Request Data: ", requestData);
+        console.log("Authorization: ", token);
+
+        const response = await axios.put(
+          `http://localhost:9000/api/v1/intrabucks/approval/updateUser`,
+          requestData,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        console.log("Response Data:", response.data);
+        fetchApprovalDocuments(page);
+        closeOneDocument();
+      } catch (error) {
+        console.error("에러 발생:", error);
+        if (error.response) {
+          console.error("서버 응답 데이터:", error.response.data);
+        }
+      }
     }
   };
 
@@ -240,7 +314,7 @@ const ApprovalGet = ({ isOpen, isClose }) => {
     ).join("");
     $("#approvalLinePosition").append(writerStamp);
   }, [detailData, ApprovalDataList]);
-
+  const cnt = 1;
   return (
     <div className="approval-list-container">
       <h2>결재 문서 정보</h2>
@@ -303,8 +377,29 @@ const ApprovalGet = ({ isOpen, isClose }) => {
           <div className="modal">
             <div className="modal-content">
               <div style={{ textAlign: "right" }}>
-                <button>승인</button>
-                <button>반려</button>
+                {ApprovalDataList.map(
+                  (approval, index) =>
+                    approval.empId === sessionData.empId && (
+                      <div key={index} style={{ display: "inline-block" }}>
+                        <button
+                          key={index}
+                          onClick={() =>
+                            updateApproval(sessionData.empId, "승인")
+                          }
+                        >
+                          승인
+                        </button>
+                        <button
+                          onClick={() =>
+                            updateApproval(sessionData.empId, "반려")
+                          }
+                        >
+                          반려
+                        </button>
+                      </div>
+                    )
+                )}
+
                 <button onClick={closeOneDocument}>취소</button>
               </div>
               <h2>전자결재 상세보기 </h2>
