@@ -1,112 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import CreateBoardModal from './CreateBoardModal';
+import BoardDetailModal from './BoardDetailModal';
 import axios from 'axios';
-import '../../styles/BoardList.css';
 
-const BoardList = () => {
-  const navigate = useNavigate();
+const BoardList = ({ boards }) => {
+  const [modalAddBoardOpen, setModalAddBoardOpen] = useState(false);
+  const [modalDetailBoardOpen, setModalDetailBoardOpen] = useState(false);
+  const [selectedBoardId, setSelectedBoardId] = useState(null);
+  const [data, setData] = useState(null);
 
-  /* API 게시판 목록 조회 */
-  const [boards, setBoards] = useState({
-    boardId: "",
-    boardTitle: "",
-    boardContent: "",
-    employee: {
-          empId: null,
-          empName: "",
-          empPassword: "",
-          empEmail: "",
-          empPhone: "",
-          empAddress: "",
-          empJoinDate: "",
-          empPosition: "",
-          department: {
-            deptCode: "",
-          },
-          workState: "",
-        },
-    boardDate: "",
-    boardFile: "",
-    department: {
-            deptCode: "",
-            deptName:"",
-          },
-    });
-  const fetchBoards = async () => {
+  // 게시판 추가 모달창 열고 닫기
+  const openAddBoardModal = () => {
+    setModalAddBoardOpen(true);
+  };
+
+  const closeAddBoardModal = () => {
+    setModalAddBoardOpen(false);
+  };
+
+  // 게시판 상세보기 모달창 열고 닫기
+  const openDetailBoardModal = (boardId) => {
+    setSelectedBoardId(boardId);
+    setModalDetailBoardOpen(true);
+  };
+
+  const closeDetailBoardModal = () => {
+    setModalDetailBoardOpen(false);
+    setSelectedBoardId(null);
+    setData(null); // Clear data when closing modal
+  };
+
+  const fetchData = async (boardId) => {
     try {
       const token = sessionStorage.getItem('jwt');
-      if (!token) {
-        console.error('토큰이 없습니다. 로그인 상태를 확인하세요.');
-        return;
-      }
-      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/board/selectBoardList`, {
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/board/selectOneBoard/${boardId}`, {
         headers: {
           'Authorization': token
         }
       });
-      console.error(response.data);
-      setBoards(response.data);
+      console.log('Fetched data:', response.data);
+      setData(response.data);
     } catch (error) {
-      console.error('게시판 목록을 불러오는 중 오류가 발생했습니다:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
+  // Fetch data when modal opens and selectedBoardId is set
   useEffect(() => {
-    fetchBoards();
-  }, []);
-
-  const handleTitleClick = (boardId) => {
-    navigate(`/board-update/${boardId}`);
-  };
-
-  const handleNewBoardClick = () => {
-    navigate('/board');
-  };
-
-  const handleupBoardClick = () => {
-    navigate('/boardUpdate');
-  };
+    if (modalDetailBoardOpen && selectedBoardId !== null) {
+      fetchData(selectedBoardId);
+    }
+  }, [modalDetailBoardOpen, selectedBoardId]);
 
   return (
-    <div className="board-list-container">
-      <h2>게시판 목록</h2>
-      
-      <div className="table-wrapper">
-        <table className="board-list">
+    <div className="component-list-container">
+      <h1>게시판 목록</h1>
+      <button onClick={openAddBoardModal}>신규등록</button>
+      <CreateBoardModal isOpen={modalAddBoardOpen} onClose={closeAddBoardModal} />
+
+      {boards && boards.length > 0 ? (
+        <table>
           <thead>
             <tr>
               <th>번호</th>
               <th>제목</th>
               <th>내용</th>
-              
               <th>등록일</th>
               <th>첨부파일</th>
-              
+              <th>상세보기</th>
             </tr>
           </thead>
           <tbody>
-            {boards && boards.length > 0 ? (
-              boards.map(board => (
-                <tr key={board.boardId}>
-                  <td>{board.boardId}</td>
-                  <td style={{ cursor: 'pointer' }} onClick={() => handleTitleClick(board.boardId)}>{board.boardTitle}</td>
-                  <td>{board.boardContent}</td>
-                
-                  <td>{board.boardDate}</td>
-                  <td>{board.boardFile}</td>
-                  
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="7" style={{ textAlign: 'center' }}>게시글이 없습니다.</td>
+            {boards.map((board, index) => (
+              <tr key={index}>
+                <td>{board.boardId}</td>
+                <td>{board.boardTitle}</td>
+                <td>{board.boardContent}</td>
+                <td>{board.boardDate}</td>
+                <td>{board.boardFile}</td>
+                <td>
+                  <button onClick={() => openDetailBoardModal(board.boardId)}>
+                    상세보기
+                  </button>
+                </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
-      </div>
-      <button onClick={handleNewBoardClick}>신규등록</button>
-      
+      ) : (
+        <p>데이터가 없습니다.</p>
+      )}
+
+      {modalDetailBoardOpen && (
+        <BoardDetailModal
+          detailData={data}
+          isOpen={modalDetailBoardOpen}
+          onClose={closeDetailBoardModal}
+        />
+      )}
     </div>
   );
 };

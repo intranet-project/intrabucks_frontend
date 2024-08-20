@@ -78,6 +78,7 @@ const AddStockModal = ({ isOpen, onClose }) => {
                             <input
                                 type="text"
                                 value={material}
+                                placeholder='자재 id를 입력해주세요 (예: 커피 원두 = 1)'
                                 onChange={(e) => setMaterialId(e.target.value)}
                             />
                         </div>
@@ -86,6 +87,9 @@ const AddStockModal = ({ isOpen, onClose }) => {
                             <input
                                 type="number"
                                 value={stockCount}
+                                placeholder='숫자 형식으로 입력해주세요'
+                                min={1}
+                                max={100}
                                 onChange={(e) => setStockCount(e.target.value)}
                             />
                         </div>
@@ -94,6 +98,7 @@ const AddStockModal = ({ isOpen, onClose }) => {
                             <input
                                 type="text"
                                 value={store}
+                                placeholder='매장 id를 입력해주세요'
                                 onChange={(e) => setStoreId(e.target.value)}
                             />
                         </div>

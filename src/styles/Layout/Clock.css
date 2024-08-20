@@ -1,0 +1,19 @@
+.clock_Cls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .clock_Cls h2 {
+    margin: 0;
+    font-size: 1.5rem; 
+    text-transform: uppercase; 
+    margin-bottom: 10px; 
+  }
+  
+  .clock_Cls p {
+    margin: 0;
+    font-size: 3rem; 
+    letter-spacing: 0.1rem; 
+  }
+  

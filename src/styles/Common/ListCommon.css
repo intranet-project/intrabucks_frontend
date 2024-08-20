@@ -1,0 +1,35 @@
+.component-list-container {
+    padding: 60px;
+    border: 1px solid #ccc;
+}
+
+.component-list-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.component-list-container button {
+    margin-bottom: 10px;
+    padding: 4px 10px;
+    background-color: #E4E4E4;
+    color: black;
+    border: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.component-list-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.component-list-container table th, .component-list-container table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+.component-list-container table th {
+    background-color: #f2f2f2;
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/StockList.css";
 import axios from "axios";
 import DetailPurchaseModal from "./DetailPurchaseModal";
 import AddPurchaseModal from "./AddPurchaseModal";
@@ -163,8 +162,8 @@ const PurchaseList = ({ data }) => {
     }, [modalDetailPurchaseOpen, selectedPurchaseId]);
 
     return (
-        <div className="stock-list-container">
-            <h2>발주내역</h2>
+        <div className="component-list-container">
+            <h1>발주내역</h1>
             {/* 발주 추가 버튼 */}
             <button onClick={openAddPurchaseModal}>발주내역추가</button>
             <AddPurchaseModal isOpen={modalAddPurchaseOpen} onClose={closeAddPurchaseModal} />

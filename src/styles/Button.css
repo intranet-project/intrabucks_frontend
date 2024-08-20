@@ -1,5 +1,5 @@
 /* Button.css */
-.button {
+.button_T {
   display: inline-block;
   padding: 8px 16px;
   font-size: 14px;
@@ -14,11 +14,11 @@
   transition: background-color 0.3s ease;
 }
 
-.button:hover {
+.button_T:hover {
   background-color: #0056b3;
 }
 
-.button:disabled {
+.button_T:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
