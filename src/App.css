@@ -1,62 +1,71 @@
-body {
-  font-family: Arial, sans-serif;
+/* App.css */
+
+/* 전체 레이아웃 설정 */
+body, html {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.container {
+#root {
+  height: 100%;
   display: flex;
-  flex: 1;
-  overflow: hidden;
+  flex-direction: column;
 }
 
-.sidebar {
-  width: 350px; /* Sidebar width */
-  background-color: #333; /* Sidebar background color */
+/* 헤더 스타일 */
+.layout-header {
+  position: fixed;
+  top: 0;
+  left: 250px; /* 사이드바 너비만큼 오른쪽으로 밀림 */
+  width: calc(100% - 250px); /* 사이드바를 제외한 너비 */
+  height: 60px;
+  background-color: #d3d3d3; /* 연한 회색 배경색 */
   color: white;
-  padding: 20px;
-  box-sizing: border-box;
-  flex-shrink: 0; /* Prevent sidebar from shrinking */
-  height: 100vh; /* Make sidebar height 100% of viewport height */
-  overflow-y: hidden; /* Add vertical scroll if content overflows */
-  overflow-x: hidden; /* Add vertical scroll if content overflows */
-}
-
-.main-content {
-  flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  height: 100vh; /* Make main content height 100% of viewport height */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }
 
-header {
-  width: 100%;
-  height: 80px; /* Fixed height for header */
-  padding: 10px;
-  background-color: #f0f0f0;
-  box-sizing: border-box;
-  flex-shrink: 0; /* Prevent header from shrinking */
+/* 사이드바 스타일 */
+.layout-sideBar {
+  position: fixed;
+  top: 0; /* 페이지 최상단에서 시작 */
+  left: 0;
+  width: 250px;
+  height: 100%; /* 화면 전체 높이를 차지 */
+  background-color: #747474; /* 어두운 회색 배경색 */
+  color: white;
+  z-index: 1000;
+  overflow-y: hidden; /* 스크롤 비활성화 */
 }
 
-.form-section {
-  flex-grow: 1;
+/* 페이지 컨테이너 스타일 */
+.layout-page-container {
+  margin-left: 250px; /* 사이드바 너비만큼 오른쪽으로 밀림 */
+  margin-top: 60px; /* 헤더 높이만큼 아래로 밀림 */
+  margin-bottom: 60px; /* 푸터 높이만큼 위로 밀림 */
   padding: 20px;
-  background-color: #ffffff;
-
-  align-items: center; /* Center content vertically */
+  height: calc(100% - 120px); /* 헤더와 푸터를 제외한 높이 */
+  overflow-y: auto;
+  background-color: #f9f9f9; /* 배경색 설정 */
   box-sizing: border-box;
-  overflow-y: auto; /* Add vertical scroll if content overflows */
 }
 
-footer {
-  width: 100%;
-  height: 40px; /* Fixed height for footer */
-  text-align: center;
-  padding: 10px;
-  background-color: #d9e7d4;
-  box-sizing: border-box;
-  flex-shrink: 0; /* Prevent footer from shrinking */
+/* 푸터 스타일 */
+.layout-footer {
+  position: fixed;
+  bottom: 0;
+  left: 250px; /* 사이드바 너비만큼 오른쪽으로 밀림 */
+  width: calc(100% - 250px); /* 사이드바를 제외한 너비 */
+  height: 60px;
+  background-color: #d3d3d3; /* 연한 회색 배경색 */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
 }

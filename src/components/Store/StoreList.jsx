@@ -41,7 +41,7 @@ const StoreList = ({ data }) => {
       },
       workState: ""
     }
-});
+  });
 
   const openAddStoreModal = () => {
     setModalAddStoreOpen(true);
@@ -92,20 +92,20 @@ const StoreList = ({ data }) => {
   const fetchDetailData = async (storeId) => {
     try {
       const token = sessionStorage.getItem('jwt');
-        const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/manager/storemanage/read/${storeId}`, {
+      const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/manager/storemanage/read/${storeId}`, {
         headers: {
-        'Authorization': token
-    }
-    });
-        console.log("API Response - detailData:", response.data);
-        // 상태 업데이트
-        setDetailData(response.data);
+          'Authorization': token
+        }
+      });
+      console.log("API Response - detailData:", response.data);
+      // 상태 업데이트
+      setDetailData(response.data);
     } catch (error) {
-        console.error("에러 발생", error);
+      console.error("에러 발생", error);
     }
   };
 
-// selectedStoreId가 변경될 때마다 fetchDetailData 호출
+  // selectedStoreId가 변경될 때마다 fetchDetailData 호출
   useEffect(() => {
     if (modalDetailStoreOpen && selectedStoreId !== null) {
       fetchDetailData(selectedStoreId);
@@ -115,8 +115,8 @@ const StoreList = ({ data }) => {
   console.log(data); // 데이터 확인
 
   return (
-    <div className="store-list-container">
-      <h2>매장 목록</h2>
+    <div className="component-list-container">
+      <h1>매장 목록</h1>
       <button onClick={openAddStoreModal}>매장 등록</button>
       <AddStoreModal isOpen={modalAddStoreOpen} onClose={closeAddStoreModal} />
 
@@ -129,40 +129,40 @@ const StoreList = ({ data }) => {
       )}
 
       {data ? (
-        <div className="table-wrapper">
-          <table className="store-list">
-            <thead>
-              <tr>
-                <th>매장ID</th>
-                <th>매장 이름</th>
-                <th>매장 주소</th>
-                <th>폐점여부</th>
-                <th>매장 등록일자</th>
-                <th>상세보기</th>
+        <table>
+          <thead>
+            <tr>
+              <th>매장ID</th>
+              <th>매장 이름</th>
+              <th>매장 주소</th>
+              <th>폐점여부</th>
+              <th>매장 등록일자</th>
+              <th>상세보기</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td>{item.storeId}</td>
+                <td>{item.storeName}</td>
+                <td>{item.storeAddress}</td>
+                <td>{item.storeClose}</td>
+                <td>{item.storeCreatedAt}</td>
+                <td>
+                  <button onClick={() => openDetailStoreModal(item.storeId)}>
+                    상세보기
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.storeId}</td>
-                  <td>{item.storeName}</td>
-                  <td>{item.storeAddress}</td>
-                  <td>{item.storeClose}</td>
-                  <td>{item.storeCreatedAt}</td>
-                  <td>
-                    <button onClick={() => openDetailStoreModal(item.storeId)}>
-                      상세보기
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
+
       ) : (
         <p>데이터가 없습니다.</p>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

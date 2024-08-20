@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../../styles/Header.css";
+import "../../styles/Layout/Header.css";
 
 const Header = () => {
-  // 로그인 상태를 관리하는 useState 훅
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // 로그인 되어 있으므로 useState의 기본 값은 true
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  // 로그인/로그아웃 상태를 토글하는 함수
-  const toggleLogin = () => {
-    setIsLoggedIn(!isLoggedIn);
-  };
+  //로그아웃 alert 창 띄우기
+  const alertLogout = () => {
+    if (window.confirm("로그아웃을 하시겠습니까?")) {
+      setIsLoggedIn(false);
+      window.location.href = "/";
+    }
+  }
 
   return (
-    <header className="header">
-      <div className="navigator">
-        <nav>
-          {/* 로그인 상태에 따라 다른 링크를 렌더링 */}
+    <header className="layout-header"> {/** 전체 css 적용 */}
+      <div className="header-position">
+        <nav className="custom-nav-button">
           {isLoggedIn ? (
-            <Link to="/home" className="nav-link" onClick={toggleLogin}>
+            <button className="header-button" onClick={alertLogout}>
               로그아웃
-            </Link>
+            </button>
           ) : (
-            <Link to="/login" className="nav-link" onClick={toggleLogin}>
+            <Link to="/login" className="header-button">
               로그인
             </Link>
           )}
-          <input type="text" placeholder="Search..." />
         </nav>
       </div>
     </header>

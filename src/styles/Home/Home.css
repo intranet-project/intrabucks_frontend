@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Home.css */
+
+.home-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr; /* Four equal columns */
+  grid-template-rows: auto;
+  gap: 1rem; /* Space between grid items */
+  padding: 1rem; /* Padding around the grid */
+}
+
+.board-list-container {
+  grid-column: 1 / span 2; /* Spans across the first two columns */
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.approval-get-container {
+  grid-column: 3 / span 2; /* Spans across the last two columns */
+  background-color: #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.empty-container {
+  background-color:  #f0f0f0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* .Calender Container styles */
+.Calender.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color:  #f0f0f0;
+}
+
+.empty-containerr {
+  grid-column: 1 / span 4; 
+  background-color: #c0c0c0;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .home-container {
+    grid-template-columns: 1fr; /* Single column layout */
+  }
+
+  .board-list-container,
+  .approval-get-container,
+  .empty-container,
+  .empty-containerr {
+    grid-column: span 1; /* Each item spans the full width */
+  }
+}

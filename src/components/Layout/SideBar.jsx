@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Sidebar.css";
+import "../../styles/Layout/Sidebar.css";
 import logoImg from "../../images/BlackBuckGrouwareLogo.png"; // 이미지 파일 import
 
 const SideBar = () => {
@@ -26,35 +26,30 @@ const SideBar = () => {
     }
   };
 
+  /**버튼 클릭시 페이지 이동 */
   const handleSubMenuToggle = (menu) => {
     if (activeMenu === menu) {
-      setActiveMenu(null); // 이미 활성화된 메뉴를 누르면 닫음
+      setActiveMenu(null);
     } else {
-      setActiveMenu(menu); // 새로운 메뉴를 누르면 해당 메뉴를 열고 다른 메뉴는 닫음
+      setActiveMenu(menu);
       if (menu === "전자결재") {
-        navigate("/approvalPage"); // 전자결재 클릭 시 이동할 페이지
-      } else if (menu === "로그인") {
-        navigate("/login"); // 로그인 클릭 시 이동할 페이지
+        navigate("/approvalPage");
       } else if (menu === "매출관리") {
-        navigate("/sales-management"); // 매출게시판 클릭 시 이동할 페이지
+        navigate("/sales-management");
       } else if (menu === "매장관리") {
-        navigate("/storeListPage"); // 매장게시판 클릭 시 이동할 페이지
+        navigate("/storeListPage");
       } else if (menu === "메뉴관리") {
-        navigate("/menuListPage"); // 메뉴협업게시판 클릭 시 이동할 페이지
+        navigate("/menuListPage");
       } else if (menu === "협업게시판") {
-        navigate("/boardListPage"); // 협업게시판 클릭 시 이동할 페이지
+        navigate("/boardPage");
       } else if (menu === "홈") {
-        navigate("/home"); // 협업게시판 클릭 시 이동할 페이지
+        navigate("/home");
       }
     }
   };
 
-  // const handleLoginClick = (e) => {
-  //   e.stopPropagation(); // 이벤트 버블링 방지
-  //   navigate("/login");
-  // };
 
-  // 인사관리
+  // 인사관리 연결
   const handleEmployeeListClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     const result = await checkAccessPermission(
@@ -75,7 +70,7 @@ const SideBar = () => {
     }
   };
 
-  // 부서관리
+  // 부서관리 연결
   const handleDepartmentClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     const result = await checkAccessPermission(
@@ -96,7 +91,7 @@ const SideBar = () => {
     }
   };
 
-  // 퇴사관리
+  // 퇴사관리 연결
   const handleQuitterListClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     const result = await checkAccessPermission(
@@ -117,7 +112,7 @@ const SideBar = () => {
     }
   };
 
-  // 매출관리
+  // 매출관리 연결
   const handleSalesManagementClick = async (e) => {
     e.stopPropagation(); // 이벤트 버블링 방지
     const result = await checkAccessPermission(
@@ -161,7 +156,7 @@ const SideBar = () => {
     }
   };
 
-  // 매장관리
+  // 매장관리 연결
   const handleStoreListClick = async (e) => {
     e.stopPropagation();
     const result = await checkAccessPermission(
@@ -203,7 +198,7 @@ const SideBar = () => {
     }
   };
 
-  // 메뉴관리
+  // 메뉴관리 연결
   const handleMenuListClick = async (e) => {
     e.stopPropagation();
     const result = await checkAccessPermission(
@@ -224,7 +219,7 @@ const SideBar = () => {
     }
   };
 
-  //CRM 연결
+  //CRM 연결 연결
   const handleVoiceListClick = async (e) => {
     e.stopPropagation();
     const result = await checkAccessPermission(
@@ -246,7 +241,7 @@ const SideBar = () => {
   };
 
   return (
-    <nav className="sideBar">
+    <nav className="layout-sideBar">
       <img src={logoImg} alt="Logo" />
       <ul>
         <li
@@ -255,16 +250,10 @@ const SideBar = () => {
         >
           <span className="menu-text">홈</span>
         </li>
-        {/* <li
-          className={`sideBar-item ${activeMenu === "로그인" ? "active" : ""}`}
-          onClick={() => handleSubMenuToggle("로그인")}
-        >
-          <span className="menu-text">로그인</span>
-        </li> */}
+
         <li
-          className={`sideBar-item ${
-            activeMenu === "인사관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "인사관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("인사관리")}
         >
           <span className="menu-text">인사관리</span>
@@ -295,9 +284,8 @@ const SideBar = () => {
           )}
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "매출관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "매출관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("매출관리")}
         >
           <span className="menu-text" onClick={handleSalesManagementClick}>
@@ -306,9 +294,8 @@ const SideBar = () => {
         </li>
 
         <li
-          className={`sideBar-item ${
-            activeMenu === "재고관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "재고관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("재고관리")}
         >
           <span className="menu-text" onClick={handleStockManagementClick}>
@@ -316,9 +303,8 @@ const SideBar = () => {
           </span>
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "매장관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "매장관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("매장관리")}
         >
           <span className="menu-text" onClick={handleStoreListClick}>
@@ -326,9 +312,8 @@ const SideBar = () => {
           </span>
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "발주관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "발주관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("발주관리")}
         >
           <span className="menu-text" onClick={handlePurchaseManagementClick}>
@@ -336,9 +321,8 @@ const SideBar = () => {
           </span>
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "메뉴관리" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "메뉴관리" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("메뉴관리")}
         >
           <span className="menu-text" onClick={handleMenuListClick}>
@@ -354,17 +338,15 @@ const SideBar = () => {
           </span>
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "협업게시판" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "협업게시판" ? "active" : ""
+            }`}
           onClick={() => handleSubMenuToggle("협업게시판")}
         >
           <span className="menu-text">협업게시판</span>
         </li>
         <li
-          className={`sideBar-item ${
-            activeMenu === "전자결재" ? "active" : ""
-          }`}
+          className={`sideBar-item ${activeMenu === "전자결재" ? "active" : ""
+            }`}
         >
           <span
             className="menu-text"

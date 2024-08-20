@@ -1003,7 +1003,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
       <div className="approval-container">
         <div className="approval-sidebar">
           <button className="new-payment" onClick={() => setModalIsOpen(true)}>
-            {" "}
             새 결재 진행
           </button>
 
@@ -1042,7 +1041,6 @@ const ApprovalSideBar = ({ isOpen, isClose }) => {
 
       {/**결재라인 생성 */}
       <div>
-        <button onClick={() => setModalIsOpen(true)}>모달 열기</button>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setModalIsOpen(false)}

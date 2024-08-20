@@ -17,7 +17,7 @@ const MenuList = ({ data }) => {
         menuPrice: "",
         menuDetail: "",
         menuImg: ""
-});
+    });
 
     // 메뉴 추가 모달창 열고 닫기
     const openAddMenuModal = () => {
@@ -52,11 +52,11 @@ const MenuList = ({ data }) => {
         console.log("fetchDetailData - menuId:", menuId);
         try {
             const token = sessionStorage.getItem('jwt');
-            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/menu/read/${menuId}`,  {
+            const response = await axios.get(`http://localhost:9000/api/v1/intrabucks/menu/read/${menuId}`, {
                 headers: {
-                'Authorization': token
-            }
-        });
+                    'Authorization': token
+                }
+            });
             console.log("API Response - detailData:", response.data);
             setDetailData(response.data); // 상태 업데이트
         } catch (error) {
@@ -72,8 +72,8 @@ const MenuList = ({ data }) => {
     }, [modalDetailMenuOpen, selectedMenuId]);
 
     return (
-        <div className="menu-list-container">
-            <h2>메뉴 목록</h2>
+        <div className="component-list-container ">
+            <h1>메뉴 목록</h1>
             {/* 메뉴 등록 버튼 */}
             <button onClick={openAddMenuModal}>메뉴 등록</button>
             <AddMenuModal isOpen={modalAddMenuOpen} onClose={closeAddMenuModal} />

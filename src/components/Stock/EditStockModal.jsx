@@ -84,8 +84,8 @@ const EditStockModal = ({ data, isOpen, onClose }) => {
 
                     <form onSubmit={handleEditSubmit}>
                         <div>
-                            <label>자재코드</label>
-                            <p aria-readonly="true">{editData.material && editData.material.materialId}</p>
+                            <label>자재명</label>
+                            <p aria-readonly="true">{editData.material && editData.material.materialName} (코드 : {editData.material.materialId})</p>
                         </div>
 
                         <div>
@@ -94,14 +94,21 @@ const EditStockModal = ({ data, isOpen, onClose }) => {
                                 type="number"
                                 name="stockCount"
                                 value={editData.stockCount}
+                                min={1}
+                                max={100}
                                 onChange={handleChange}
                                 required
-                            />
+                            /> 개
                         </div>
 
                         <div>
                             <label>매장코드</label>
-                            <p aria-readonly="true">{editData.store && editData.store.storeId}</p>
+                            <p aria-readonly="true">{editData.store && editData.store.storeName} (코드 : {editData.store.storeId})</p>
+                        </div>
+
+                        <div>
+                            <label>매장주소</label>
+                            <p aria-readonly="true">{editData.store && editData.store.storeAddress}</p>
                         </div>
 
                         <div>

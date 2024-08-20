@@ -1,0 +1,24 @@
+.header-position {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.custom-nav-button {
+  display: flex;
+  justify-content: flex-end; /* 네비게이션 링크를 오른쪽으로 정렬 */
+  align-items: center;
+}
+
+.header-button {
+  text-decoration: none;
+  background-color: #A6A6A6;
+  color: black;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.header-button:hover {
+  background-color: #A6A6A6; /* 링크 hover 시 배경색 */
+}

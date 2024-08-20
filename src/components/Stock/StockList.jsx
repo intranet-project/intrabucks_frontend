@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "../../styles/StockList.css";
 import AddStockModal from "./AddStockModal";
 import DetailStockModal from "./DetailStockModal";
 import axios from "axios";
@@ -8,6 +7,7 @@ import axios from "axios";
 /**
  * @author 김아현
  * @version 2024-07-02
+ * @version2 2024-07-15
  * 재고 관련 내역 폼으로, API 통신 및 모달 창 기능 구현
  */
 
@@ -101,53 +101,89 @@ const StockList = ({ data }) => {
         }
     }, [modalDetailStockOpen, selectedStockId]);
 
+    //재고명으로 검색
+    const handleKeywordTitle = () => {
+
+    }
+
+    const selectKeywordTitle = () => {
+
+    }
+
+    //매장명으로 검색
+    const handleKeywordStore = () => {
+
+    }
+
+    const selectKeywordStore = () => {
+
+    }
+
     return (
-        <div className="stock-list-container">
-            <h2>재고내역</h2>
+        <div className="component-list-container">
+            <h1>재고내역</h1>
+            {/** 재고명 검색창 추가 */}
+            <label className="searchByTitle">재고명 검색</label>
+            <input type="search" name="keywordTitle" onChange={handleKeywordTitle}></input>
+            <button onClick={selectKeywordTitle}>검색</button>
+            <br></br>
+
+            {/** 매장명 검색창 추가 */}
+            <label className="searchByStore">매장명 검색</label>
+            <input type="search" name="keywordStore" onChange={handleKeywordStore}></input>
+            <button onClick={selectKeywordStore}>검색</button>
+            <br></br>
+
             {/* 재고 추가 버튼 */}
             <button onClick={openAddStockModal}>재고추가</button>
             <AddStockModal isOpen={modalAddStockOpen} onClose={closeAddStockModal} />
 
             {/* 재고 상세보기 모달 */}
-            {modalDetailStockOpen && (
-                <DetailStockModal
-                    detailData={detailData}
-                    isOpen={modalDetailStockOpen}
-                    onClose={closeDetailStockModal}
-                />
-            )}
+            {
+                modalDetailStockOpen && (
+                    <DetailStockModal
+                        detailData={detailData}
+                        isOpen={modalDetailStockOpen}
+                        onClose={closeDetailStockModal}
+                    />
+                )
+            }
 
             {/* 재고 내역 출력 */}
-            {data ? (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>재고명</th>
-                            <th>보유수량</th>
-                            <th>상세보기</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {data.map((item, index) => (
-                            <tr key={index}>
-                                <td>{item.stockId}</td>
-                                <td>{item.material.materialName}</td>
-                                <td>{item.stockCount}</td>
-                                <td>
-                                    {/* 재고 상세 보기 버튼 */}
-                                    <button onClick={() => openDetailStockModal(item.stockId)}>
-                                        상세보기
-                                    </button>
-                                </td>
+            {
+                data ? (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>매장명</th>
+                                <th>재고명</th>
+                                <th>보유수량</th>
+                                <th>상세보기</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>데이터가 없습니다.</p>
-            )}
-        </div>
+                        </thead>
+                        <tbody>
+                            {data.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.stockId}</td>
+                                    <td>{item.store.storeName}</td>
+                                    <td>{item.material.materialName}</td>
+                                    <td>{item.stockCount}</td>
+                                    <td>
+                                        {/* 재고 상세 보기 버튼 */}
+                                        <button onClick={() => openDetailStockModal(item.stockId)}>
+                                            상세보기
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>데이터가 없습니다.</p>
+                )
+            }
+        </div >
     );
 };
 
